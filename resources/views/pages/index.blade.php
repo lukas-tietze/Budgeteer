@@ -1,5 +1,3 @@
-@extends('../_layout')
-
-@section('content')
-
-@endsection
+<x-layout>
+  <p>Inhalt</p>
+</x-layout>

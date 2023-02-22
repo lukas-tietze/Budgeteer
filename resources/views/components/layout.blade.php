@@ -9,21 +9,29 @@
 
   <!-- Styles -->
 
-  @yield('additional-styles')
+  <link rel="stylesheet" type="text/css" href="index.bundle.css" />
+
+  @if (isset($additionalStyles))
+    {{ $additionalStyles }}
+  @endif
 
   <link type="text/css" rel="stylesheet" href="app.css" />
 </head>
 
 <body>
-  @include('./partials/header')
+  <x-header></x-header>
 
   <main>
-    @yield('content')
+    {{ $slot }}
   </main>
 
-  @include('./partials/footer')
+  <x-footer></x-footer>
 
-  @yield('additional-scripts')
+  <script src="index.bundle.js"></script>
+
+  @if (isset($additionalScripts))
+    {{ $additionalScripts }}
+  @endif
 </body>
 
 </html>
