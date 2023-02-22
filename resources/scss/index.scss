@@ -1,3 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@use "./tailwind.scss";
+@use "./settings";
+@use "./roboto/all";
+
+$fa-font-path: settings.$font-dir + "/font-awesome";
+
+@import "./font-awesome/fontawesome.scss";
+@import "./font-awesome/solid.scss";
+@import "./font-awesome/brands.scss";

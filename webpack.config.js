@@ -65,7 +65,17 @@ module.exports = () => {
         {
           // SCSS-Stylesheets
           test: /\.scss$/,
-          use: [...cssLoaders, 'sass-loader'],
+          use: [
+            ...cssLoaders,
+            {
+              loader: 'sass-loader',
+              options: {
+                sassOptions: {
+                  includePaths: [path.resolve('./resources/scss/')],
+                },
+              },
+            },
+          ],
           exclude: [/node_modules/],
         },
         {
