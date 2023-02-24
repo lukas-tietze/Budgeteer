@@ -25,11 +25,12 @@ class BudgetFactory extends Factory
         return [
           'amount' => fake()->numberBetween(10, 2_000),
           'slug' => fake()->slug(),
-          'user_id' => User::factory()->create(),
-          'budget_category_id' => BudgetCategory::factory()->create(),
           'valid_from' => min($valid1, $valid2),
           'valid_to' => max($valid1, $valid2),
           'interval' => 1,
+
+          'user_id' => User::factory(),
+          'budget_category_id' => BudgetCategory::factory(),
         ];
     }
 }

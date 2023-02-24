@@ -23,7 +23,7 @@ class BudgetCategoryFactory extends Factory
           'description' => '',
           'slug' => fake()->slug(),
           'parent_id' => null,
-          'user_id' => User::factory()->create(),
+          'user_id' => User::factory(),
         ];
     }
 }

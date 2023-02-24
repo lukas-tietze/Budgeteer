@@ -18,12 +18,14 @@ class TransactionFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'user_id' => User::factory(),
+        return
+        [
             'moment' => fake()->dateTimeBetween('-1 year', 'now'),
             'amount' => fake()->numberBetween(-99_999, 99_999),
             'usage' => fake()->words(3, true),
             'target' => fake()->name(),
+
+            'user_id' => User::factory(),
             'budget_category_id' => null,
         ];
     }
