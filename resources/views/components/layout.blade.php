@@ -18,10 +18,10 @@
   <link type="text/css" rel="stylesheet" href="app.css" />
 </head>
 
-<body>
+<body class="min-h-screen text-slate-200 flex flex-col">
   <x-header></x-header>
 
-  <main>
+  <main class="flex-1">
     {{ $slot }}
   </main>
 

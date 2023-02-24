@@ -1,22 +1,18 @@
-const tailwindcss = require('tailwindcss');
-const cssnano = require('cssnano');
-const autoprefixer = require('autoprefixer');
-const purgecss = require('@fullhuman/postcss-purgecss');
-
 module.exports = {
   plugins: [
     // Remove unused styles
-    purgecss({
-      content: ['./resources/views/**/*.blade.php', './resources/ts/**/*.ts'],
-      safelist: {
-        standard: [/@tailwind/],
-      },
-    }),
+    // Uncomment if needed.
+    // require('@fullhuman/postcss-purgecss')({
+    //   content: ['./resources/views/**/*.blade.php', './resources/ts/**/*.ts'],
+    //   safelist: {
+    //     standard: [/@tailwind/],
+    //   },
+    // }),
     // Include Tailwind-classes
-    tailwindcss(),
+    require('tailwindcss')(),
     // Automatically add vendor prefixes
-    autoprefixer(),
+    require('autoprefixer')(),
     // minifiy styles
-    cssnano({ preset: [require('cssnano-preset-default'), { discardUnused: true }] }),
+    require('cssnano')({ preset: [require('cssnano-preset-default'), { discardUnused: true }] }),
   ],
 };
