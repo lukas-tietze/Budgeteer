@@ -17,6 +17,9 @@ return new class extends Migration {
       $table->timestamps(4);
       $table->unsignedBigInteger('amount');
       $table->tinyInteger('interval');
+      $table->string('slug')->unique();
+      $table->dateTime('valid_from', 4);
+      $table->dateTime('valid_to', 4);
 
       $table->foreignIdFor(BudgetCategory::class)->constrained();
       $table->foreignIdFor(User::class)->constrained();

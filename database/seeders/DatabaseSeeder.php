@@ -5,6 +5,11 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use App\Models\User;
+use App\Models\Transaction;
+use App\Models\Budget;
+use App\Models\BudgetCategory;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -12,11 +17,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $users = User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        foreach ($users as $user) {
+            $categories = BudgetCategory::factory(3)->create([
+              'user_id' => $user->id,
+            ]);
+
+            foreach ($categories as $category) {
+                $n = fake()->numberBetween(20, 200);
+
+                Transaction::factory($n)->create([
+                  'user_id' => $user->id,
+                  'budget_category_id' => $category->id,
+                ]);
+
+                $n = fake()->numberBetween(2, 5);
+
+                Budget::factory($n)->create([
+                  'user_id' => $user->id,
+                  'budget_category_id' => $category->id,
+                ]);
+            }
+        }
     }
 }
