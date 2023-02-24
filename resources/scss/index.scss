@@ -1,6 +1,8 @@
-@use "./tailwind.scss";
-@use "./settings";
-@use "./roboto/all";
+@use "tailwind";
+@use "settings";
+@use "roboto/all";
+
+@use "defaults";
 
 $fa-font-path: settings.$font-dir + "/font-awesome";
 

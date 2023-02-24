@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Budget;
+use App\Models\Transaction;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,4 +18,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('pages/index');
+});
+
+Route::get('/budgets', function () {
+    return view('pages/budgets', [
+      'budgets' => Budget::all(),
+    ]);
+});
+
+Route::get('/transactions', function () {
+    return view('pages/transactions', [
+      'transactions' => DB::table('transactions')->orderBy('moment', 'desc')->get(),
+    ]);
 });

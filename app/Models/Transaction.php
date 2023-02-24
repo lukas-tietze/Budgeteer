@@ -19,6 +19,19 @@ class Transaction extends Model
       'target'
     ];
 
+    protected $dates = [
+      'moment',
+    ];
+
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+      'moment' => 'datetime',
+    ];
 
     public function user()
     {

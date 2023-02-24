@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = User::factory(10)->create();
+        $users = User::factory(1)->create();
 
         foreach ($users as $user) {
             $categories = BudgetCategory::factory(3)->create([
