@@ -2,6 +2,8 @@
   <ul class="list-none flex flex-row">
     <x-nav-item href="/">
       <i class="fa-solid fa-home"></i>
+
+      <span>BUDGETEER</span>
     </x-nav-item>
   </ul>
 
