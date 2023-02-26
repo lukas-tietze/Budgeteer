@@ -8,14 +8,17 @@
   <title>Budgeteer</title>
 
   <!-- Styles -->
-
-  <link rel="stylesheet" type="text/css" href="index.bundle.css" />
+  @vite(['resources/scss/app.scss', 'resources/ts/app.ts'])
 
   @if (isset($additionalStyles))
-    {{ $additionalStyles }}
+    @foreach ($additionalStyles as $additionalStyle)
+      @vite([$additionalStyle]);
+    @endforeach
   @endif
 
-  <link type="text/css" rel="stylesheet" href="app.css" />
+  @if (isset($additionalScripts))
+    {{ $additionalScripts }}
+  @endif
 </head>
 
 <body class="min-h-screen text-slate-200 flex flex-col">
@@ -26,12 +29,6 @@
   </main>
 
   <x-footer></x-footer>
-
-  <script src="index.bundle.js"></script>
-
-  @if (isset($additionalScripts))
-    {{ $additionalScripts }}
-  @endif
 </body>
 
 </html>
