@@ -2,42 +2,13 @@
   "$schema": "http://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "strict": true,
-<<<<<<< HEAD
-    "declaration": false,
-    "alwaysStrict": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-=======
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
->>>>>>> 8ec4326 (Re-Init)
     "noImplicitAny": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-<<<<<<< HEAD
-    "sourceMap": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "forceConsistentCasingInFileNames": true,
-    "assumeChangesOnlyAffectDirectDependencies": true,
-    "typeRoots": [
-      "./node_modules/@types"
-    ],
-    "moduleResolution": "node",
-    "module": "ES2022",
-    "target": "ES2021",
-    "lib": [
-      "ES2021",
-      "DOM"
-    ],
-    "outDir": "./public"
-  },
-  "exclude": [
-    "./node_modules",
-    "./public"
-=======
     "useDefineForClassFields": true,
     "allowJs": true,
     "target": "ESNext",
@@ -63,6 +34,5 @@
   "include": [
     "resources/ts/**/*.ts",
     "resources/ts/**/*.vue"
->>>>>>> 8ec4326 (Re-Init)
   ]
 }

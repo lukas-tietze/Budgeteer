@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
-
-/**
- * @type {import('vite').UserConfig}
- */
-export default defineConfig({
-  plugins: [
-    laravel({
-      input: ['resources/scss/index.scss', 'resources/ts/index.ts'],
-      refresh: true,
-    }),
-  ],
-  resolve: {
-    alias: {
-      '@': '/resources/ts',
-    },
-  },
-=======
 import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
 import vue from "@vitejs/plugin-vue";
@@ -44,5 +24,4 @@ export default defineConfig({
             "@": "/resources/ts",
         },
     },
->>>>>>> 8ec4326 (Re-Init)
 });

@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-module.exports = {
-  content: [
-    './resources/views/**/*.blade.php',
-    './resources/ts/**/*.ts',
-    './resources/js/**/*.js',
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-=======
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
@@ -36,5 +24,4 @@ module.exports = {
   },
 
   plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
->>>>>>> 8ec4326 (Re-Init)
-};
+}

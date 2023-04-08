@@ -18,11 +18,7 @@ return [
     |
     */
 
-<<<<<<< HEAD
-    'driver' => env('SESSION_DRIVER', 'file'),
-=======
     'driver' => env('SESSION_DRIVER', 'database'),
->>>>>>> 8ec4326 (Re-Init)
 
     /*
     |--------------------------------------------------------------------------
