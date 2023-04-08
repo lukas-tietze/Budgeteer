@@ -1,4 +1,8 @@
 /.phpunit.cache
+<<<<<<< HEAD
+=======
+/bootstrap/ssr
+>>>>>>> 8ec4326 (Re-Init)
 /node_modules
 /public/build
 /public/hot
@@ -8,12 +12,24 @@
 .env
 .env.backup
 .env.production
+<<<<<<< HEAD
+=======
+.phpunit.result.cache
+>>>>>>> 8ec4326 (Re-Init)
 Homestead.json
 Homestead.yaml
 auth.json
 npm-debug.log
 yarn-error.log
+<<<<<<< HEAD
 .phpunit.result.cache
 /.fleet
 /.idea
 /.vscode
+=======
+/.fleet
+/.idea
+
+composer.lock
+package-lock.json
+>>>>>>> 8ec4326 (Re-Init)

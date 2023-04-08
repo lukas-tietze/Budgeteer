@@ -1,4 +1,5 @@
 module.exports = {
+<<<<<<< HEAD
   plugins: [
     // Remove unused styles
     // Uncomment if needed.
@@ -15,4 +16,10 @@ module.exports = {
     // minifiy styles
     require('cssnano')({ preset: [require('cssnano-preset-default'), { discardUnused: true }] }),
   ],
+=======
+    plugins: {
+        tailwindcss: {},
+        autoprefixer: {},
+    },
+>>>>>>> 8ec4326 (Re-Init)
 };
