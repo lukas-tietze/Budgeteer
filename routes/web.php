@@ -19,17 +19,11 @@ use App\Models\Transaction;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('Index', [
       'canLogin' => Route::has('login'),
       'canRegister' => Route::has('register'),
       'laravelVersion' => Application::VERSION,
       'phpVersion' => PHP_VERSION,
-    ]);
-});
-
-Route::get('/playground', function () {
-    return Inertia::render('Playground', [
-      'time' => now()->toTimeString()
     ]);
 });
 
