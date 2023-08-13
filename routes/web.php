@@ -18,13 +18,30 @@ use App\Models\Transaction;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Index', [
+function RenderPage($pageName)
+{
+    return Inertia::render($pageName, [
       'canLogin' => Route::has('login'),
       'canRegister' => Route::has('register'),
       'laravelVersion' => Application::VERSION,
       'phpVersion' => PHP_VERSION,
     ]);
+}
+
+Route::get('/', function () {
+    return RenderPage('Index');
+});
+
+Route::get('/budgets', function () {
+    return RenderPage('Budgets');
+});
+
+Route::get('/budget-categories', function () {
+    return RenderPage('BudgetCategories');
+});
+
+Route::get('/transactions', function () {
+    return RenderPage('Transactions');
 });
 
 Route::middleware([
