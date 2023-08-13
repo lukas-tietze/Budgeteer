@@ -16,9 +16,6 @@ module.exports = {
         sans: ['Figtree', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        luki: {
-          DEFAULT: '#e90000',
-        },
       },
     },
   },

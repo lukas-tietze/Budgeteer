@@ -13,3 +13,9 @@ $fa-font-path: settings.$font-dir + "/font-awesome";
 html {
   font: "Roboto";
 }
+
+#app {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+}

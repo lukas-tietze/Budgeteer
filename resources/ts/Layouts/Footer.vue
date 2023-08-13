@@ -1,5 +1,5 @@
 <template>
-  <footer class="flex flex-row justify-center bg-emerald-700 text-sm p-1">
+  <footer class="flex flex-row justify-center bg-emerald-600 text-neutral-50 text-sm p-1">
 
     <a href="/privacy">Datenschutzbestimmungen</a>
 

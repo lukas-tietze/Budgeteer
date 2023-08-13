@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "v-serve": "vite",
-    "v-build": "vite build && vite build --ssr"
+    "v-build": "vite build && vite build --ssr",
+    "v-tsc": "npx vue-tsc --watch --isolatedModules --pretty "
   },
   "devDependencies": {
     "@inertiajs/vue3": "^1.0.0",
