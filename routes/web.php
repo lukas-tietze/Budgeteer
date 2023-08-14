@@ -7,6 +7,8 @@ use Inertia\Inertia;
 use App\Models\Budget;
 use App\Models\Transaction;
 
+use  App\Http\Controllers\BudgetCategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,30 +20,30 @@ use App\Models\Transaction;
 |
 */
 
-function RenderPage($pageName)
+function RenderPage($pageName, $values)
 {
-    return Inertia::render($pageName, [
+    $defaultValues = [
       'canLogin' => Route::has('login'),
       'canRegister' => Route::has('register'),
       'laravelVersion' => Application::VERSION,
       'phpVersion' => PHP_VERSION,
-    ]);
+    ];
+
+    return Inertia::render($pageName, array_merge($defaultValues, $values));
 }
 
 Route::get('/', function () {
-    return RenderPage('Index');
+    return RenderPage('Index', []);
 });
 
 Route::get('/budgets', function () {
-    return RenderPage('Budgets');
+    return RenderPage('Budgets', []);
 });
 
-Route::get('/budget-categories', function () {
-    return RenderPage('BudgetCategories');
-});
+Route::get('/budget-categories', [BudgetCategoryController::class, 'Index']);
 
 Route::get('/transactions', function () {
-    return RenderPage('Transactions');
+    return RenderPage('Transactions', []);
 });
 
 Route::middleware([

@@ -23,7 +23,6 @@ class Transaction extends Model
       'moment',
     ];
 
-
     /**
      * The attributes that should be cast.
      *
