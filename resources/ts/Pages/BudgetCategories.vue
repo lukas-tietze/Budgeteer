@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import Layout from "../Layouts/Layout.vue";
+import { BudgetCategoryModel } from "../Models/budget-category-model";
 </script>
 
 <template>
   <Layout>
-    Budget-Kategorien verwalten
+    <Title>Budget-Kategorien verwalten</Title>
 
-    {{ budgetCategories?.length ?? 'leer' }}
+    {{ budgetCategories?.length }}
 
     <div v-for="item of budgetCategories">
       <div>{{ item.name }}</div>
@@ -16,11 +16,8 @@ import Layout from "../Layouts/Layout.vue";
 
 <script lang="ts">
 export default {
-  props: {},
-  data() {
-    return {
-      budgetCategories: [] as { name: string }[],
-    };
+  props: {
+    budgetCategories: Array<BudgetCategoryModel>,
   },
 };
 </script>

@@ -17,7 +17,7 @@
   @inertiaHead
 </head>
 
-<body class="font-sans antialiased text-neutral-800 bg-neutral-50 h-full flex-1 flex flex-col">
+<body class="font-sans antialiased text-neutral-800 bg-neutral-100 h-full flex-1 flex flex-col">
   @inertia
 </body>
 
