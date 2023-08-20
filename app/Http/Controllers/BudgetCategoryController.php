@@ -24,6 +24,19 @@ class BudgetCategoryController extends Controller
             ];
         }, $models);
 
-        return parent::Render('BudgetCategories', ['budgeCategories' => $models]);
+        return parent::Render('BudgetCategories/Index', ['budgeCategories' => $models]);
+    }
+
+    public function Add()
+    {
+        $models = BudgetCategory::all()->toArray();
+
+        $models = array_map(function ($item) {
+            return [
+              'name' => $item['name'],
+            ];
+        }, $models);
+
+        return parent::Render('BudgetCategories/Add', ['budgeCategories' => $models]);
     }
 }

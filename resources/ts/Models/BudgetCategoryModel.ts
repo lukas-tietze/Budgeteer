@@ -1,4 +1,4 @@
-import { ModelBase } from './model-base';
+import { ModelBase } from './ModelBase';
 
 /**
  * Stellt eine Kategorie für Budgets dar.

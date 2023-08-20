@@ -8,8 +8,12 @@ import { InertiaProgress } from '@inertiajs/progress';
 import { createInertiaApp } from '@inertiajs/vue3';
 
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
-import TitleVue from './Components/Title.vue';
-import LayoutVue from './Layouts/Layout.vue';
+import { Components } from './Components/Components';
+import { Layouts } from './Layouts/Layouts';
+
+function readComponents(...collections: object[]) {
+  return collections.flatMap((c) => Object.entries(c).map(([k, v]) => [k.substring(0, k.length - 3), v] as const));
+}
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
@@ -20,12 +24,15 @@ createInertiaApp({
   title: (title) => `${title} - ${appName}`,
   resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
   setup: ({ App, el, plugin, props }) => {
-    createApp({ render: () => h(App, props) })
+    let app = createApp({ render: () => h(App, props) })
       .use(plugin)
-      .use(ZiggyVue, Ziggy)
-      .component('Title', TitleVue)
-      .component('Layout', LayoutVue)
-      .mount(el);
+      .use(ZiggyVue, Ziggy);
+
+    for (const [name, vue] of readComponents(Components, Layouts)) {
+      app = app.component(name, vue);
+    }
+
+    app.mount(el);
   },
   progress: {
     color: '#4B5563',
