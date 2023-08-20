@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col" tabindex="0" @blur="dropDownOpened = false">
     <label :for="id || uniqueId">
       <span>{{ label }}</span>
       <span v-if="required">*</span>
@@ -27,7 +27,7 @@
           'absolute top-0 left-0 right-0': dropDownOpened,
         }"
       >
-        <div v-for="item in items" @click="" class="px-1 py-0.5 hover:bg-emerald-500 hover:text-emerald-50">
+        <div v-for="item in items" @click="updateSelection(item)" class="px-1 py-0.5 hover:bg-emerald-500 hover:text-emerald-50">
           {{ item.text }}
         </div>
       </div>
@@ -47,7 +47,7 @@ export default {
     id: String,
     items: Array as PropType<Array<SelectItem>>,
     allowEmpty: Boolean,
-    modelValue: String as PropType<unknown>,
+    modelValue: [Number, String, Boolean],
   },
   watch: {
     items: {
@@ -66,6 +66,7 @@ export default {
   methods: {
     updateSelection(item: SelectItem) {
       this.selectedItem = item;
+      this.dropDownOpened = false;
       this.$emit("update:modelValue", item.value);
     },
     updateDefaultSelection() {

@@ -34,6 +34,8 @@ class BudgetCategoryController extends Controller
         $models = array_map(function ($item) {
             return [
               'name' => $item['name'],
+              'id' => $item['id'],
+              'parentId' => $item['parent_id'],
             ];
         }, $models);
 

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { PropType } from "vue";
 import { SelectItem } from "../../Components/Inputs/SelectItem";
 import { BudgetCategoryModel } from "../../Models/BudgetCategoryModel";
 </script>
@@ -24,24 +25,27 @@ import { BudgetCategoryModel } from "../../Models/BudgetCategoryModel";
     <div class="flex flex-col gap-3">
       <TextBox label="Name" :required="true" name="Name" v-model="model.name"></TextBox>
 
-      <Select label="Übergeordnete Gruppe" :items="items"></Select>
+      <Select label="Übergeordnete Gruppe" :items="budgeCategoryItems" v-model="model.parentId"></Select>
     </div>
   </Layout>
 </template>
 
 <script lang="ts">
-const v = [
-  {
-    text: "- keine -",
-    value: 0,
-  },
-] satisfies SelectItem[];
-
 export default {
-  props: {},
+  props: {
+    budgeCategories: Array as PropType<BudgetCategoryModel[]>,
+  },
+  computed: {
+    budgeCategoryItems() {
+      const categories = (this.budgeCategories ?? []).map((i) => ({ text: i.name, value: i.id } satisfies SelectItem));
+
+      categories.unshift({ text: "- keine -", value: 0 });
+
+      return categories;
+    },
+  },
   data() {
     return {
-      items: v,
       model: new BudgetCategoryModel(),
     };
   },
@@ -49,6 +53,7 @@ export default {
     log() {
       console.log(this.model);
     },
+    submit() {},
   },
 };
 </script>

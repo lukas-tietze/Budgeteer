@@ -8,9 +8,9 @@ import { BudgetCategoryModel } from "../../Models/BudgetCategoryModel";
       <Title>Budget-Kategorien verwalten</Title>
 
       <div class="flex flex-row gap-2">
-        <a href="/budget-categories/add" class="contents">
+        <Link href="/budget-categories/add" class="contents">
           <AddButton></AddButton>
-        </a>
+        </Link>
 
         <DeleteButton></DeleteButton>
       </div>

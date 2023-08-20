@@ -1,6 +1,4 @@
-<script lang="ts" setup>
-import { Link } from "@inertiajs/vue3";
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <li class="hover:bg-emerald-700">

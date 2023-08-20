@@ -1,9 +1,7 @@
 /**
  * Stellt ein Element eines Dropdowns dar.
- *
- * @template T Der Typ der dargestellten Werte.
  */
-export interface SelectItem<T = unknown> {
+export interface SelectItem {
   /**
    * Der darzustellende Text.
    */
@@ -12,5 +10,5 @@ export interface SelectItem<T = unknown> {
   /**
    * Der Wert des Elements.
    */
-  value: T;
+  value: string | number | boolean;
 }
