@@ -1,6 +1,4 @@
-<script lang="ts" setup>
-import { BudgetCategoryModel } from "../../Models/BudgetCategoryModel";
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <Layout>
@@ -8,24 +6,41 @@ import { BudgetCategoryModel } from "../../Models/BudgetCategoryModel";
       <Title>Budget-Kategorien verwalten</Title>
 
       <div class="flex flex-row gap-2">
-        <Link href="/budget-categories/add" class="contents">
+        <Link href="/budget-categories/create" class="contents">
           <AddButton></AddButton>
         </Link>
 
-        <DeleteButton></DeleteButton>
+        <EditButton :disabled="selectedItem === undefined"></EditButton>
+        <DeleteButton :disabled="selectedItem === undefined"></DeleteButton>
       </div>
     </div>
 
     <div v-for="item of budgetCategories">
-      <div>{{ item.name }}</div>
+      <div
+        class="rounded-md hover:bg-emerald-400 p-2"
+        :class="{
+          'bg-emerald-500': item === selectedItem,
+        }"
+        @click="selectedItem = item === selectedItem ? undefined : item"
+      >
+        {{ item.name }}
+      </div>
     </div>
   </Layout>
 </template>
 
 <script lang="ts">
+import { PropType } from "vue";
+import { BudgetCategoryModel } from "../../Models/BudgetCategoryModel";
+
 export default {
   props: {
-    budgetCategories: Array<BudgetCategoryModel>,
+    budgetCategories: Array as PropType<BudgetCategoryModel[]>,
+  },
+  data() {
+    return {
+      selectedItem: undefined as undefined | BudgetCategoryModel,
+    };
   },
 };
 </script>

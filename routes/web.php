@@ -40,8 +40,7 @@ Route::get('/budgets', function () {
     return RenderPage('Budgets', []);
 });
 
-Route::get('/budget-categories', [BudgetCategoryController::class, 'Index']);
-Route::get('/budget-categories/add', [BudgetCategoryController::class, 'Add']);
+Route::resource('/budget-categories', BudgetCategoryController::class);
 
 Route::get('/transactions', function () {
     return RenderPage('Transactions', []);

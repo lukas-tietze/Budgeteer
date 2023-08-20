@@ -10,7 +10,7 @@ import { BudgetCategoryModel } from "../../Models/BudgetCategoryModel";
       <Title>Budget-Kategorie hinzufügen</Title>
 
       <div class="flex flex-row gap-2">
-        <Button kind="success" @click="log()">
+        <Button kind="success" type="submit" @click="submit">
           <i class="fa-solid fa-check mr-1"></i>
           Übernehmen
         </Button>
@@ -31,13 +31,15 @@ import { BudgetCategoryModel } from "../../Models/BudgetCategoryModel";
 </template>
 
 <script lang="ts">
+import { Inertia } from "@inertiajs/inertia";
+
 export default {
   props: {
-    budgeCategories: Array as PropType<BudgetCategoryModel[]>,
+    budgetCategories: Array as PropType<BudgetCategoryModel[]>,
   },
   computed: {
     budgeCategoryItems() {
-      const categories = (this.budgeCategories ?? []).map((i) => ({ text: i.name, value: i.id } satisfies SelectItem));
+      const categories = (this.budgetCategories ?? []).map((i) => ({ text: i.name, value: i.id } satisfies SelectItem));
 
       categories.unshift({ text: "- keine -", value: 0 });
 
@@ -53,7 +55,9 @@ export default {
     log() {
       console.log(this.model);
     },
-    submit() {},
+    submit() {
+      Inertia.post("/budget-categories", this.model);
+    },
   },
 };
 </script>

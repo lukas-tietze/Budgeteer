@@ -4,6 +4,7 @@
     :class="{
       'bg-green-500 shadow-green-700 text-green-100': kind === 'success',
       'bg-red-400 shadow-red-500 text-red-100': kind === 'danger',
+      'bg-slate-300 shadow-slate-400 text-slate-100': kind === 'disabled',
     }"
   >
     <slot></slot>
