@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { SelectItem } from "../../Components/Inputs/SelectItem";
+import { BudgetCategoryModel } from "../../Models/BudgetCategoryModel";
 </script>
 
 <template>
@@ -8,7 +9,7 @@ import { SelectItem } from "../../Components/Inputs/SelectItem";
       <Title>Budget-Kategorie hinzufügen</Title>
 
       <div class="flex flex-row gap-2">
-        <Button kind="success">
+        <Button kind="success" @click="log()">
           <i class="fa-solid fa-check mr-1"></i>
           Übernehmen
         </Button>
@@ -21,7 +22,7 @@ import { SelectItem } from "../../Components/Inputs/SelectItem";
     </div>
 
     <div class="flex flex-col gap-3">
-      <TextBox label="Name" :required="true" name="Name" id=""></TextBox>
+      <TextBox label="Name" :required="true" name="Name" v-model="model.name"></TextBox>
 
       <Select label="Übergeordnete Gruppe" :items="items"></Select>
     </div>
@@ -41,7 +42,13 @@ export default {
   data() {
     return {
       items: v,
+      model: new BudgetCategoryModel(),
     };
+  },
+  methods: {
+    log() {
+      console.log(this.model);
+    },
   },
 };
 </script>

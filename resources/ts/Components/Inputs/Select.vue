@@ -13,7 +13,7 @@
       :id="id || uniqueId"
       @click="dropDownOpened = !dropDownOpened"
     >
-      <div>{{ selectedItem?.text }} &nbsp;</div>
+      <div>{{ selectedItem?.text }}</div>
       <div>
         <i class="fa-solid fa-chevron-down mx-2"> </i>
       </div>
@@ -27,18 +27,12 @@
           'absolute top-0 left-0 right-0': dropDownOpened,
         }"
       >
-        <div v-for="item in items" @click="selectedItem = item" class="px-1 py-0.5 hover:bg-emerald-500 hover:text-emerald-50">
+        <div v-for="item in items" @click="" class="px-1 py-0.5 hover:bg-emerald-500 hover:text-emerald-50">
           {{ item.text }}
         </div>
       </div>
     </div>
   </div>
-
-  <select class="rounded-md">
-    <option>A</option>
-    <option>B</option>
-    <option>C</option>
-  </select>
 </template>
 
 <script lang="ts">
@@ -53,6 +47,14 @@ export default {
     id: String,
     items: Array as PropType<Array<SelectItem>>,
     allowEmpty: Boolean,
+    modelValue: String as PropType<unknown>,
+  },
+  watch: {
+    items: {
+      handler() {
+        this.updateDefaultSelection();
+      },
+    },
   },
   data() {
     return {
@@ -61,6 +63,24 @@ export default {
       dropDownOpened: false,
     };
   },
-  updated() {},
+  methods: {
+    updateSelection(item: SelectItem) {
+      this.selectedItem = item;
+      this.$emit("update:modelValue", item.value);
+    },
+    updateDefaultSelection() {
+      if (this.selectedItem && !this.items?.includes(this.selectedItem)) {
+        this.selectedItem = undefined;
+      }
+
+      if (this.items?.length && !this.allowEmpty && this.selectedItem == undefined) {
+        this.selectedItem = this.items[0];
+      }
+    },
+  },
+  created() {
+    this.updateDefaultSelection();
+  },
+  emits: ["update:modelValue"],
 };
 </script>
