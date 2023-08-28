@@ -11,10 +11,16 @@ export class BudgetCategoryModel extends ModelBase {
     super(copy);
 
     this.parentId = copy?.parentId ?? 0;
+    this.slug = copy?.slug ?? '';
   }
 
   /**
    * Die ID der übergeordneten Kategorie.
    */
   public parentId: number;
+
+  /**
+   * Der Url-Teil, der die Kategorie eindeutig identifiziert.
+   */
+  public slug: string;
 }

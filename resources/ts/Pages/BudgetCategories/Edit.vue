@@ -15,17 +15,19 @@ import { BudgetCategoryModel } from "../../Models/BudgetCategoryModel";
           Übernehmen
         </Button>
 
-        <Button kind="danger">
-          <i class="fa-solid fa-xmark mr-1"></i>
-          Abbrechen
-        </Button>
+        <Link href="/budget-categories" class="content">
+          <Button kind="danger">
+            <i class="fa-solid fa-xmark mr-1"></i>
+            Abbrechen
+          </Button>
+        </Link>
       </div>
     </div>
 
     <div class="flex flex-col gap-3">
-      <TextBox label="Name" :required="true" name="Name" v-model="model.name"></TextBox>
+      <TextBox label="Name" :required="true" name="Name" v-model="editedModel.name"></TextBox>
 
-      <Select label="Übergeordnete Gruppe" :items="budgeCategoryItems" v-model="model.parentId"></Select>
+      <Select label="Übergeordnete Gruppe" :items="budgeCategoryItems" v-model="editedModel.parentId"></Select>
     </div>
   </Layout>
 </template>
@@ -35,7 +37,8 @@ import { Inertia } from "@inertiajs/inertia";
 
 export default {
   props: {
-    budgetCategories: Array as PropType<BudgetCategoryModel[]>,
+    budgetCategories: Array<BudgetCategoryModel>,
+    model: BudgetCategoryModel,
   },
   computed: {
     budgeCategoryItems() {
@@ -45,18 +48,22 @@ export default {
 
       return categories;
     },
-  },
-  data() {
-    return {
-      model: new BudgetCategoryModel(),
-    };
+    editedModel() {
+      return this.model ?? new BudgetCategoryModel();
+    },
   },
   methods: {
     log() {
       console.log(this.model);
     },
     submit() {
-      Inertia.post("/budget-categories", this.model);
+      const model = this.editedModel;
+
+      if (model.slug) {
+        Inertia.patch(`/budget-categories/${model.slug}`, model as any);
+      } else {
+        Inertia.post("/budget-categories", model as any);
+      }
     },
   },
 };
