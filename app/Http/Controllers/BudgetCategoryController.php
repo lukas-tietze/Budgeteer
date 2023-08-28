@@ -36,8 +36,8 @@ class BudgetCategoryController extends Controller
         $models = array_map(function ($item) {
             return [
               'name' => $item['name'],
-              'id' => $item['id'],
-              'parentId' => $item['parent_id'],
+              'id' => intval($item['id']),
+              'parentId' => intval($item['parent_id']),
               'slug' => $item['slug'],
             ];
         }, $models);
@@ -68,7 +68,7 @@ class BudgetCategoryController extends Controller
           'model' => [
             'name' => $entity['name'],
             'id' => $entity['id'],
-            'parentId' => $entity['parent_id'],
+            'parentId' => intval($entity['parent_id']),
             'slug' =>$entity['slug'],
           ]
         ]);
@@ -111,6 +111,7 @@ class BudgetCategoryController extends Controller
         $attrs['user_id'] = 1;
         $attrs['description'] = strval($request->input('description') ?? '');
         $attrs['slug'] = $this->createUniqueSlug($attrs['name']);
+        $attrs['parent_id'] = $request->input('parentId');
 
         BudgetCategory::create($attrs);
 

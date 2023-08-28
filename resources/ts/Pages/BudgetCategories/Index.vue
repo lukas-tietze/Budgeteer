@@ -12,22 +12,26 @@
       </div>
     </div>
 
-    <ResourceList :items="dataListItems" resourceUrl="budget-categories"> </ResourceList>
+    <TreeView :items="treeViewItems" resourceUrl="budget-categories"> </TreeView>
   </Layout>
 </template>
 
 <script lang="ts">
 import { PropType } from "vue";
 import { BudgetCategoryModel } from "../../Models/BudgetCategoryModel";
-import { ResourceListItem } from "../../Components/Complex/ResourceListItem";
+import { TreeViewItem } from "../../Components/Complex/TreeViewItem";
 
 export default {
   props: {
     budgetCategories: Array as PropType<BudgetCategoryModel[]>,
   },
   computed: {
-    dataListItems() {
-      return this.budgetCategories?.map((c) => ({ slug: c.slug, text: c.name } satisfies ResourceListItem)) ?? [];
+    treeViewItems() {
+      if (!this.budgetCategories) {
+        return [];
+      }
+
+      return TreeViewItem.FromList(this.budgetCategories, (i) => ({ ...i, text: i.name }));
     },
   },
   data() {
