@@ -8,6 +8,7 @@ use App\Models\Budget;
 use App\Models\Transaction;
 
 use  App\Http\Controllers\BudgetCategoryController;
+use  App\Http\Controllers\BudgetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,7 @@ Route::get('/budgets', function () {
 });
 
 Route::resource('/budget-categories', BudgetCategoryController::class);
+Route::resource('/budgets', BudgetController::class);
 
 Route::get('/transactions', function () {
     return RenderPage('Transactions', []);

@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dev",
+      "type": "process",
+      "group": "build",
+      "dependsOn": [
+        "tsc",
+        "vite",
+        "php"
+      ]
+    },
+    {
+      "label": "tsc",
+      "type": "npm",
+      "group": "build",
+      "script": "tsc"
+    },
+    {
+      "label": "vite",
+      "type": "npm",
+      "group": "build",
+      "script": "vite"
+    },
+    {
+      "label": "php",
+      "type": "npm",
+      "group": "build",
+      "script": "php"
+    }
+  ]
+}
