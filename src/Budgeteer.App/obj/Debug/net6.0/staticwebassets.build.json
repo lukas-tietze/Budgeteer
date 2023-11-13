@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "Hash": "9mL7EYpXpBuMeoLFLMZYJ1dAcGNFkwBq9I86/b2G9tM=",
+  "Source": "Budgeteer.App",
+  "BasePath": "_content/Budgeteer.App",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Budgeteer.App\\wwwroot",
+      "Source": "Budgeteer.App",
+      "ContentRoot": "D:\\Entwicklung\\Projekte\\Budgeteer\\src\\Budgeteer.App\\wwwroot\\",
+      "BasePath": "_content/Budgeteer.App",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\Entwicklung\\Projekte\\Budgeteer\\src\\Budgeteer.App\\wwwroot\\favicon.ico",
+      "SourceId": "Budgeteer.App",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Entwicklung\\Projekte\\Budgeteer\\src\\Budgeteer.App\\wwwroot\\",
+      "BasePath": "_content/Budgeteer.App",
+      "RelativePath": "favicon.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\favicon.ico"
+    }
+  ]
+}

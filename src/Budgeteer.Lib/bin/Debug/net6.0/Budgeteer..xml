@@ -1,0 +1,981 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Budgeteer.Lib</name>
+    </assembly>
+    <members>
+        <member name="T:Budgeteer.Lib.Helpers.ClassList">
+            <summary>
+            Stellt eine Liste von CSS-Klassen dar, die dynamisch aufgebaut werden kann.
+            </summary>
+        </member>
+        <member name="F:Budgeteer.Lib.Helpers.ClassList.classes">
+            <summary>
+            Die gesammelten Klassen.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.ClassList.#ctor(System.String)">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Helpers.ClassList"/> Struktur.
+            </summary>
+            <param name="classes">Die Sammlung der initialen Klassennamen.</param>
+        </member>
+        <member name="P:Budgeteer.Lib.Helpers.ClassList.Empty">
+            <summary>
+            Holt einen WErt, der angibt, ob die Klassenliste leer ist oder nicht.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.ClassList.op_Implicit(System.String)~Budgeteer.Lib.Helpers.ClassList">
+            <summary>
+            Ermöglicht den impliziten Aufruf von <see cref="M:Budgeteer.Lib.Helpers.ClassList.#ctor(System.String)"/>.
+            </summary>
+            <param name="str">Der zu konvertierende Wert.</param>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.ClassList.op_Implicit(Budgeteer.Lib.Helpers.ClassList)~System.String">
+            <summary>
+            Ermöglicht den impliziten Aufruf von <see cref="M:Budgeteer.Lib.Helpers.ClassList.ToString"/>.
+            </summary>
+            <param name="classList">Der zu konvertierende Wert.</param>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.ClassList.op_Addition(Budgeteer.Lib.Helpers.ClassList,System.String)">
+            <summary>
+            Überladung für den Additions-Operator, als Abkürzung für <see cref="M:Budgeteer.Lib.Helpers.ClassList.Add(System.String)"/>.
+            </summary>
+            <param name="classList">Die zu erweiternde <see cref="T:Budgeteer.Lib.Helpers.ClassList"/>-Instanz.</param>
+            <param name="str">Der String mit der Liste hinzuzufügender Klassen.</param>
+            <returns>Die erweiterte Klassenliste.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.ClassList.Add(System.String)">
+            <summary>
+            Fügt die gegebene CSS-Klasse zur Liste hinzu.
+            </summary>
+            <param name="className">Die hinzuzufügende CSS-Klasse.</param>
+            <returns>Eine Kopie der aktuellen Instanz, mit den neuen Klassennamen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.ClassList.Add(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Fügt die gegebenen CSS-Klassen zur Liste hinzu.
+            </summary>
+            <param name="classNames">Die hinzuzufügenden CSS-Klassen.</param>
+            <returns>Eine Kopie der aktuellen Instanz, mit den neuen Klassennamen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.ClassList.Add(System.String[])">
+            <summary>
+            Fügt die gegebenen CSS-Klassen zur Liste hinzu.
+            </summary>
+            <param name="classNames">Die hinzuzufügenden CSS-Klassen.</param>
+            <returns>Eine Kopie der aktuellen Instanz, mit den neuen Klassennamen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.ClassList.AddIf(System.Boolean,System.String,System.String)">
+            <summary>
+            Fügt eine CSS-Klasse hinzu, wenn die Bedingung <paramref name="condition"/>
+            true ist. Utility-Funktion, um im Template das if(...) zu sparen.
+            </summary>
+            <param name="condition">Die auszuwertende Bedingung.</param>
+            <param name="className">Die hinzuzufügende CSS-Klasse.</param>
+            <param name="elseClassName">Der Klassenname, der hinzugefügt werden soll, wenn die Bedingung falsch ist.</param>
+            <returns>Eine Kopie der aktuellen Instanz, mit den neuen Klassennamen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.ClassList.AddIf(System.Collections.Generic.IEnumerable{System.ValueTuple{System.Boolean,System.String}})">
+            <summary>
+            Fügt die CSS-Klassen hinzu, bei denen die gegebene Bedingung
+            true ist. Utility-Funktion, um im Template das if(...) zu sparen.
+            </summary>
+            <param name="classNames">Die Tupel aus Bedingung und hinzuzufügender CSS-Klasse.</param>
+            <returns>Eine Kopie der aktuellen Instanz, mit den neuen Klassennamen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.ClassList.AddIf(System.ValueTuple{System.Boolean,System.String}[])">
+            <summary>
+            Fügt die CSS-Klassen hinzu, bei denen die gegebene Bedingung
+            true ist. Utility-Funktion, um im Template das if(...) zu sparen.
+            </summary>
+            <param name="classNames">Die Tupel aus Bedingung und hinzuzufügender CSS-Klasse.</param>
+            <returns>Eine Kopie der aktuellen Instanz, mit den neuen Klassennamen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.ClassList.ToAttributeString">
+            <summary>
+            Gibt einen String zurück, der die Liste der gesammelten CSS-Klassen
+            enthält oder null, falls die Liste leer ist.
+            Wird null zurückgegeben, wird das class-Attribut gar nicht gerendert.
+            </summary>
+            <returns>Die Klassen-Liste oder null, wenn die Liste leer ist.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.ClassList.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Budgeteer.Lib.Helpers.StyleList">
+            <summary>
+            Stellt eine Liste von inline-Stilen dar, die dynamisch aufgebaut werden kann.
+            </summary>
+        </member>
+        <member name="F:Budgeteer.Lib.Helpers.StyleList.styles">
+            <summary>
+            Die gesammelten Stile.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.StyleList.#ctor(System.String)">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Helpers.StyleList"/> Struktur.
+            </summary>
+            <param name="styles">Die Sammlung der initialen Stile.</param>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.StyleList.op_Implicit(Budgeteer.Lib.Helpers.StyleList)~System.String">
+            <summary>
+            Ermöglicht den impliziten Aufruf von <see cref="M:Budgeteer.Lib.Helpers.StyleList.ToString"/>.
+            </summary>
+            <param name="styleList">Der zu konvertierende Wert.</param>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.StyleList.Add``1(System.String,``0)">
+            <summary>
+            Fügt den Stil für die Eigenschaft <paramref name="propertyName"/> mit dem Wert <paramref name="value"/> zur Liste hinzu.
+            </summary>
+            <typeparam name="T">Der Typ des Wertes des inline-Stils.</typeparam>
+            <param name="propertyName">Der Name der Eigenschaft.</param>
+            <param name="value">Der Wert der Eigenschaft.</param>
+            <returns>Eine Kopie der aktuellen Instanz, mit den neuen Klassennamen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.StyleList.ToAttributeString">
+            <summary>
+            Gibt einen String zurück, der die Liste der gesammelten CSS-Klassen
+            enthält oder null, falls die Liste leer ist.
+            Wird null zurückgegeben, wird das class-Attribut gar nicht gerendert.
+            </summary>
+            <returns>Die Klassen-Liste oder null, wenn die Liste leer ist.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.StyleList.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Budgeteer.Lib.Helpers.UriBuilderFluentExtensions">
+            <summary>
+            Stellt ein Fluent-API für <see cref="T:System.UriBuilder"/> bereit.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UriBuilderFluentExtensions.AddPathDataPart(System.UriBuilder,System.String)">
+            <summary>
+            Fügt einen Datensatz an die URL an. Der String wird
+            wie ein gewöhnlicher URL-Teil in <see cref="M:Budgeteer.Lib.Helpers.UriBuilderFluentExtensions.AddPathPart(System.UriBuilder,System.String)"/>
+            behandelt, aber anders kodiert.
+            </summary>
+            <param name="me">Die Instanz, die geändert werden soll.</param>
+            <param name="dataPart">Der Datensatz, der kodiert an die URL angehängt werden soll.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UriBuilderFluentExtensions.AddPathPart(System.UriBuilder,System.String)">
+            <summary>
+            Fügt einen Pfad-Teil an die URL an.
+            </summary>
+            <param name="me">Die Instanz, die geändert werden soll.</param>
+            <param name="part">Der URL-Teil, der an die URL angehängt werden soll.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UriBuilderFluentExtensions.AddQueryParameter(System.UriBuilder,System.String,System.String)">
+            <summary>
+            Fügt einen Query-Parameter hinzu.
+            </summary>
+            <param name="me">Die Instanz, die geändert werden soll.</param>
+            <param name="name">Der Name des Parameters.</param>
+            <param name="value">Der Wert des Parameters.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UriBuilderFluentExtensions.SetFragment(System.UriBuilder,System.String)">
+            <summary>
+            Setzt das Fragment.
+            </summary>
+            <param name="me">Die Instanz, die geändert werden soll.</param>
+            <param name="fragment">Das zu setzende Fragment.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UriBuilderFluentExtensions.SetPort(System.UriBuilder,System.Int32)">
+            <summary>
+            Setzt den Port.
+            </summary>
+            <param name="me">Die Instanz, die geändert werden soll.</param>
+            <param name="port">Der zu nutzende Port.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UriBuilderFluentExtensions.SetPort(System.UriBuilder,System.String)">
+            <summary>
+            Setzt den Host.
+            </summary>
+            <param name="me">Die Instanz, die geändert werden soll.</param>
+            <param name="host">Der zu nutzende Host.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UriBuilderFluentExtensions.SetScheme(System.UriBuilder,System.String)">
+            <summary>
+            Setzt das Zugriffsschema.
+            </summary>
+            <param name="me">Die Instanz, die geändert werden soll.</param>
+            <param name="scheme">Das zu setzende Zugriffsschema.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="T:Budgeteer.Lib.Helpers.UrlPathBuilder">
+            <summary>
+            Hilfsklasse zum Kodieren und Kombinieren mehrerer Teile des Pfades einer URL.
+            </summary>
+        </member>
+        <member name="F:Budgeteer.Lib.Helpers.UrlPathBuilder.url">
+            <summary>
+            Enthält die Basis-URL der Anwendung.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlPathBuilder.#ctor(System.String)">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Helpers.UrlPathBuilder"/> Struktur.
+            </summary>
+            <param name="url">Die initiale URL.</param>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlPathBuilder.op_Implicit(Budgeteer.Lib.Helpers.UrlPathBuilder)~System.String">
+            <summary>
+            Ermöglicht die implizite Konvertierung einer <see cref="T:Budgeteer.Lib.Helpers.UrlPathBuilder"/>-Instanz
+            in einen String, wobei das Ergebnis <see cref="M:Budgeteer.Lib.Helpers.UrlPathBuilder.ToString"/> ist.
+            </summary>
+            <param name="builder">Die zu konvertierende Instanz.</param>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlPathBuilder.op_Implicit(System.String)~Budgeteer.Lib.Helpers.UrlPathBuilder">
+            <summary>
+            Ermöglicht die implizite Konvertierung eines Strings in eine <see cref="T:Budgeteer.Lib.Helpers.UrlPathBuilder"/>-Instanz.
+            </summary>
+            <param name="str">Der zu konvertierende String.</param>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlPathBuilder.Add(System.String)">
+            <summary>
+            Fügt einen Abschnitt zur erzeugten URL hinzu.
+            </summary>
+            <param name="part">Der hinzuzufügende Abschnitt.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlPathBuilder.Add(System.String[])">
+            <summary>
+            Fügt mehrere Abschnitte zur erzeugten URL hinzu.
+            </summary>
+            <param name="parts">Die hinzuzufügenden Abschnitte.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlPathBuilder.Add(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Fügt mehrere Abschnitte zur erzeugten URL hinzu.
+            </summary>
+            <param name="parts">Die hinzuzufügenden Abschnitte.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlPathBuilder.AddData(System.String)">
+            <summary>
+            Fügt mehrere Daten-Abschnitte zur erzeugten URL hinzu.
+            </summary>
+            <param name="part">Der hinzuzufügende Daten-Abschnitt.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlPathBuilder.AddData(System.String[])">
+            <summary>
+            Fügt mehrere Daten-Abschnitte zur erzeugten URL hinzu.
+            </summary>
+            <param name="parts">Die hinzuzufügenden Daten-Abschnitte.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlPathBuilder.AddData(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Fügt mehrere Daten-Abschnitte zur erzeugten URL hinzu.
+            </summary>
+            <param name="parts">Die hinzuzufügenden Daten-Abschnitte.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlPathBuilder.ToString">
+            <summary>
+            Erzeugt eine String-Repräsentation der aktuellen Instanz.
+            </summary>
+            <returns>Einen String, der aktuelle Instanz darstellt.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlPathBuilder.Append(System.String)">
+            <summary>
+            Fügt einen neuen Teil zur URL hinzu.
+            </summary>
+            <param name="part">Der hinzuzufügende Abschnitt.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="T:Budgeteer.Lib.Helpers.UrlQueryBuilder">
+            <summary>
+            Hilfsklasse zum Kodieren und Kombinieren mehrerer Teile eines URL-Query.
+            </summary>
+        </member>
+        <member name="F:Budgeteer.Lib.Helpers.UrlQueryBuilder.query">
+            <summary>
+            Enthält die Basis-URL der Anwendung.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlQueryBuilder.#ctor(System.String)">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Helpers.UrlQueryBuilder"/> Struktur.
+            </summary>
+            <param name="query">Der initiale Query.</param>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlQueryBuilder.op_Implicit(Budgeteer.Lib.Helpers.UrlQueryBuilder)~System.String">
+            <summary>
+            Ermöglicht die implizite Konvertierung einer <see cref="T:Budgeteer.Lib.Helpers.UrlQueryBuilder"/>-Instanz
+            in einen String, wobei das Ergebnis <see cref="M:Budgeteer.Lib.Helpers.UrlQueryBuilder.ToString"/> ist.
+            </summary>
+            <param name="builder">Die zu konvertierende Instanz.</param>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlQueryBuilder.op_Implicit(System.String)~Budgeteer.Lib.Helpers.UrlQueryBuilder">
+            <summary>
+            Ermöglicht die implizite Konvertierung eines Strings in
+            eine <see cref="T:Budgeteer.Lib.Helpers.UrlQueryBuilder"/>-Instanz.
+            </summary>
+            <param name="str">Der zu konvertierende String.</param>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlQueryBuilder.Add(System.String,System.String)">
+            <summary>
+            Fügt eine Attribut zum Query hinzu.
+            </summary>
+            <param name="name">Der Name des hinzuzufügenden Attributs.</param>
+            <param name="value">Der Wert des hinzuzufügenden Attributs.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlQueryBuilder.Add(System.String,System.String[])">
+            <summary>
+            Fügt eine Attribut mit mehreren Werten zum Query hinzu.
+            </summary>
+            <param name="name">Der Name des hinzuzufügenden Attributs.</param>
+            <param name="values">Die Werte des hinzuzufügenden Attributs.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlQueryBuilder.Add(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Fügt eine Attribut mit mehreren Werten zum Query hinzu.
+            </summary>
+            <param name="name">Der Name des hinzuzufügenden Attributs.</param>
+            <param name="values">Die Werte des hinzuzufügenden Attributs.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Helpers.UrlQueryBuilder.ToString">
+            <summary>
+            Erzeugt eine String-Repräsentation der aktuellen Instanz.
+            </summary>
+            <returns>Einen String, der aktuelle Instanz darstellt.</returns>
+        </member>
+        <member name="T:Budgeteer.Lib.Taghelpers.EmptyHtmlContent">
+            <summary>
+            Stellt einen leeren <see cref="T:Microsoft.AspNetCore.Html.IHtmlContent"/> dar.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.EmptyHtmlContent.WriteTo(System.IO.TextWriter,System.Text.Encodings.Web.HtmlEncoder)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Budgeteer.Lib.Taghelpers.FluentTagBuilder">
+            <summary>
+            Ermöglicht die Erzeugung von HTML-Tags unter Verwendung eines Fluent-API.
+            </summary>
+        </member>
+        <member name="F:Budgeteer.Lib.Taghelpers.FluentTagBuilder.tagBuilder">
+            <summary>
+            Enthält den gekapselten <see cref="F:Budgeteer.Lib.Taghelpers.FluentTagBuilder.tagBuilder"/>.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.FluentTagBuilder.#ctor(System.String,System.Nullable{Microsoft.AspNetCore.Mvc.Rendering.TagRenderMode})">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Taghelpers.FluentTagBuilder"/> Klasse.
+            </summary>
+            <param name="tagName">Der Name des HTML-Tags, der ertellt werden soll.</param>
+            <param name="tagRenderMode">Der Modus zur Darstellung des Tags.</param>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.FluentTagBuilder.op_Implicit(Budgeteer.Lib.Taghelpers.FluentTagBuilder)~Microsoft.AspNetCore.Mvc.Rendering.TagBuilder">
+            <summary>
+            Ermöglicht die implizite Konvertierung einer <see cref="T:Budgeteer.Lib.Taghelpers.FluentTagBuilder"/>-Instanz
+            in eine <see cref="T:Microsoft.AspNetCore.Mvc.Rendering.TagBuilder"/>-Instanz. Dabei wird eine private Variable herausgegeben.
+            </summary>
+            <param name="immediateFluentTagBuilder">Die zu kovnertierende Instanz.</param>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.FluentTagBuilder.AddClass(System.String)">
+            <summary>
+            Fügt eine oder mehrere Klassen zum Tag hinzu.
+            </summary>
+            <param name="classList">Die CSS-Klasse(n).</param>
+            <returns>Eine Referenz auf die aktuelle Instanz.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.FluentTagBuilder.AddStyle(System.String,System.String)">
+            <summary>
+            Fügt einen weiteren inline-Stil hinzu.
+            Der Wert wird an die ggf. bestehenden inline-Stile angehängt.
+            </summary>
+            <param name="property">Das CSS-Attribut, dessen Stil festgelegt werden soll.</param>
+            <param name="value">Der Wert des CSS-Attribus.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.FluentTagBuilder.Append(Microsoft.AspNetCore.Html.IHtmlContent)">
+            <summary>
+            Fügt bereits gerenderten HTML-Inhalt hinzu.
+            </summary>
+            <param name="content">Der darzustellende Inhalt.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.FluentTagBuilder.Append(System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Html.IHtmlContent})">
+            <summary>
+            Fügt bereits gerenderten HTML-Inhalt hinzu.
+            </summary>
+            <param name="contentList">Der darzustellende Inhalt.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.FluentTagBuilder.Append(System.String)">
+            <summary>
+            Fügt den gegebenen Text hinzu.
+            </summary>
+            <param name="text">Der hinzuzufügende Text.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.FluentTagBuilder.AppendHtml(System.String)">
+            <summary>
+            Fügt HTML-Text zum Tags hinzu, ohne es zu escapen.
+            </summary>
+            <param name="html">Das hinzuzfügende HTML.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.FluentTagBuilder.SetAttribute(System.String,System.String,System.Boolean)">
+            <summary>
+            Fügt ein HTML-Attribut hinzu.
+            Falls bereits ein gleichnamiges Attribut vorhanden ist, entscheidet
+            <paramref name="overwrite"/>, ob dieses Attribut überschrieben wird,
+            oder ob das neue Attribut verworfen wird.
+            </summary>
+            <param name="attr">Der Name des Attributs.</param>
+            <param name="value">Der Wert des Attributs.</param>
+            <param name="overwrite">Gibt an, ob ein ggf. bereits existierendes gleichnamiges Attribut überschrieben werden soll oder nicht.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.FluentTagBuilder.SetAttribute(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute,System.Boolean)">
+            <summary>
+            Fügt ein HTML-Attribut hinzu.
+            Falls bereits ein gleichnamiges Attribut vorhanden ist, entscheidet
+            <paramref name="overwrite"/>, ob dieses Attribut überschrieben wird,
+            oder ob das neue Attribut verworfen wird.
+            </summary>
+            <param name="attribute">Das hinzuzufügende Attribut.</param>
+            <param name="overwrite">Gibt an, ob ein ggf. bereits existierendes gleichnamiges Attribut überschrieben werden soll oder nicht.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.FluentTagBuilder.SetAttributes(System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute},System.Boolean)">
+            <summary>
+            Fügt mehrere Attribute zugleich hinzu.
+            Durch <paramref name="overwrite"/> kann angegeben werden, ob
+            bestehende Attribute überschrieben werden sollen oder nicht.
+            Die Einstellung wird dann auf alle Attribute angewandt.
+            </summary>
+            <param name="attributes">Die Auflistung der Attribute.</param>
+            <param name="overwrite">Gibt an, ob bestehende Attribute überschrieben werden sollen oder nicht.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.FluentTagBuilder.SetId(System.String)">
+            <summary>
+            Setzt die ID des HTML-Elements, also das id-Attribut.
+            </summary>
+            <param name="id">Die ID.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.FluentTagBuilder.SetTitle(System.String)">
+            <summary>
+            Setzt den Title des HTML-Elements, also das title-Attribut.
+            </summary>
+            <param name="title">Der Titel.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.FluentTagBuilder.WriteTo(System.IO.TextWriter,System.Text.Encodings.Web.HtmlEncoder)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Budgeteer.Lib.Taghelpers.HtmlContentCollection">
+            <summary>
+            Eine Implementierung von <see cref="T:Microsoft.AspNetCore.Html.IHtmlContent"/>, die aus einer Liste
+            anderer Inhalte besteht und selbst keinen weiteren Inhalt hinzufügt.
+            </summary>
+        </member>
+        <member name="F:Budgeteer.Lib.Taghelpers.HtmlContentCollection.contents">
+            <summary>
+            Die zu rendernden Inhalte.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.HtmlContentCollection.#ctor(System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Html.IHtmlContent})">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Taghelpers.HtmlContentCollection"/> Klasse.
+            </summary>
+            <param name="content">Der initiale Inhalt.</param>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.HtmlContentCollection.#ctor">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Taghelpers.HtmlContentCollection"/> Klasse.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.HtmlContentCollection.Add(Microsoft.AspNetCore.Html.IHtmlContent)">
+            <summary>
+            Fügt weiteren HTML-Inhalt hinzu.
+            </summary>
+            <param name="content">Der hinzuzufügende Inhalt.</param>
+            <returns>Eine Referenz auf die aktuelle Instanz.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.HtmlContentCollection.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.HtmlContentCollection.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.HtmlContentCollection.WriteTo(System.IO.TextWriter,System.Text.Encodings.Web.HtmlEncoder)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Budgeteer.Lib.Taghelpers.IHtmlContentExtensions">
+            <summary>
+            Stellt Erweiterungsmethoden für <see cref="T:Microsoft.AspNetCore.Html.IHtmlContent"/>
+            und für die Konvertierung in <see cref="T:Microsoft.AspNetCore.Html.IHtmlContent"/> bereit.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.IHtmlContentExtensions.Concat(Microsoft.AspNetCore.Html.IHtmlContent,Microsoft.AspNetCore.Html.IHtmlContent,Microsoft.AspNetCore.Html.IHtmlContent[])">
+            <summary>
+            Verknüpft zwei oder mehr <see cref="T:Microsoft.AspNetCore.Html.IHtmlContent"/>-Ojekte und gibt einen <see cref="T:Microsoft.AspNetCore.Html.IHtmlContent"/>
+            zurück, der alle gegebenen Elemente auf derselben Ebene und in der gegebenen Reihenfolge ausgibt.
+            </summary>
+            <param name="content">Der erste einzufügende Inhalt.</param>
+            <param name="firstOther">Der erste anzuhänge Inhalt.</param>
+            <param name="moreOthers">Eine Liste beliebig vieler weiterer anzuhängender Inhalte.</param>
+            <returns>Den erzeugten Html-Inhalt.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.IHtmlContentExtensions.Dump(Microsoft.AspNetCore.Html.IHtmlContent)">
+            <summary>
+            Erzeugt einen String aus <see cref="T:Microsoft.AspNetCore.Html.IHtmlContent"/>.
+            Zum Debugging gedacht.
+            </summary>
+            <param name="html">Der auszulesende HTML-Inhalt.</param>
+            <returns>Den HTML-Inhalt als String.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.IHtmlContentExtensions.ToHTmlContent(System.String,System.Boolean)">
+            <summary>
+            Erzeugt HTML-Inhalt aus einem String.
+            Bei der Ausgabe werden Sonderzeichen entsprechend escaped.
+            </summary>
+            <param name="text">Der auszugebende Text.</param>
+            <param name="escape">Gibt an, ob der Text beim Ausgeben escaped werden soll oder nicht.</param>
+            <returns>Den erzeugten Html-Inhalt.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.IHtmlContentExtensions.ToHTmlContent(System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Html.IHtmlContent})">
+            <summary>
+            Ermöglicht die Zusammenfassung einer Aufzählung von HTML-Inhalten in ein
+            einziges Objekt, das <see cref="T:Microsoft.AspNetCore.Html.IHtmlContent"/> implementiert.
+            Bei der Ausgabe werden alle gegebenen Inhalte auf derselben Ebene und
+            in der gegebenen Reihenfolge ausgegeben.
+            </summary>
+            <param name="content">Die Aufzählung der auszugebenden HTML-Inhalte.</param>
+            <returns>Den erzeugten Html-Inhalt.</returns>
+        </member>
+        <member name="T:Budgeteer.Lib.Taghelpers.RawHtmlContent">
+            <summary>
+            Stellt einen uncodierten <see cref="T:Microsoft.AspNetCore.Html.IHtmlContent"/> dar.
+            </summary>
+        </member>
+        <member name="F:Budgeteer.Lib.Taghelpers.RawHtmlContent.trustedContent">
+            <summary>
+            Der HTML-String, der in <see cref="M:Budgeteer.Lib.Taghelpers.RawHtmlContent.WriteTo(System.IO.TextWriter,System.Text.Encodings.Web.HtmlEncoder)"/>
+            uncodiert ausgegeben wird.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.RawHtmlContent.#ctor(System.String)">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Taghelpers.RawHtmlContent"/> Struktur.
+            </summary>
+            <param name="trustedContent">
+            Der HTML-String, der in <see cref="M:Budgeteer.Lib.Taghelpers.RawHtmlContent.WriteTo(System.IO.TextWriter,System.Text.Encodings.Web.HtmlEncoder)"/>
+            uncodiert ausgegeben wird.
+            </param>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.RawHtmlContent.WriteTo(System.IO.TextWriter,System.Text.Encodings.Web.HtmlEncoder)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Budgeteer.Lib.Taghelpers.ReadOnlyTagHelperAttributeListExtensions">
+            <summary>
+            Stellt Erweiterungsmethoden für <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.ReadOnlyTagHelperAttributeList"/> bereit.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.ReadOnlyTagHelperAttributeListExtensions.GetClassList(Microsoft.AspNetCore.Razor.TagHelpers.ReadOnlyTagHelperAttributeList)">
+            <summary>
+            Ruft den Wert des class-Attributs als String ab.
+            Falls in der gegebenen Liste noch kein class-Attribut vorhanden ist, wird
+            ein leerer String zurückgegeben.
+            </summary>
+            <param name="attributeList">Die Liste der Attribute aus der das class-Attribut gelesen werden soll.</param>
+            <returns>Den Wert des class-Attributs oder einen leeren String.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.ReadOnlyTagHelperAttributeListExtensions.GetStyleList(Microsoft.AspNetCore.Razor.TagHelpers.ReadOnlyTagHelperAttributeList)">
+            <summary>
+            Ruft den Wert des style-Attributs als String ab.
+            Falls in der gegebenen Liste noch kein style-Attribut vorhanden ist, wird
+            ein leerer String zurückgegeben.
+            </summary>
+            <param name="attributeList">Die Liste der Attribute aus der das style-Attribut gelesen werden soll.</param>
+            <returns>Den Wert des style-Attributs oder einen leeren String.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.ReadOnlyTagHelperAttributeListExtensions.GetAttributeStringValue(Microsoft.AspNetCore.Razor.TagHelpers.ReadOnlyTagHelperAttributeList,System.String)">
+            <summary>
+            Ruft den Wert des Attributs mit dem Namen <paramref name="attributeName"/> als String ab.
+            Falls in der gegebenen Liste noch kein Attribut mit diesem Namen vorhanden ist, wird
+            ein leerer String zurückgegeben.
+            </summary>
+            <param name="attributeList">Die Liste der Attribute aus der das Attribut gelesen werden soll.</param>
+            <param name="attributeName">Der Namedes gesuchten Attributs.</param>
+            <returns>Den Wert des gesuchten Attributs oder einen leeren String.</returns>
+        </member>
+        <member name="T:Budgeteer.Lib.Taghelpers.RenderedSyncTagHelperBase">
+            <summary>
+            Stellt eine Erweiterung von <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelper"/> dar, die ein
+            synchrones Rendering unterstützt.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.RenderedSyncTagHelperBase.RenderAsync(Microsoft.AspNetCore.Html.IHtmlContent)">
+             <summary>
+             Wird in ableitenden Klassen überschrieben, um den HTML-Inhalt zu erzeugen,
+             der anstelle des Tag-Helpers ausgegeben wird.
+            
+             Ableitende Klassen können <see cref="M:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.NoContent"/> zurückgeben, um jegliche Ausgabe zu unterbinden.
+             </summary>
+             <param name="content">Der im Tag-Helper enthaltene HTML-Inhalt.</param>
+             <returns>Eine <see cref="T:System.Threading.Tasks.Task`1"/>-Instanz, die die asynchrone Bearbeitung der Methode darstellt und
+             deren Ergebnis der gerenderte HTML-Inhalt ist.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.RenderedSyncTagHelperBase.Render(Microsoft.AspNetCore.Html.IHtmlContent)">
+             <summary>
+             Wird in ableitenden Klassen überschrieben, um den HTML-Inhalt zu erzeugen,
+             der anstelle des Tag-Helpers ausgegeben wird.
+            
+             Ableitende Klassen können <see cref="M:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.NoContent"/> zurückgeben, um jegliche Ausgabe zu unterbinden.
+             </summary>
+             <param name="content">Der im Tag-Helper enthaltene HTML-Inhalt.</param>
+             <returns>Den gerenderten HTML-Inhalt.</returns>
+        </member>
+        <member name="T:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase">
+             <summary>
+             Stellt eine Basisklasse zur Abstraktion vom normalen Tag-Helper-Konzept dar,
+             die den Aufruf von Tag-Helpern aus anderen Tag-Helper heraus vereinfacht.
+            
+             Diese Basisklasse implementiert die Methode <see cref="M:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.RenderAsync(Microsoft.AspNetCore.Html.IHtmlContent)"/>,
+             die die eigentliche Aufgabe das Erzeugens des HTML-Inhalts übernimmt.
+             In <see cref="M:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.ProcessAsync(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext,Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput)"/>
+             wird diese Methode aufgerufen und der gesamte Inhalt des Tag-Helpers wird mit
+             dem Ergebnis von <see cref="M:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.RenderAsync(Microsoft.AspNetCore.Html.IHtmlContent)"/> ersetzt.
+             </summary>
+        </member>
+        <member name="F:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.attributes">
+            <summary>
+            Die Auflistung aller Attribute, die beim Ausführen des Tag-Helpers übergeben wurden.
+            </summary>
+        </member>
+        <member name="F:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.classes">
+            <summary>
+            Die Liste der Klassen, die auf dem HTML-Tag des Tag-Helper angegeben sind.
+            </summary>
+        </member>
+        <member name="F:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.tagName">
+            <summary>
+            Der Tag-Name des aktiven Tag-Helpers.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.#ctor">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase"/> Klasse.
+            </summary>
+        </member>
+        <member name="P:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.Attributes">
+            <summary>
+            Holt die Auflistung aller Attribute.
+            </summary>
+        </member>
+        <member name="P:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.Classes">
+            <summary>
+            Holt die Liste der Klassen, die auf dem HTML-Tag des Tag-Helper angegeben sind.
+            </summary>
+        </member>
+        <member name="P:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.TagName">
+            <summary>
+            Holt den Tag-Namen des aktiven Tag-Helpers.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.ProcessAsync(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext,Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.RenderAsync(Microsoft.AspNetCore.Html.IHtmlContent)">
+             <summary>
+             Wird in ableitenden Klassen überschrieben, um den HTML-Inhalt zu erzeugen,
+             der anstelle des Tag-Helpers ausgegeben wird.
+            
+             Ableitende Klassen können <see cref="M:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.NoContent"/> zurückgeben, um jegliche Ausgabe zu unterbinden.
+             </summary>
+             <param name="content">Der im Tag-Helper enthaltene HTML-Inhalt.</param>
+             <returns>Eine <see cref="T:System.Threading.Tasks.Task`1"/>-Instanz, die die asynchrone Bearbeitung der Methode darstellt und
+             deren Ergebnis der gerenderte HTML-Inhalt ist.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.NoContent">
+            <summary>
+            Holt ein Platzhalter-Objekt, dass einen leeren HTML-Inhalt darstellt.
+            Kann in <see cref="M:Budgeteer.Lib.Taghelpers.RenderedTagHelperBase.RenderAsync(Microsoft.AspNetCore.Html.IHtmlContent)"/> zurückgegeben werden, um
+            die Ausgabe zu unterbinden.
+            </summary>
+            <returns>Einen leeren HTML-Inhalt.</returns>
+        </member>
+        <member name="T:Budgeteer.Lib.Taghelpers.TagHelperAttributeListExtensions">
+            <summary>
+            Enthält Erweiterungen für <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList"/>.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Taghelpers.TagHelperAttributeListExtensions.AppendAttribute(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttributeList,System.String,System.String,System.String)">
+             <summary>
+             Fügt einen Wert zu einem bereits vorhandenen Attribut hinzu oder legt
+             ein neues Attribut mit dem gegebenen Wert an.
+             Kann z.B. genutzt werden, um eine neue CSS-Klasse zur Ausgabe hinzuzufügen.
+             Falls bereits ein Attribut mit dem Namen <paramref name="attributeName"/>
+             vorhanden ist, wird zuerst <paramref name="separator"/> und dann <paramref name="value"/>
+             hinzugefügt und der Eintrag in der Liste wird ersetzt.
+            
+             Falls <paramref name="separator"/> nicht gegeben ist, wird ein Trenner bestimmt.
+             Das ist ein Semikolon, falls <paramref name="attributeName"/> "style" ist und sonst ein Leerzeichen.
+             </summary>
+             <param name="tagHelperAttributes">Die Instanz auf der die Operation ausgeführt werden soll.</param>
+             <param name="attributeName">Der Name des Attributs, das erweitert werden soll.</param>
+             <param name="value">Der anzuhängende Wert.</param>
+             <param name="separator">Der String, der zwischen dem alten und neuen Wert eingefügt werden soll.</param>
+             <returns><paramref name="tagHelperAttributes"/>, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="T:Budgeteer.Lib.Vite.IServiceCollectionExtension">
+            <summary>
+            Stellt Erweiterungen für <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> zur Verfügung.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Vite.IServiceCollectionExtension.AddVite(Microsoft.Extensions.DependencyInjection.IServiceCollection,Budgeteer.Lib.Vite.ViteConfig)">
+            <summary>
+            Fügt Vite zum Programm hinzu, sodass die Vite-Tag-Helper funktionieren.
+            </summary>
+            <param name="services">Der zu bearbeitende DI-Container.</param>
+            <param name="config">Die zu nutzende Konfiguration.</param>
+            <returns><paramref name="services"/>, um Method-Chaining zu ermöglichen.</returns>
+        </member>
+        <member name="T:Budgeteer.Lib.Vite.IViteUriProvider">
+            <summary>
+            Implementierende Klassen stellen Methoden bereit, um URIs für Ressourcen zu
+            erzeugen, die über Vite abgerufen werden sollen, entweder vom Vite-Dev-Server
+            oder von statischen Dateien, die Vite build erzeugt hat.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Vite.IViteUriProvider.MakeUri(System.String)">
+            <summary>
+            Erzeugt die URI für eine angefragte Ressource.
+            </summary>
+            <param name="ressourcePath">Der Pfad der angefragten Ressource.</param>
+            <returns>Die erzeugte URI.</returns>
+        </member>
+        <member name="T:Budgeteer.Lib.Vite.TagHelpers.ViteImageTagHelper">
+            <summary>
+            Dieser Tag-Helper hilft, Bilder vom Vite-dev-Server abzurufen.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Vite.TagHelpers.ViteImageTagHelper.#ctor(Budgeteer.Lib.Vite.ViteConfig,Budgeteer.Lib.Vite.IViteUriProvider)">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Vite.TagHelpers.ViteImageTagHelper"/> Klasse.
+            </summary>
+            <param name="config">Die Vite-Konfiguration.</param>
+            <param name="uriProvider">Der Dienst zum Erzeugen der URIs.</param>
+        </member>
+        <member name="P:Budgeteer.Lib.Vite.TagHelpers.ViteImageTagHelper.Source">
+            <summary>
+            Holt oder setzt den Pfad zur gesuchten Datei.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Vite.TagHelpers.ViteImageTagHelper.Render(Microsoft.AspNetCore.Html.IHtmlContent)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Budgeteer.Lib.Vite.TagHelpers.ViteLinkTagHelper">
+            <summary>
+            Dieser Tag-Helper erzeugt einen &lt;link&gt;-Tag mit einer
+            von Vite bereitgestellten Href.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Vite.TagHelpers.ViteLinkTagHelper.#ctor(Budgeteer.Lib.Vite.ViteConfig,Budgeteer.Lib.Vite.IViteUriProvider)">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Vite.TagHelpers.ViteLinkTagHelper"/> Klasse.
+            </summary>
+            <param name="config">Die Vite-Konfiguration.</param>
+            <param name="uriProvider">Der Dienst zum Erzeugen der URIs.</param>
+        </member>
+        <member name="P:Budgeteer.Lib.Vite.TagHelpers.ViteLinkTagHelper.Source">
+            <summary>
+            Holt oder setzt den Pfad zur gesuchten Datei.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Vite.TagHelpers.ViteLinkTagHelper.Render(Microsoft.AspNetCore.Html.IHtmlContent)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Budgeteer.Lib.Vite.TagHelpers.ViteScriptTagHelper">
+            <summary>
+            Dieser Tag-Helper hilft, Skripte vom Vite-dev-Server abzurufen.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Vite.TagHelpers.ViteScriptTagHelper.#ctor(Budgeteer.Lib.Vite.ViteConfig,Budgeteer.Lib.Vite.IViteUriProvider)">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Vite.TagHelpers.ViteScriptTagHelper"/> Klasse.
+            </summary>
+            <param name="config">Die Vite-Konfiguration.</param>
+            <param name="uriProvider">Der Dienst zum Erzeugen der URIs.</param>
+        </member>
+        <member name="P:Budgeteer.Lib.Vite.TagHelpers.ViteScriptTagHelper.Source">
+            <summary>
+            Holt oder setzt den Pfad zur gesuchten Datei.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Vite.TagHelpers.ViteScriptTagHelper.Render(Microsoft.AspNetCore.Html.IHtmlContent)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Budgeteer.Lib.Vite.TagHelpers.ViteStyleTagHelper">
+            <summary>
+            Dieser Tag-Helper hilft, Style vom Vite-dev-Server abzurufen.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Vite.TagHelpers.ViteStyleTagHelper.#ctor(Budgeteer.Lib.Vite.ViteConfig,Budgeteer.Lib.Vite.IViteUriProvider)">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Vite.TagHelpers.ViteStyleTagHelper"/> Klasse.
+            </summary>
+            <param name="config">Die Vite-Konfiguration.</param>
+            <param name="uriProvider">Der Dienst zum Erzeugen der URIs.</param>
+        </member>
+        <member name="P:Budgeteer.Lib.Vite.TagHelpers.ViteStyleTagHelper.Source">
+            <summary>
+            Holt oder setzt den Pfad zur gesuchten Datei.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Vite.TagHelpers.ViteStyleTagHelper.Render(Microsoft.AspNetCore.Html.IHtmlContent)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Budgeteer.Lib.Vite.TagHelpers.ViteTagHelperBase">
+            <summary>
+            Stellt die Basisklasse für Tag-Helper dar die, die Skripte oder Style über den Vite-dev-Server einbinden.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Vite.TagHelpers.ViteTagHelperBase.#ctor(Budgeteer.Lib.Vite.ViteConfig,Budgeteer.Lib.Vite.IViteUriProvider)">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Vite.TagHelpers.ViteTagHelperBase"/> Klasse.
+            </summary>
+            <param name="config">Die Vite-Konfiguration.</param>
+            <param name="uriProvider">Der Dienst zum Erzeugen der URIs.</param>
+        </member>
+        <member name="P:Budgeteer.Lib.Vite.TagHelpers.ViteTagHelperBase.Config">
+            <summary>
+            Holt die Vite-Konfiguration.
+            </summary>
+        </member>
+        <member name="P:Budgeteer.Lib.Vite.TagHelpers.ViteTagHelperBase.UriProvider">
+            <summary>
+            Holt den Dienst zum Erzeugen der URIs.
+            </summary>
+        </member>
+        <member name="T:Budgeteer.Lib.Vite.ViteConfig">
+            <summary>
+            Stellt die Konfiguration für Vite dar.
+            </summary>
+        </member>
+        <member name="P:Budgeteer.Lib.Vite.ViteConfig.DevServerUri">
+            <summary>
+            Holt oder setzt die URI des Vite-Dev-Servers.
+            </summary>
+        </member>
+        <member name="P:Budgeteer.Lib.Vite.ViteConfig.ViteManifestPath">
+            <summary>
+            Holt oder setzt den Pfad zum Vite-Manifest.
+            </summary>
+        </member>
+        <member name="P:Budgeteer.Lib.Vite.ViteConfig.UseDevServer">
+            <summary>
+            Holt oder setzt einen Wert, der angibt, ob der Devserver genutzt werden soll oder
+            ob die statischen Dateien abgerufen werden sollen.
+            </summary>
+        </member>
+        <member name="T:Budgeteer.Lib.Vite.ViteManifest">
+            <summary>
+            Stellt das Vite-Manifest dar, das ggf. aus dem wwwroot-Ordner ausgelesen wurde.
+            </summary>
+        </member>
+        <member name="F:Budgeteer.Lib.Vite.ViteManifest.config">
+            <summary>
+            Die aktuelle Vite-Konfiguration.
+            </summary>
+        </member>
+        <member name="F:Budgeteer.Lib.Vite.ViteManifest.entries">
+            <summary>
+            Enthält alle Einträge des Manifests.
+            </summary>
+        </member>
+        <member name="F:Budgeteer.Lib.Vite.ViteManifest.logger">
+            <summary>
+            Der genutzte Logger.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Vite.ViteManifest.#ctor(Microsoft.Extensions.Logging.ILogger{Budgeteer.Lib.Vite.ViteManifest},Budgeteer.Lib.Vite.ViteConfig)">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Vite.ViteManifest"/> Klasse.
+            </summary>
+            <param name="logger">Der zu nutzende Logger.</param>
+            <param name="config">Die zu nutzende Vite-Konfiguration.</param>
+        </member>
+        <member name="P:Budgeteer.Lib.Vite.ViteManifest.Item(System.String)">
+            <summary>
+            Ruft den Eintrag für die Ressource mit dem gegebenen
+            Pfad ab. Falls eine solche Ressource nicht im Manifest
+            gefunden wurde, wird ein Eintrag mit Standardwerten
+            zurückgegeben.
+            </summary>
+            <param name="ressourcePath">Der Pfad der gesuchten Ressource.</param>
+            <returns>Der Eintrag für die Ressource.</returns>
+        </member>
+        <member name="M:Budgeteer.Lib.Vite.ViteManifest.ReadManifest">
+            <summary>
+            Liest das Vite-Manifest aus und gibt entweder die gelesenen
+            Eintäge zurück oder null, wenn das Manifest nicht vorhanden war oder nicht
+            genutzt werden soll.
+            </summary>
+            <returns>Die gelesenen Manifest-Einträge oder null, wenn kein Manifest nötig oder vorhanden ist.</returns>
+        </member>
+        <member name="T:Budgeteer.Lib.Vite.ViteManifestEntry">
+            <summary>
+            Stellt einen Eintrag des Vite-Manifests dar.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Vite.ViteManifestEntry.#ctor">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Vite.ViteManifestEntry"/> Klasse.
+            </summary>
+        </member>
+        <member name="P:Budgeteer.Lib.Vite.ViteManifestEntry.File">
+            <summary>
+            Holt oder setzt den PFad zur Datei, die diese Ressource enthält.
+            </summary>
+        </member>
+        <member name="T:Budgeteer.Lib.Vite.ViteUriProvider">
+            <summary>
+            Die Standardimplementierung von <see cref="T:Budgeteer.Lib.Vite.IViteUriProvider"/>.
+            </summary>
+        </member>
+        <member name="F:Budgeteer.Lib.Vite.ViteUriProvider.devServerUri">
+            <summary>
+            Holt die Basis-URI des Vite-Dev-Servers.
+            </summary>
+        </member>
+        <member name="F:Budgeteer.Lib.Vite.ViteUriProvider.config">
+            <summary>
+            Die Vite-Konfiguration.
+            </summary>
+        </member>
+        <member name="F:Budgeteer.Lib.Vite.ViteUriProvider.manifest">
+            <summary>
+            Das ausgelesene Vite-Manifest.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.Lib.Vite.ViteUriProvider.#ctor(Budgeteer.Lib.Vite.ViteConfig,Budgeteer.Lib.Vite.ViteManifest)">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:Budgeteer.Lib.Vite.ViteUriProvider"/> Klasse.
+            </summary>
+            <param name="config">Die Vite-Konfiguration.</param>
+            <param name="manifest">Das Vite-Manifest.</param>
+        </member>
+        <member name="M:Budgeteer.Lib.Vite.ViteUriProvider.MakeUri(System.String)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

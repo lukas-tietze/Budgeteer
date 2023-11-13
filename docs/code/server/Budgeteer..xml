@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Budgeteer.App</name>
+    </assembly>
+    <members>
+        <member name="T:Budgeteer.App.Controllers.ControllerBase">
+            <summary>
+            Stellt die Basisklasse für alle Controller der Anwendung dar.
+            </summary>
+        </member>
+        <member name="T:Budgeteer.App.Controllers.HomeController">
+            <summary>
+            Dieser Controller liefert die Startseite aus.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.App.Controllers.HomeController.Index">
+            <summary>
+            Liefert die Startseite aus.
+            </summary>
+            <returns>Die gerenderte Seite.</returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,9 @@
+D:\Entwicklung\Projekte\Budgeteer\bin\Release\net7.0\publish\Budgeteer.exe
+D:\Entwicklung\Projekte\Budgeteer\bin\Release\net7.0\publish\appsettings.Development.json
+D:\Entwicklung\Projekte\Budgeteer\bin\Release\net7.0\publish\appsettings.json
+D:\Entwicklung\Projekte\Budgeteer\bin\Release\net7.0\publish\Client\package.json
+D:\Entwicklung\Projekte\Budgeteer\bin\Release\net7.0\publish\Client\tsconfig.json
+D:\Entwicklung\Projekte\Budgeteer\bin\Release\net7.0\publish\Budgeteer.dll
+D:\Entwicklung\Projekte\Budgeteer\bin\Release\net7.0\publish\Budgeteer.deps.json
+D:\Entwicklung\Projekte\Budgeteer\bin\Release\net7.0\publish\Budgeteer.runtimeconfig.json
+D:\Entwicklung\Projekte\Budgeteer\bin\Release\net7.0\publish\Budgeteer.pdb
