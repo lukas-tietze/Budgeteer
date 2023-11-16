@@ -55,8 +55,6 @@ public class ViteScriptsTagHelper : ViteScriptInfraStructureTagHelperBase
             collection.Add(tagHelper.Render());
         }
 
-        var commonTagHelper = new ViteCommonTagHelper(this.config, this.uriProvider);
-
-        return collection.Add(commonTagHelper.Render());
+        return collection.Add($"<script src=\"{this.uriProvider.MakeUri("@vite/client")}\" type=\"module\"></script>".ToHTmlContent(escape: false));
     }
 }

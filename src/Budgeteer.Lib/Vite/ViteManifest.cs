@@ -37,14 +37,21 @@ internal class ViteManifest : IViteDependencyProvider
     private readonly ILogger<ViteManifest> logger;
 
     /// <summary>
+    /// Das Objekt mit Informationen zur Hosting-Umgebung.
+    /// </summary>
+    private readonly IWebHostEnvironment webHostEnvironment;
+
+    /// <summary>
     /// Initialisiert eine neue Instanz der <see cref="ViteManifest"/> Klasse.
     /// </summary>
     /// <param name="logger">Der zu nutzende Logger.</param>
     /// <param name="config">Die zu nutzende Vite-Konfiguration.</param>
-    public ViteManifest(ILogger<ViteManifest> logger, ViteConfig config)
+    /// <param name="webHostEnvironment">Das Objekt mit Informationen zur Hosting-Umgebung.</param>
+    public ViteManifest(ILogger<ViteManifest> logger, ViteConfig config, IWebHostEnvironment webHostEnvironment)
     {
         this.logger = logger;
         this.config = config;
+        this.webHostEnvironment = webHostEnvironment;
         this.entries = this.ReadManifest() ?? new();
     }
 
@@ -80,14 +87,14 @@ internal class ViteManifest : IViteDependencyProvider
     /// <returns>Die gelesenen Manifest-Einträge oder null, wenn kein Manifest nötig oder vorhanden ist.</returns>
     private Dictionary<string, ViteManifestEntry>? ReadManifest()
     {
-        if (this.config.StaticFileConfiguration is null)
+        if (this.webHostEnvironment.IsDevelopment())
         {
             this.logger.LogInformation("Using vite dev server, vite manifest will be ignored.");
 
             return null;
         }
 
-        var file = this.config.StaticFileConfiguration.ViteManifestPath;
+        var file = this.config.ViteManifestPath;
 
         this.logger.LogInformation($"Reading vite manifest. Provided path \"{file}\"");
 
