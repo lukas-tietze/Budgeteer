@@ -8,8 +8,10 @@ namespace Budgeteer.Lib.Vite;
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
-using Microsoft.AspNetCore.Hosting;
+using Budgeteer.Lib.Vite.TagHelpers;
+
 using Microsoft.Extensions.Logging;
 
 using Newtonsoft.Json;
@@ -17,17 +19,12 @@ using Newtonsoft.Json;
 /// <summary>
 /// Stellt das Vite-Manifest dar, das ggf. aus dem wwwroot-Ordner ausgelesen wurde.
 /// </summary>
-internal class ViteManifest
+internal class ViteManifest : IViteDependencyProvider
 {
     /// <summary>
     /// Die aktuelle Vite-Konfiguration.
     /// </summary>
     private readonly ViteConfig config;
-
-    /// <summary>
-    /// Das Objekt mit Informationen zur Hosting-Umgebung.
-    /// </summary>
-    private readonly IWebHostEnvironment environment;
 
     /// <summary>
     /// Enthält alle Einträge des Manifests.
@@ -44,12 +41,10 @@ internal class ViteManifest
     /// </summary>
     /// <param name="logger">Der zu nutzende Logger.</param>
     /// <param name="config">Die zu nutzende Vite-Konfiguration.</param>
-    /// <param name="environment">Das Objekt mit Informationen zur Hosting-Umgebung.</param>
-    public ViteManifest(ILogger<ViteManifest> logger, ViteConfig config, IWebHostEnvironment environment)
+    public ViteManifest(ILogger<ViteManifest> logger, ViteConfig config)
     {
         this.logger = logger;
         this.config = config;
-        this.environment = environment;
         this.entries = this.ReadManifest() ?? new();
     }
 
@@ -64,6 +59,19 @@ internal class ViteManifest
     public ViteManifestEntry this[string ressourcePath] =>
         this.entries.GetValueOrDefault(ressourcePath) ?? new ViteManifestEntry { File = ressourcePath };
 
+    /// <inheritdoc/>
+    public IEnumerable<(DependencyType Type, string Path)> ListDependencies(string entryPoint)
+    {
+        var entry = this[entryPoint];
+
+        var list = new List<(DependencyType Type, string Path)>();
+
+        list.AddRange(entry.Assets.Select(e => (DependencyType.Asset, e)));
+        list.AddRange(entry.Styles.Select(e => (DependencyType.Style, e)));
+
+        return list;
+    }
+
     /// <summary>
     /// Liest das Vite-Manifest aus und gibt entweder die gelesenen
     /// Eintäge zurück oder null, wenn das Manifest nicht vorhanden war oder nicht
@@ -72,14 +80,14 @@ internal class ViteManifest
     /// <returns>Die gelesenen Manifest-Einträge oder null, wenn kein Manifest nötig oder vorhanden ist.</returns>
     private Dictionary<string, ViteManifestEntry>? ReadManifest()
     {
-        if (this.environment.IsDevelopment())
+        if (this.config.StaticFileConfiguration is null)
         {
             this.logger.LogInformation("Using vite dev server, vite manifest will be ignored.");
 
             return null;
         }
 
-        var file = this.config.ViteManifestPath;
+        var file = this.config.StaticFileConfiguration.ViteManifestPath;
 
         this.logger.LogInformation($"Reading vite manifest. Provided path \"{file}\"");
 

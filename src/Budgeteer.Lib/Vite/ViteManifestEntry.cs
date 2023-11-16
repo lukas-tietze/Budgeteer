@@ -6,7 +6,9 @@
 
 namespace Budgeteer.Lib.Vite;
 
-using System.Text.Json.Serialization;
+using System;
+
+using Newtonsoft.Json;
 
 /// <summary>
 /// Stellt einen Eintrag des Vite-Manifests dar.
@@ -14,20 +16,26 @@ using System.Text.Json.Serialization;
 internal class ViteManifestEntry
 {
     /// <summary>
-    /// Initialisiert eine neue Instanz der <see cref="ViteManifestEntry"/> Klasse.
+    /// Holt oder setzt die Sammlung der von der Datei importierten Assets.
     /// </summary>
-    protected internal ViteManifestEntry()
-    {
-        this.File = string.Empty;
-    }
+    [JsonProperty("assets")]
+    public string[] Assets { get; set; } = Array.Empty<string>();
 
     /// <summary>
     /// Holt oder setzt den PFad zur Datei, die diese Ressource enthält.
     /// </summary>
-    [JsonPropertyName("file")]
-    public string File
-    {
-        get;
-        set;
-    }
+    [JsonProperty("file")]
+    public string File { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Holt oder setzt die Sammlung der dynamischen Importe der Datei.
+    /// </summary>
+    [JsonProperty("dynamicImports")]
+    public string[] Scripts { get; set; } = Array.Empty<string>();
+
+    /// <summary>
+    /// Holt oder setzt die Sammlung der von der Datei importierten Stylesheets.
+    /// </summary>
+    [JsonProperty("css")]
+    public string[] Styles { get; set; } = Array.Empty<string>();
 }

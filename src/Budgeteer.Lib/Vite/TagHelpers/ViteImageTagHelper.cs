@@ -10,7 +10,6 @@ using Budgeteer.Lib.Taghelpers;
 using Budgeteer.Lib.Vite;
 
 using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 /// <summary>
@@ -45,7 +44,7 @@ public sealed class ViteImageTagHelper : ViteTagHelperBase
     {
         var uri = this.UriProvider.MakeUri(this.Source);
 
-        return new FluentTagBuilder("img", TagRenderMode.SelfClosing)
+        return new FluentTagBuilder("img")
             .SetAttributes(this.Attributes)
             .SetAttribute("src", uri, true);
     }

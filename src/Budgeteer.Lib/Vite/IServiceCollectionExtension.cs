@@ -6,8 +6,6 @@
 
 namespace Budgeteer.Lib.Vite;
 
-using System;
-
 using Microsoft.Extensions.DependencyInjection;
 
 /// <summary>

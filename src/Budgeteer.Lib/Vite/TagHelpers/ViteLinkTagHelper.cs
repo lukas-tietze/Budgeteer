@@ -10,7 +10,6 @@ using Budgeteer.Lib.Taghelpers;
 using Budgeteer.Lib.Vite;
 
 using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 /// <summary>
@@ -46,7 +45,7 @@ public sealed class ViteLinkTagHelper : ViteTagHelperBase
     {
         var uri = this.UriProvider.MakeUri(this.Source);
 
-        return new FluentTagBuilder("link", TagRenderMode.SelfClosing)
+        return new FluentTagBuilder("link")
             .SetAttributes(this.Attributes)
             .SetAttribute("href", uri, true);
     }
