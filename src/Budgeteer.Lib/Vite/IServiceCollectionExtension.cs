@@ -6,6 +6,8 @@
 
 namespace Budgeteer.Lib.Vite;
 
+using Budgeteer.Lib.Vite.TagHelpers;
+
 using Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
@@ -22,5 +24,6 @@ public static class IServiceCollectionExtension
     public static IServiceCollection AddVite(this IServiceCollection services, ViteConfig config) => services
         .AddSingleton(config)
         .AddSingleton<IViteUriProvider, ViteUriProvider>()
+        .AddSingleton<IViteDependencyProvider, ViteManifest>()
         .AddSingleton<ViteManifest>();
 }

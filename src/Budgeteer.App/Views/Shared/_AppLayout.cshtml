@@ -1,0 +1,29 @@
+@using Budgeteer.App.Config
+
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+    @{
+        var config = Context.Items["Config"] as AppConfig ?? throw new NotSupportedException();
+    }
+    <base href="@(config.Paths.BaseHref)" />
+    <vite-link href="favicon.ico" />
+
+    <vite-require-script src="index.ts" />
+
+    <vite-head />
+</head>
+
+<body>
+    @RenderBody()
+
+    <noscript>
+        <div class="h-screen w-screen flex flex-row items-center justify-center">
+            Bitte aktivieren Sie JavaScript, um diese Seite zu nutzen.
+        </div>
+    </noscript>
+
+    <vite-scripts />
+</body>
+</html>

@@ -1,0 +1,22 @@
+@using Budgeteer.App.Config
+
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+    @{
+        var config = ViewData["Config"] as AppConfig ?? throw new NotSupportedException();
+    }
+    <base href="@(config.Paths.BaseHref)" />
+
+    <vite-style src="index.scss" />
+    <vite-require-script src="index.ts" />
+
+    <vite-head />
+</head>
+
+<body>
+    @RenderBody();
+    <vite-scripts />
+</body>
+</html>

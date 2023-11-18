@@ -4,6 +4,26 @@
         <name>Budgeteer.App</name>
     </assembly>
     <members>
+        <member name="T:Budgeteer.App.Config.AppConfig">
+            <summary>
+            Stellt die Anwendungskonfiguration dar.
+            </summary>
+        </member>
+        <member name="P:Budgeteer.App.Config.AppConfig.Paths">
+            <summary>
+            Holt oder setzt die Konfiguration der Anwendungspfade.
+            </summary>
+        </member>
+        <member name="T:Budgeteer.App.Config.PathConfig">
+            <summary>
+            Stellt die Konfiguration verschiedener Pfade bereit.
+            </summary>
+        </member>
+        <member name="P:Budgeteer.App.Config.PathConfig.BaseHref">
+            <summary>
+            Holt oder setzt den Wert für &lt;base href="..."/&gt;.
+            </summary>
+        </member>
         <member name="T:Budgeteer.App.Controllers.ControllerBase">
             <summary>
             Stellt die Basisklasse für alle Controller der Anwendung dar.
@@ -19,6 +39,11 @@
             Liefert die Startseite aus.
             </summary>
             <returns>Die gerenderte Seite.</returns>
+        </member>
+        <member name="T:Budgeteer.App.Middleware.InjectionMiddleware">
+            <summary>
+            
+            </summary>
         </member>
     </members>
 </doc>

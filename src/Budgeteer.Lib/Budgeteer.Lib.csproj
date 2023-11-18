@@ -7,6 +7,7 @@
 
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>..\..\docs\code\server\Budgeteer.$(ProjectName).xml</DocumentationFile>
+		<OutputType>Library</OutputType>
 	</PropertyGroup>
 
 	<ItemGroup>
