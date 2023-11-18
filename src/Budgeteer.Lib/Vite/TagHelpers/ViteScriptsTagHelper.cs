@@ -50,9 +50,7 @@ public class ViteScriptsTagHelper : ViteScriptInfraStructureTagHelperBase
 
         foreach (var script in this.RequiredScripts)
         {
-            var tagHelper = new ViteScriptTagHelper(this.config, this.uriProvider) { Source = script };
-
-            collection.Add(tagHelper.Render());
+            collection.Add($"<script src=\"{this.uriProvider.MakeUri(script)}\" type=\"module\"></script>".ToHTmlContent(escape: false));
         }
 
         return collection.Add($"<script src=\"{this.uriProvider.MakeUri("@vite/client")}\" type=\"module\"></script>".ToHTmlContent(escape: false));
