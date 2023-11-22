@@ -8,7 +8,6 @@ import TreeViewNode from "./TreeViewNode.vue";
 
 <script lang="ts">
 import { TreeViewItem } from "./TreeViewItem";
-import { Inertia } from "@inertiajs/inertia";
 
 export default {
   props: {
@@ -22,7 +21,8 @@ export default {
   },
   methods: {
     deleteEntry(item: TreeViewItem) {
-      Inertia.delete(`${this.resourceUrl}/${item.slug}`);
+      // TODO: Wiederherstellen
+      // Inertia.delete(`${this.resourceUrl}/${item.slug}`);
     },
   },
 };

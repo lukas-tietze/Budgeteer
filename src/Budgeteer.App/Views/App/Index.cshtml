@@ -1,3 +1,7 @@
+@{
+    Layout = null;
+}
+
 @using Budgeteer.App.Config
 
 <!DOCTYPE html>
@@ -10,13 +14,14 @@
     <base href="@(config.Paths.BaseHref)" />
     <vite-link href="favicon.ico" />
 
-    <vite-require-script src="index.ts" />
+    <vite-require-script src="ts/index.ts" />
+    <vite-style src="scss/index.scss" />
 
     <vite-head />
 </head>
 
-<body>
-    @RenderBody()
+<body class="w-screen h-screen flex flex-col">
+    <div id="App" class="flex-1 flex flex-col"></div>
 
     <noscript>
         <div class="h-screen w-screen flex flex-row items-center justify-center">

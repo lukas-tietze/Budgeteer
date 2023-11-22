@@ -1,10 +1,6 @@
-<script lang="ts" setup>
-import Layout from "../Layouts/Layout.vue";
-</script>
+<script lang="ts" setup></script>
 
-<template>
-  <Layout> Hello World</Layout>
-</template>
+<template>Hello World</template>
 
 <script lang="ts">
 export default {};

@@ -17,11 +17,11 @@ div > div:hover button {
     >
       <span class="flex-1"> {{ item.text }} </span>
 
-      <Link class="contents" :href="`${resourceUrl}/${item.slug}/edit`">
+      <RouterLink class="contents" :to="`${resourceUrl}/${item.slug}/edit`">
         <Button class="invisible" kind="success">
           <i class="fa-solid fa-pen"></i>
         </Button>
-      </Link>
+      </RouterLink>
 
       <Button class="invisible" kind="danger" @click="deleteEntry(item)">
         <i class="fa-solid fa-trash"></i>
@@ -32,7 +32,6 @@ div > div:hover button {
 
 <script lang="ts">
 import { ResourceListItem } from "./ResourceListItem";
-import { Inertia } from "@inertiajs/inertia";
 
 export default {
   props: {
@@ -46,7 +45,8 @@ export default {
   },
   methods: {
     deleteEntry(item: ResourceListItem) {
-      Inertia.delete(`${this.resourceUrl}/${item.slug}`)
+      // TODO: Wiederherstellen
+      // Inertia.delete(`${this.resourceUrl}/${item.slug}`)
     },
   },
 };

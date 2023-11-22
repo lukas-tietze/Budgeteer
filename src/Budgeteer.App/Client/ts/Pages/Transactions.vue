@@ -1,9 +1,8 @@
 <script lang="ts" setup>
-import Layout from "../Layouts/Layout.vue";
 </script>
 
 <template>
-  <Layout>Einnahmen und Ausgaben erfassen</Layout>
+  Einnahmen und Ausgaben erfassen
 </template>
 
 <script lang="ts">

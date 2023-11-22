@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="HomeController.cs" company="Lukas Tietze">
+// <copyright file="AppController.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
@@ -9,14 +9,16 @@ namespace Budgeteer.App.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
-/// Dieser Controller liefert die Startseite aus.
+/// Dieser Controller liefert die Vue-App aus.
 /// </summary>
-public class HomeController : ControllerBase
+[Route("[controller]")]
+public class AppController : ControllerBase
 {
     /// <summary>
-    /// Liefert einen Redirect zur Vue-App aus.
+    /// Liefert die Vue-Appaus.
     /// </summary>
-    /// <returns>Der Redirect-Befhehl.</returns>
+    /// <returns>Die gerenderte Seite.</returns>
     [HttpGet]
-    public IActionResult Index() => this.Redirect("/app");
+    [HttpGet("*")]
+    public IActionResult Index() => this.View();
 }

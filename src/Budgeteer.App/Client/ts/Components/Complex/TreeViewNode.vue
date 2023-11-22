@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import TreeViewNode from "./TreeViewNode.vue";
+import TreeViewNode from './TreeViewNode.vue';
 </script>
 
 <style>
@@ -22,11 +22,11 @@ import TreeViewNode from "./TreeViewNode.vue";
 
     <span class="flex-1"> {{ item?.text }} </span>
 
-    <Link class="contents" :href="`${resourceUrl}/${item?.slug}/edit`">
+    <RouterLink class="contents" :to="`${resourceUrl}/${item?.slug}/edit`">
       <Button class="invisible" kind="success">
         <i class="fa-solid fa-pen"></i>
       </Button>
-    </Link>
+    </RouterLink>
 
     <Button class="invisible" kind="danger" @click="$emit('delete', item)">
       <i class="fa-solid fa-trash"></i>
@@ -39,8 +39,8 @@ import TreeViewNode from "./TreeViewNode.vue";
 </template>
 
 <script lang="ts">
-import { TreeViewItem } from "./TreeViewItem";
-import { ResourceListItem } from "./ResourceListItem";
+import { TreeViewItem } from './TreeViewItem';
+import { ResourceListItem } from './ResourceListItem';
 
 export default {
   props: {

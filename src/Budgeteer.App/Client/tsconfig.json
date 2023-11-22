@@ -26,8 +26,9 @@
   "include": [
     "./ts/**/*.ts",
     "./ts/declarations.d.ts",
-    "./vite.config.ts"
-, "index.ts"  ],
+    "./vite.config.ts",
+    "ts/index.ts"
+  ],
   "exclude": [
     "./node_modules"
   ]

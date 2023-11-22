@@ -24,6 +24,17 @@
             Holt oder setzt den Wert für &lt;base href="..."/&gt;.
             </summary>
         </member>
+        <member name="T:Budgeteer.App.Controllers.AppController">
+            <summary>
+            Dieser Controller liefert die Vue-App aus.
+            </summary>
+        </member>
+        <member name="M:Budgeteer.App.Controllers.AppController.Index">
+            <summary>
+            Liefert die Vue-Appaus.
+            </summary>
+            <returns>Die gerenderte Seite.</returns>
+        </member>
         <member name="T:Budgeteer.App.Controllers.ControllerBase">
             <summary>
             Stellt die Basisklasse für alle Controller der Anwendung dar.
@@ -36,9 +47,9 @@
         </member>
         <member name="M:Budgeteer.App.Controllers.HomeController.Index">
             <summary>
-            Liefert die Startseite aus.
+            Liefert einen Redirect zur Vue-App aus.
             </summary>
-            <returns>Die gerenderte Seite.</returns>
+            <returns>Der Redirect-Befhehl.</returns>
         </member>
         <member name="T:Budgeteer.App.Middleware.InjectionMiddleware">
             <summary>

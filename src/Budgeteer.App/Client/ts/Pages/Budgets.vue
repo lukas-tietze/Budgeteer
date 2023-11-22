@@ -1,10 +1,6 @@
-<script lang="ts" setup>
-import Layout from "../Layouts/Layout.vue";
-</script>
+<script lang="ts" setup></script>
 
-<template>
-  <Layout>Budgets verwalten</Layout>
-</template>
+<template>Budgets verwalten</template>
 
 <script lang="ts">
 export default {};
