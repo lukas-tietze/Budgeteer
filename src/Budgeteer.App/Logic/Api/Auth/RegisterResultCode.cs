@@ -1,18 +1,14 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="PathConfig.cs" company="Lukas Tietze">
+// <copyright file="RegisterResultCode.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App.Config;
+namespace Budgeteer.App.Logic.Api.Auth;
 
 /// <summary>
-/// Stellt die Konfiguration verschiedener Pfade bereit.
+/// Stellt den Statuscode einer Registrierung dar.
 /// </summary>
-public class PathConfig
+public enum RegisterResultCode
 {
-    /// <summary>
-    /// Holt oder setzt den Wert für &lt;base href="..."/&gt;.
-    /// </summary>
-    public string BaseHref { get; set; } = string.Empty;
 }

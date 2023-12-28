@@ -19,7 +19,7 @@ export default {
   },
   data() {
     return {
-      uniqueId: IdService.nextRandom(),
+      uniqueId: IdService.next(),
     };
   },
 };

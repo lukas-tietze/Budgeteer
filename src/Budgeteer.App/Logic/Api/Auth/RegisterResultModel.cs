@@ -1,24 +1,18 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="AppController.cs" company="Lukas Tietze">
+// <copyright file="RegisterResultModel.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App.Controllers;
-
-using Microsoft.AspNetCore.Mvc;
+namespace Budgeteer.App.Logic.Api.Auth;
 
 /// <summary>
-/// Dieser Controller liefert die Vue-App aus.
+/// Modelliert das Ergebnis einer Registrierung.
 /// </summary>
-[Route("[controller]")]
-public class AppController : ControllerBase
+public class RegisterResultModel
 {
     /// <summary>
-    /// Liefert die Vue-Appaus.
+    /// Holt oder setzt den Ergebnis-Code.
     /// </summary>
-    /// <returns>Die gerenderte Seite.</returns>
-    [HttpGet]
-    [HttpGet("/{**catchAll}")]
-    public IActionResult Index() => this.View();
+    public RegisterResultCode Code { get; set; }
 }

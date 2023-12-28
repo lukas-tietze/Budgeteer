@@ -1,18 +1,14 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="PathConfig.cs" company="Lukas Tietze">
+// <copyright file="Budget.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App.Config;
+namespace Budgeteer.App.Data.Entities;
 
 /// <summary>
-/// Stellt die Konfiguration verschiedener Pfade bereit.
+/// Stellt ein konkret geplantes Budget dar.
 /// </summary>
-public class PathConfig
+public class Budget : PrincipalEntityBase
 {
-    /// <summary>
-    /// Holt oder setzt den Wert für &lt;base href="..."/&gt;.
-    /// </summary>
-    public string BaseHref { get; set; } = string.Empty;
 }

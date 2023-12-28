@@ -58,7 +58,7 @@ export default {
   },
   data() {
     return {
-      uniqueId: IdService.nextRandom(),
+      uniqueId: IdService.next(),
       selectedItem: undefined as SelectItem | undefined,
       dropDownOpened: false,
     };

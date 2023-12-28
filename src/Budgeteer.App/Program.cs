@@ -5,15 +5,36 @@
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
 using Budgeteer.App.Config;
+using Budgeteer.App.Data;
+using Budgeteer.App.Data.Entities.Auth;
 using Budgeteer.Lib.Vite;
 
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+var config = new AppConfig(builder.Configuration);
 
 // Add services to the container.
 builder.Services
     .AddHttpContextAccessor()
     .AddVite(new() { DevServerUri = "http://localhost:4173", })
-    .AddRazorPages();
+    .AddSingleton(config);
+
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+    options.SignIn.RequireConfirmedEmail = true;
+    options.User.RequireUniqueEmail = true;
+})
+.AddEntityFrameworkStores<AppDbContext>();
+
+builder.Services.AddDbContext<AppDbContext>(cfg => cfg
+    .UseSqlServer(builder.Configuration.GetConnectionString("Default"))
+    .EnableSensitiveDataLogging(builder.Environment.IsDevelopment())
+    .EnableThreadSafetyChecks(builder.Environment.IsDevelopment()));
+
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 var app = builder.Build();
 
@@ -24,9 +45,6 @@ if (!app.Environment.IsDevelopment())
     //// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
-var config = new AppConfig();
-app.Configuration.Bind(config);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

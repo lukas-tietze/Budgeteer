@@ -1,18 +1,16 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="PathConfig.cs" company="Lukas Tietze">
+// <copyright file="User.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App.Config;
+namespace Budgeteer.App.Data.Entities.Auth;
+
+using Microsoft.AspNetCore.Identity;
 
 /// <summary>
-/// Stellt die Konfiguration verschiedener Pfade bereit.
+/// Stellt einen Nutzer dar.
 /// </summary>
-public class PathConfig
+public class User : IdentityUser
 {
-    /// <summary>
-    /// Holt oder setzt den Wert für &lt;base href="..."/&gt;.
-    /// </summary>
-    public string BaseHref { get; set; } = string.Empty;
 }

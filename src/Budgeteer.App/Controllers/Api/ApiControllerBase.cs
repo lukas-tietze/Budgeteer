@@ -1,24 +1,15 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="AppController.cs" company="Lukas Tietze">
+// <copyright file="ApiControllerBase.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
 namespace Budgeteer.App.Controllers;
 
-using Microsoft.AspNetCore.Mvc;
-
 /// <summary>
-/// Dieser Controller liefert die Vue-App aus.
+/// Dieser Controller stellt die Basisklasse für alle Controller der API dar.
 /// </summary>
-[Route("[controller]")]
-public class AppController : ControllerBase
+public class ApiControllerBase : ControllerBase
 {
-    /// <summary>
-    /// Liefert die Vue-Appaus.
-    /// </summary>
-    /// <returns>Die gerenderte Seite.</returns>
-    [HttpGet]
-    [HttpGet("/{**catchAll}")]
-    public IActionResult Index() => this.View();
+
 }

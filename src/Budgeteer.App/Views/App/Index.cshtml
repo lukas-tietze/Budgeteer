@@ -1,16 +1,14 @@
+@using Budgeteer.App.Config
+@inject AppConfig config
+
 @{
     Layout = null;
 }
-
-@using Budgeteer.App.Config
 
 <!DOCTYPE html>
 
 <html lang="de">
 <head>
-    @{
-        var config = Context.Items["Config"] as AppConfig ?? throw new NotSupportedException();
-    }
     <base href="@(config.Paths.BaseHref)" />
     <vite-link href="favicon.ico" />
 
@@ -20,7 +18,9 @@
     <vite-head />
 </head>
 
-<body class="w-screen h-screen flex flex-col">
+<body class="w-screen h-screen flex flex-col overflow-auto">
+    <div class="hidden" id="ApiProps" data-api-url="@(config.Paths.BaseHref)api)"></div>
+
     <div id="App" class="flex-1 flex flex-col"></div>
 
     <noscript>

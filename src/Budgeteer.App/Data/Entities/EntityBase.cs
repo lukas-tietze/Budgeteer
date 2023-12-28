@@ -1,24 +1,23 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="AppController.cs" company="Lukas Tietze">
+// <copyright file="EntityBase.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App.Controllers;
+namespace Budgeteer.App.Data.Entities;
 
-using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+
+using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Dieser Controller liefert die Vue-App aus.
+/// Stellt die Basis aller Entitäten dar.
 /// </summary>
-[Route("[controller]")]
-public class AppController : ControllerBase
+public class EntityBase
 {
     /// <summary>
-    /// Liefert die Vue-Appaus.
+    /// Holt oder setzt die eindeutige Nummer des Eintrags.
     /// </summary>
-    /// <returns>Die gerenderte Seite.</returns>
-    [HttpGet]
-    [HttpGet("/{**catchAll}")]
-    public IActionResult Index() => this.View();
+    [Key]
+    public int Id { get; set; }
 }

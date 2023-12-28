@@ -11,17 +11,5 @@ export const IdService = {
    */
   next(): number {
     return counter++;
-  },
-
-  /**
-   * Liefert eine neue zufällige ID aus, die
-   * ein zufälliger hexadezimaler String ist.
-   *
-   * Es gibt keine Garantie, dass diese ID einzigartig ist.
-   *
-   * @returns Die erzeugte ID.
-   */
-  nextRandom(): string {
-    return Math.random().toString(16).substring(2);
-  },
+  }
 } as const;

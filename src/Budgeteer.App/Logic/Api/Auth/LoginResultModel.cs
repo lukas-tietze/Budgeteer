@@ -1,24 +1,18 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="AppController.cs" company="Lukas Tietze">
+// <copyright file="LoginResultModel.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App.Controllers;
-
-using Microsoft.AspNetCore.Mvc;
+namespace Budgeteer.App.Logic.Api.Auth;
 
 /// <summary>
-/// Dieser Controller liefert die Vue-App aus.
+/// Modelliert das Ergebnis eines Login-Prozesses.
 /// </summary>
-[Route("[controller]")]
-public class AppController : ControllerBase
+public class LoginResultModel
 {
     /// <summary>
-    /// Liefert die Vue-Appaus.
+    /// Holt oder setzt den Ergebniscode des Logins.
     /// </summary>
-    /// <returns>Die gerenderte Seite.</returns>
-    [HttpGet]
-    [HttpGet("/{**catchAll}")]
-    public IActionResult Index() => this.View();
+    public LoginResultCode Code { get; set; }
 }
