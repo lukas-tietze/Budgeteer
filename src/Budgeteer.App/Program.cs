@@ -7,6 +7,7 @@
 using Budgeteer.App.Config;
 using Budgeteer.App.Data;
 using Budgeteer.App.Data.Entities.Auth;
+using Budgeteer.App.Data.Seeding;
 using Budgeteer.Lib.Vite;
 
 using Microsoft.AspNetCore.Identity;
@@ -63,5 +64,7 @@ app.Use(async (context, next) =>
 });
 
 app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}");
+
+await Seeder.SeedAsync(app.Services);
 
 app.Run();
