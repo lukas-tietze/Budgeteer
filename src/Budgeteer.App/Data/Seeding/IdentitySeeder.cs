@@ -6,6 +6,8 @@
 
 namespace Budgeteer.App.Data.Seeding;
 
+using System.Runtime.CompilerServices;
+
 using Budgeteer.App.Data.Entities.Auth;
 
 using Microsoft.AspNetCore.Identity;
@@ -34,7 +36,7 @@ public static class IdentitySeeder
         /// Stellt beim sicher, das der gegebene Nutzer initial angelegt ist.
         /// </summary>
         /// <param name="role">Die Daten des anzulegenden Nutzers.</param>
-        /// <returns>Einen <see cref="IFluentUserBuilder"/>, um den Nutzer weiter zu konfigurieren.</returns>
+        /// <returns>Einen <see cref="IFluentUserBuilder"/>, um die Rolle weiter zu konfigurieren.</returns>
         IFluentRoleBuilder HasRole(InitialRole role);
     }
 
@@ -44,6 +46,12 @@ public static class IdentitySeeder
     /// </summary>
     public interface IFluentRoleBuilder : IFluentBuilder
     {
+        /// <summary>
+        /// Ordnet der zuletzt konfigurierten Rolle Claims zu.
+        /// </summary>
+        /// <param name="claimNames">Die Bezeichnungen der Claims, die der Rolle zugeordnet werden sollen.</param>
+        /// <returns>Einen <see cref="IFluentRoleBuilder"/>, um die Rolle weiter zu konfigurieren.</returns>
+        IFluentRoleBuilder HasRoleClaims(params string[] claimNames);
     }
 
     /// <summary>
@@ -58,6 +66,13 @@ public static class IdentitySeeder
         /// <param name="roleNames">Die Bezeichnungen der Rollen, die dem Nutzer zugeordnet werden sollen.</param>
         /// <returns>Einen <see cref="IFluentUserBuilder"/>, um den Nutzer weiter zu konfigurieren.</returns>
         IFluentUserBuilder WithRoles(params string[] roleNames);
+
+        /// <summary>
+        /// Ordnet dem zuletzt konfigurierten Nutzer Claims zu.
+        /// </summary>
+        /// <param name="claimNames">Die Bezeichnungen der Claims, die dem Nutzer zugeordnet werden sollen.</param>
+        /// <returns>Einen <see cref="IFluentRoleBuilder"/>, um den Nutzer weiter zu konfigurieren.</returns>
+        IFluentUserBuilder HasUserClaims(params string[] claimNames);
     }
 
     /// <summary>
@@ -72,7 +87,17 @@ public static class IdentitySeeder
 
         builderFn(builder);
 
-        await SeedUsersAsync(services, builder.Users);
+        var userClaimMap = builder.UserMailClaimMapping
+            .GroupBy(tpl => tpl.UserMail, tpl => tpl.Claim)
+            .ToDictionary(g => g.Key, g => g.AsEnumerable());
+
+        await SeedRolesAsync(services, builder.Roles, userClaimMap);
+
+        var roleClaimMap = builder.RoleNameClaimMapping
+            .GroupBy(tpl => tpl.RoleName, tpl => tpl.Claim)
+            .ToDictionary(g => g.Key, g => g.AsEnumerable());
+
+        await SeedUsersAsync(services, builder.Users, roleClaimMap);
     }
 
     /// <summary>
@@ -80,32 +105,33 @@ public static class IdentitySeeder
     /// </summary>
     /// <param name="services">Der zu nutzende DI-Container.</param>
     /// <param name="users">Die initialen Nutzer.</param>
+    /// <param name="claimMap">Die Abbildung der Rollen auf die zugehörigen Claims.</param>
     /// <returns>Eine <see cref="Task"/>-Instanz, die die asynchrone Bearbeitung der Methode darstellt.</returns>
-    private static async Task SeedUsersAsync(this IServiceProvider services, IEnumerable<InitialUser> users)
+    private static async Task SeedUsersAsync(this IServiceProvider services, IEnumerable<InitialUser> users, IReadOnlyDictionary<string, IEnumerable<string>> claimMap)
     {
-        var context = services.GetRequiredService<AppDbContext>();
-        var requiredMails = users.Select(u => u.EMail.ToUpper());
+        var userManager = services.GetRequiredService<UserManager<User>>();
+        var requiredMails = users.Select(u => userManager.NormalizeEmail(u.EMail));
 
-        var existingRequiredMails = context.Users
+        var existingRequiredMails = userManager.Users
             .Where(u => requiredMails.Contains(u.NormalizedEmail))
             .Select(u => u.NormalizedEmail)
             .ToList();
 
         var missingMails = requiredMails.Except(existingRequiredMails).ToHashSet();
 
-        if (missingMails.Count > 0)
+        foreach (var missingUser in users.Where(u => missingMails.Contains(userManager.NormalizeEmail(u.EMail))))
         {
-            var userManager = services.GetRequiredService<UserManager<User>>();
-
-            foreach (var missingUser in users.Where(u => missingMails.Contains(u.EMail.ToUpper())))
+            var user = new User
             {
-                var user = new User
-                {
-                    Email = missingUser.EMail,
-                    EmailConfirmed = true,
-                };
+                Email = missingUser.EMail,
+                EmailConfirmed = true,
+            };
 
-                await userManager.CreateAsync(user, missingUser.Password);
+            await userManager.CreateAsync(user, missingUser.Password);
+
+            if (claimMap.TryGetValue(user.Email, out var claimList))
+            {
+                await userManager.AddClaimsAsync(user, claimList.Select(c => new System.Security.Claims.Claim()));
             }
         }
     }
@@ -115,8 +141,9 @@ public static class IdentitySeeder
     /// </summary>
     /// <param name="services">Der zu nutzende DI-Container.</param>
     /// <param name="roles">Die initialen Rollen.</param>
+    /// <param name="claimMap">Die Abbildung der Nutzer-Mails auf die zugehörigen Claims.</param>
     /// <returns>Eine <see cref="Task"/>-Instanz, die die asynchrone Bearbeitung der Methode darstellt.</returns>
-    private static async Task SeedRolesAsync(this IServiceProvider services, IEnumerable<InitialRole> roles)
+    private static async Task SeedRolesAsync(this IServiceProvider services, IEnumerable<InitialRole> roles, IReadOnlyDictionary<string, IEnumerable<string>> claimMap)
     {
         var context = services.GetRequiredService<AppDbContext>();
         var requiredRoleNames = roles.Select(u => u.Name.ToUpper());
@@ -140,7 +167,7 @@ public static class IdentitySeeder
                     EmailConfirmed = true,
                 };
 
-                await userManager.CreateAsync(user, missingUser.Password);
+                await roleManager.CreateAsync(user, missingUser.Password);
             }
         }
     }
@@ -153,12 +180,12 @@ public static class IdentitySeeder
         /// <summary>
         /// Holt oder setzt den Anzeigenamen der Rolle.
         /// </summary>
-        public required string DisplayName { get; set; }
+        public string DisplayName { get; set; } = string.Empty;
 
         /// <summary>
-        /// Holt oder setzt die Bezeichnung der Rolle, die deren Primärschlüssel darstellt.
+        /// Holt die Bezeichnung der Rolle, die deren Primärschlüssel darstellt.
         /// </summary>
-        public required string Name { get; set; }
+        public required string Name { get; init; }
     }
 
     /// <summary>
@@ -167,9 +194,9 @@ public static class IdentitySeeder
     public class InitialUser
     {
         /// <summary>
-        /// Holt oder setzt die E-Mail-Adresse des Nutzers.
+        /// Holt die E-Mail-Adresse des Nutzers.
         /// </summary>
-        public required string EMail { get; set; }
+        public required string EMail { get; init; }
 
         /// <summary>
         /// Holt oder setzt den Nutzernamen.
@@ -209,6 +236,18 @@ public static class IdentitySeeder
         public List<(string UserMail, string Role)> UserMailRoleMapping { get; } = new();
 
         /// <summary>
+        /// Holt eine Sammlung von Schlüssel-Wert-Paaren, die eine Abbildung von
+        /// E-Mail-Adressen initialer Nutzer auf die ihnen zugeordneten Claims darstellt.
+        /// </summary>
+        public List<(string UserMail, string Claim)> UserMailClaimMapping { get; } = new();
+
+        /// <summary>
+        /// Holt eine Sammlung von Schlüssel-Wert-Paaren, die eine Abbildung von
+        /// Rollen auf die ihnen zugeordneten Claims darstellt.
+        /// </summary>
+        public List<(string RoleName, string Claim)> RoleNameClaimMapping { get; } = new();
+
+        /// <summary>
         /// Holt die Auflistung der initialen Nutzer.
         /// </summary>
         public List<InitialUser> Users { get; } = new();
@@ -242,6 +281,28 @@ public static class IdentitySeeder
 
             this.activeUser = user;
             this.activeRole = null;
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public IFluentUserBuilder HasUserClaims(params string[] claimNames)
+        {
+            if (this.activeUser != null)
+            {
+                this.UserMailClaimMapping.AddRange(claimNames.Select(c => (this.activeUser.EMail, c)));
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public IFluentRoleBuilder HasRoleClaims(params string[] claimNames)
+        {
+            if (this.activeRole != null)
+            {
+                this.RoleNameClaimMapping.AddRange(claimNames.Select(c => (this.activeRole.Name, c)));
+            }
 
             return this;
         }

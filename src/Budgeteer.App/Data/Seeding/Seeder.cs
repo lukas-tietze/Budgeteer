@@ -15,9 +15,10 @@ public static class Seeder
     /// Initialisiert die Datenbank mit vorgegebenen Daten.
     /// </summary>
     /// <param name="services">Die Sammlung der Dienste.</param>
+    /// <returns>Eine <see cref="Task"/>-Instanz, die die asynchrone Bearbeitung der Methode darstellt.</returns>
     public static async Task SeedAsync(IServiceProvider services)
     {
-        services.SeedIdentityAsync(cfg => cfg.HasRole(new()
+        await services.SeedIdentityAsync(cfg => cfg.HasRole(new()
         {
             Name = "admin",
             DisplayName = "Admin",
