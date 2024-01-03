@@ -36,6 +36,11 @@ public class AuthenticationLogic
         this.userManager = userManager;
     }
 
+    /// <summary>
+    /// Führt eine Registrierung durch.
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
     public async Task<RegisterResultModel> RegisterAsync(RegisterPostModel model)
     {
         var user = new User { Email = model.EMail };

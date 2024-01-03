@@ -18,21 +18,13 @@ public static class Seeder
     /// <returns>Eine <see cref="Task"/>-Instanz, die die asynchrone Bearbeitung der Methode darstellt.</returns>
     public static async Task SeedAsync(IServiceProvider services)
     {
-        await services.SeedIdentityAsync(cfg => cfg.HasRole(new()
-        {
-            Name = "admin",
-            DisplayName = "Admin",
-        })
-        .HasRole(new()
-        {
-            Name = "user",
-            DisplayName = "Benutzer (Standard)",
-        })
-        .HasUser(new()
-        {
-            EMail = "lukas.tietzermp@gmail.com",
-            UserName = "Lukas Tietze",
-        })
-        .WithRoles("admin"));
+        using var scope = services.CreateScope();
+
+        await scope.ServiceProvider.SeedIdentityAsync(cfg => cfg
+            .HasRole(new() { Name = "admin", DisplayName = "Admin" })
+            .WithRoleClaims(Claims.ViewAdminSection)
+            .HasRole(new() { Name = "user", DisplayName = "Benutzer (Standard)" })
+            .HasUser(new() { Email = "lukas.tietzermp@gmail.com" })
+            .WithRoles("admin"));
     }
 }

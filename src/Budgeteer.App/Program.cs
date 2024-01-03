@@ -10,7 +10,6 @@ using Budgeteer.App.Data.Entities.Auth;
 using Budgeteer.App.Data.Seeding;
 using Budgeteer.Lib.Vite;
 
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +21,12 @@ builder.Services
     .AddVite(new() { DevServerUri = "http://localhost:4173", })
     .AddSingleton(config);
 
-builder.Services.AddIdentity<User, IdentityRole>(options =>
+builder.Services.AddAuthentication(options =>
+{
+    //// TODO
+});
+
+builder.Services.AddIdentity<User, Role>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
     options.SignIn.RequireConfirmedEmail = true;
@@ -52,6 +56,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

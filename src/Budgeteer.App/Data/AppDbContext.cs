@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 /// <summary>
 /// Ermöglicht den Zugriff auf die Datenbank.
 /// </summary>
-public class AppDbContext : IdentityDbContext<User>
+public class AppDbContext : IdentityDbContext<User, Role, Guid>
 {
     /// <summary>
     /// Initialisiert eine neue Instanz der <see cref="AppDbContext"/> Klasse.

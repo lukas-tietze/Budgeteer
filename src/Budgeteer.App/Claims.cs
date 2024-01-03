@@ -1,14 +1,18 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="ApiControllerBase.cs" company="Lukas Tietze">
+// <copyright file="Claims.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App.Controllers;
+namespace Budgeteer.App;
 
 /// <summary>
-/// Dieser Controller stellt die Basisklasse für alle Controller der API dar.
+/// Enthält String-Konstanten, die alle verfügbaren Claims der Anwendung darstellen.
 /// </summary>
-public class ApiControllerBase : ControllerBase
+public static class Claims
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    public static string ViewAdminSection = nameof(ViewAdminSection);
 }
