@@ -1,0 +1,21 @@
+@use "tailwind";
+@use "settings";
+@use "roboto/all";
+
+@use "defaults";
+
+$fa-font-path: settings.$font-dir + "/font-awesome";
+
+@import "./font-awesome/fontawesome.scss";
+@import "./font-awesome/solid.scss";
+@import "./font-awesome/brands.scss";
+
+html {
+  font: "Roboto";
+}
+
+#app {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+}

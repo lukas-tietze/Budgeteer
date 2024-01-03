@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "php",
+      "request": "launch",
+      "name": "Launch Server",
+      "args": [
+        "artisan",
+        "serve"
+      ],
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+    },
+  ]
+}

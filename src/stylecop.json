@@ -1,0 +1,15 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+  "settings": {
+    "documentationRules": {
+      "documentationCulture": "de-DE",
+      "companyName": "Lukas Tietze",
+      "documentPrivateElements": true,
+      "documentPrivateFields": true,
+      "headerDecoration": "-----------------------------------------------------------------------------------------------------------------------------------------"
+    },
+    "layoutRules": {
+      "newlineAtEndOfFile": "require"
+    }
+  }
+}
