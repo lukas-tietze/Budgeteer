@@ -1,0 +1,87 @@
+@use "../settings";
+
+$font-dir: settings.$font-dir + "/roboto/";
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url($font-dir + "Roboto-Black.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: 400;
+  src: url($font-dir + "Roboto-BlackItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: bold;
+  src: url($font-dir + "Roboto-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: bold;
+  src: url($font-dir + "Roboto-BoldItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: normal;
+  src: url($font-dir + "Roboto-Italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: lighter;
+  src: url($font-dir + "Roboto-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: lighter;
+  src: url($font-dir + "Roboto-LightItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: bolder;
+  src: url($font-dir + "Roboto-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: bolder;
+  src: url($font-dir + "Roboto-MediumItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: normal;
+  src: url($font-dir + "Roboto-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 100;
+  src: url($font-dir + "Roboto-Thin.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: 100;
+  src: url($font-dir + "Roboto-ThinItalic.ttf") format("truetype");
+}
