@@ -1,0 +1,11 @@
+appsettings.Development.json
+
+/deploy
+/.vs
+
+wwwroot
+obj
+bin
+
+*.csproj.user
+*.pubxml.user

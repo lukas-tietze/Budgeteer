@@ -1,0 +1,34 @@
+@using Budgeteer.App.Config
+@inject AppConfig config
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+    <base href="@(config.Paths.BaseHref)" />
+    <vite-link href="favicon.ico" />
+
+    <vite-require-script src="ts/index.ts" />
+    <vite-style src="scss/index.scss" />
+
+    <vite-head />
+</head>
+
+<body class="w-screen h-screen flex flex-col overflow-auto">
+    <div class="hidden" id="ApiProps" data-api-url="@(config.Paths.BaseHref)api)"></div>
+
+    <div id="App" class="flex-1 flex flex-col"></div>
+
+    <noscript>
+        <div class="h-screen w-screen flex flex-row items-center justify-center">
+            Bitte aktivieren Sie JavaScript, um diese Seite zu nutzen.
+        </div>
+    </noscript>
+
+    <vite-scripts />
+</body>
+</html>
