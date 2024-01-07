@@ -8,6 +8,7 @@ using Budgeteer.App.Config;
 using Budgeteer.App.Data;
 using Budgeteer.App.Data.Entities.Auth;
 using Budgeteer.App.Data.Seeding;
+using Budgeteer.App.Logic;
 using Budgeteer.Lib.Vite;
 
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ var config = new AppConfig(builder.Configuration);
 
 // Add services to the container.
 builder.Services
+    .AddApp()
     .AddHttpContextAccessor()
     .AddVite(new() { DevServerUri = "http://localhost:4173", })
     .AddSingleton(config);

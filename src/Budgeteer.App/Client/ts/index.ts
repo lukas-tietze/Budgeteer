@@ -23,7 +23,6 @@ for (const [name, component] of Object.entries(Components)) {
   app.component(name.substring(0, name.length - 3), component);
 }
 
-app.component('RouterLink', RouterLink);
-
 app.use(router);
-// app.mount('#App');
+
+app.mount('#App');

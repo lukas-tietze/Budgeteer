@@ -11,4 +11,13 @@ namespace Budgeteer.App.Logic.Api.Auth;
 /// </summary>
 public enum LoginResultCode
 {
+    /// <summary>
+    /// Gibt an, dass der Login erfolgreich war.
+    /// </summary>
+    Sucess,
+
+    /// <summary>
+    /// Gibt an, das ungültige Logindaten übergeben wurden.
+    /// </summary>
+    InvalidData,
 }

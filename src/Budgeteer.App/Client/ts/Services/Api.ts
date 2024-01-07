@@ -101,6 +101,7 @@ export class Api {
       const request = new XMLHttpRequest();
 
       request.open(params.method, this.props.apiUrl + '/' + params.url);
+      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 
       request.onload = () => {
         if (request.readyState == XMLHttpRequest.DONE) {
@@ -133,10 +134,10 @@ export class Api {
    * @returns Die erzeugte URL.
    */
   private buildUrl(path: string, params?: UrlParams, query?: QueryParams): string {
-    let url = path;
+    let url = this.trimSlashes(path);
 
     if (params) {
-      path += '/' + params.map((p) => String(p)).join('/');
+      path += '/' + params.map((p) => this.trimSlashes(String(p))).join('/');
     }
 
     if (query) {
@@ -156,5 +157,23 @@ export class Api {
     }
 
     return url;
+  }
+
+  /**
+   * Entfernt führend und schließende `/`-Zeichen.
+   *
+   * @param arg Der zu bereinigende String.
+   * @returns den bereinigten String.
+   */
+  private trimSlashes(arg: string): string {
+    while (arg.startsWith('/')) {
+      arg = arg.substring(1);
+    }
+
+    while (arg.endsWith('/')) {
+      arg = arg.substring(0, arg.length - 1);
+    }
+
+    return arg;
   }
 }

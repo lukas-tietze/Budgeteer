@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import NavItem from "../Components/NavItem.vue";
+import NavItem from '../Components/NavItem.vue';
+import { inject } from '../Services/Di';
 </script>
 
 <template>
@@ -27,19 +28,31 @@ import NavItem from "../Components/NavItem.vue";
     </ul>
 
     <ul class="list-none flex flex-row flex-1 justify-end">
-      <NavItem href="/">
+      <NavItem href="/" v-if="authService.isLoggedIn">
         <i class="fa-solid fa-circle-user"></i>
         <span>Profil</span>
       </NavItem>
 
-      <NavItem href="/">
+      <NavItem href="/" v-if="authService.isLoggedIn">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
         <span>Abmelden</span>
+      </NavItem>
+
+      <NavItem href="/auth/login" v-if="!authService.isLoggedIn">
+        <i class="fa-solid fa-arrow-left-from-bracket"></i>
+        <span>Login</span>
       </NavItem>
     </ul>
   </nav>
 </template>
 
 <script lang="ts">
-export default {};
+import { inject } from '../Services/Di';
+import { AuthService } from '../Services/AuthService';
+
+export default {
+  data() {
+    return { authService: inject(AuthService) };
+  },
+};
 </script>

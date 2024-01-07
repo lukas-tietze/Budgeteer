@@ -39,34 +39,24 @@ public class AuthenticationLogic
     /// <summary>
     /// Führt eine Registrierung durch.
     /// </summary>
-    /// <param name="model"></param>
-    /// <returns></returns>
-    public async Task<RegisterResultModel> RegisterAsync(RegisterPostModel model)
-    {
-        var user = new User { Email = model.EMail };
-        var addResult = await this.userManager.CreateAsync(user);
+    /// <param name="model">Die eingegebenen Nutzerdaten.</param>
+    /// <returns>Einen <see cref="Task{TResult}"/>, der die asynchrone Bearbeitung der Methode darstellt
+    /// und dessen Ergebnis den Erfolg oder mögliche Fehler bei der Registrierung darstellt.</returns>
+    public Task<RegisterResultModel> RegisterAsync(RegisterPostModel model) => throw new NotImplementedException();
 
-        if (!addResult.Succeeded)
-        {
-        }
-
-        var pwResult = await this.userManager.AddPasswordAsync(user, model.Password);
-
-        if (!pwResult.Succeeded)
-        {
-        }
-
-        return new RegisterResultModel
-        {
-        };
-    }
-
+    /// <summary>
+    /// Führt einen Login mit den gegebenen Daten durch.
+    /// </summary>
+    /// <param name="model">Die eingegebenen Login-Daten.</param>
+    /// <returns>Einen <see cref="Task{TResult}"/>, der die asynchrone Bearbeitung der Methode darstellt
+    /// und dessen Ergebnis den Erfolg oder mögliche Fehler beim Login darstellt.</returns>
     public async Task<LoginResultModel> LoginAsync(LoginPostModel model)
     {
-        var result = await this.signInManager.PasswordSignInAsync(model.EMail, model.Password, model.RememberMe, lockoutOnFailure: true);
+        var result = await this.signInManager.PasswordSignInAsync(model.EMail, model.Password, model.RememberMe, lockoutOnFailure: false);
 
         return new LoginResultModel
         {
+            Code = result.Succeeded ? LoginResultCode.Sucess : LoginResultCode.InvalidData,
         };
     }
 }

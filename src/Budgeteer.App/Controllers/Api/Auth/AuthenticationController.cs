@@ -8,6 +8,7 @@ namespace Budgeteer.App.Controllers;
 
 using Budgeteer.App.Logic.Api.Auth;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 /// </summary>
 [ApiRoute("auth")]
 [ApiController]
+[AllowAnonymous]
 public class AuthenticationController : ApiControllerBase
 {
     /// <summary>
