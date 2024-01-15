@@ -6,14 +6,20 @@
 
 namespace Budgeteer.App.Logic.Api.Auth;
 
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
+using Budgeteer.App.Config;
 using Budgeteer.App.Data.Entities.Auth;
 
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 
 /// <summary>
 /// Stellt die Logik für den Login bereit.
 /// </summary>
-public class AuthenticationLogic
+public class AuthenticationLogic : LogicBase
 {
     /// <summary>
     /// Der Dienst zum Einloggen des Nutzers.
@@ -30,7 +36,10 @@ public class AuthenticationLogic
     /// </summary>
     /// <param name="signInManager">Der Dienst zum Einloggen des Nutzers.</param>
     /// <param name="userManager">Der Dienst zum Verwalten der Nutzer.</param>
-    public AuthenticationLogic(SignInManager<User> signInManager, UserManager<User> userManager)
+    /// <param name="config">Die Anwendungskonfiguration.</param>
+    /// <param name="logger">Der zu nutzende Logger.</param>
+    public AuthenticationLogic(SignInManager<User> signInManager, UserManager<User> userManager, AppConfig config, ILogger<AuthenticationLogic> logger)
+        : base(config, logger)
     {
         this.signInManager = signInManager;
         this.userManager = userManager;
@@ -52,11 +61,61 @@ public class AuthenticationLogic
     /// und dessen Ergebnis den Erfolg oder mögliche Fehler beim Login darstellt.</returns>
     public async Task<LoginResultModel> LoginAsync(LoginPostModel model)
     {
-        var result = await this.signInManager.PasswordSignInAsync(model.EMail, model.Password, model.RememberMe, lockoutOnFailure: false);
+        var user = await this.userManager.FindByEmailAsync(model.EMail);
 
-        return new LoginResultModel
+        if (user == null)
         {
-            Code = result.Succeeded ? LoginResultCode.Sucess : LoginResultCode.InvalidData,
+            return new() { Code = LoginResultCode.InvalidMail };
+        }
+
+        if (!await this.userManager.CheckPasswordAsync(user, model.Password))
+        {
+            return new() { Code = LoginResultCode.InvalidPassword };
+        }
+
+        await this.signInManager.SignInAsync(user, false);
+
+        var userRoles = await this.userManager.GetRolesAsync(user);
+
+        var authClaims = new List<Claim>
+        {
+            new(ClaimTypes.Email, user.Email!),
+            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
+
+        authClaims.AddRange(userRoles.Select(u => new Claim(ClaimTypes.Role, u)));
+
+        var token = this.GetToken(authClaims);
+
+        return new()
+        {
+            Code = LoginResultCode.Success,
+            JWT = token,
+        };
+    }
+
+    /// <summary>
+    /// Erzeugt ein JWT mit den gegebenen Claims.
+    /// </summary>
+    /// <param name="claims">Die Claims, die im JWT enthalten sein sollen.</param>
+    /// <returns>Das erzeugte Token.</returns>
+    private string GetToken(IEnumerable<Claim> claims)
+    {
+        var issuer = this.Config.Jwt.Issuer;
+        var audience = this.Config.Jwt.Audience;
+        var key = Encoding.ASCII.GetBytes(this.Config.Jwt.Secret);
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(claims),
+            Expires = DateTime.UtcNow.AddMinutes(5),
+            Issuer = issuer,
+            Audience = audience,
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature),
+        };
+
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+
+        return tokenHandler.WriteToken(token);
     }
 }

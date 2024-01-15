@@ -15,4 +15,9 @@ public class LoginResultModel
     /// Holt oder setzt den Ergebniscode des Logins.
     /// </summary>
     public LoginResultCode Code { get; set; }
+
+    /// <summary>
+    /// Holt oder setzt das JWT, für den eingeloggten Nutzer.
+    /// </summary>
+    public string JWT { get; set; } = string.Empty;
 }

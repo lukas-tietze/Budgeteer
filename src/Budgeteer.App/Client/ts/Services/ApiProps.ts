@@ -6,9 +6,9 @@ export class ApiProps {
    * Initialisiert eine neue Instanz der Klasse.
    */
   constructor() {
-    const src = document.getElementById('ApiProps') as HTMLDivElement;
+    const src = document.getElementById('ApiProps') as HTMLDivElement | undefined;
 
-    this.apiUrl = String(src.dataset.apiUrl);
+    this.apiUrl = String(src?.dataset.apiUrl);
   }
 
   /**

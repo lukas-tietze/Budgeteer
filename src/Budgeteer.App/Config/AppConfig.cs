@@ -28,4 +28,9 @@ public class AppConfig
     /// Holt oder setzt die Konfiguration der Anwendungspfade.
     /// </summary>
     public PathConfig Paths { get; set; } = new();
+
+    /// <summary>
+    /// Holt oder setzt die Konfiguration für die Ausstellung von JWTs.
+    /// </summary>
+    public JwtConfig Jwt { get; set; } = new();
 }

@@ -14,10 +14,20 @@ public enum LoginResultCode
     /// <summary>
     /// Gibt an, dass der Login erfolgreich war.
     /// </summary>
-    Sucess,
+    Success,
 
     /// <summary>
-    /// Gibt an, das ungültige Logindaten übergeben wurden.
+    /// Gibt an, dass der Login fehlschlug, weil die gegebene E-Mail-Adresse nicht existierte.
     /// </summary>
-    InvalidData,
+    InvalidMail,
+
+    /// <summary>
+    /// Gibt an, dass das Passwort nicht zur gegebenen E-Mail-Adresse passte.
+    /// </summary>
+    InvalidPassword,
+
+    /// <summary>
+    /// Gibt an, das der Login aufgrund eines anderen, nicht näher beschriebenen Fehlers fehlschlug.
+    /// </summary>
+    Error,
 }
