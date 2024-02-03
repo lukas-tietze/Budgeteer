@@ -1,15 +1,16 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="PrincipalEntityBase.cs" company="Lukas Tietze">
+// <copyright file="QueryRange.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App.Data.Entities;
+namespace Budgeteer.Lib.Rest;
 
 /// <summary>
-/// Stellt die Basis aller Entitäten dar,
-/// die einen Bezug zu einem Mandanten haben.
+/// Stellt Daten für Pagination von Listen dar.
 /// </summary>
-public class PrincipalEntityBase : TimerEntityBase
+/// <param name="Start">Der Index des ersten angefragten Elements.</param>
+/// <param name="Count">Die Anzahl der angefragten Elemente.</param>
+public record class QueryRange(int Start, int Count)
 {
 }

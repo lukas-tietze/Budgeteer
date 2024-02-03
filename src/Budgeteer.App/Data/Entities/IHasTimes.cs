@@ -1,21 +1,23 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="Tag.cs" company="Lukas Tietze">
+// <copyright file="IHasTimes.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
 namespace Budgeteer.App.Data.Entities;
 
-using System.ComponentModel.DataAnnotations;
-
 /// <summary>
-/// Stellt ein Schlagwort dar, das belibig verteilt verteilt werden kann.
+/// Implementierende Klassen stellen Zeitstempel für Erstellen und Bearbeiten bereit.
 /// </summary>
-public class Tag : TimerEntityBase
+public interface IHasTimes
 {
     /// <summary>
-    /// Holt oder setzt den Text des Tags.
+    /// Holt oder setzt den Zeitpunkt, zu dem die Entität erstellt wurde.
     /// </summary>
-    [MaxLength(255)]
-    public string Name { get; set; } = string.Empty;
+    DateTime Created { get; set; }
+
+    /// <summary>
+    /// Holt oder setzt den Zeitpunkt, zu dem die Entität zuletzt verändert wurde.
+    /// </summary>
+    DateTime Modified { get; set; }
 }

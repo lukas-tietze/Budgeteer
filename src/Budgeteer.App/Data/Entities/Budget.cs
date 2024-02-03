@@ -9,16 +9,18 @@ namespace Budgeteer.App.Data.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 
 /// <summary>
 /// Stellt ein konkret geplantes Budget dar.
 /// </summary>
-internal class Budget : PrincipalEntityBase
+[Table(nameof(Budget), Schema = "Budgeteer.Setup")]
+public class Budget : TimerEntityBase
 {
     /// <summary>
     /// Holt oder setzt die ggf. zugeordnete Kategorie.
     /// </summary>
+    [DeleteBehavior(DeleteBehavior.NoAction)]
     public Budget? Parent { get; set; }
 
     /// <summary>

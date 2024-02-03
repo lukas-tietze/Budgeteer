@@ -1,18 +1,23 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="Claims.cs" company="Lukas Tietze">
+// <copyright file="ModelBase.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App;
+namespace Budgeteer.App.Models;
 
 /// <summary>
-/// Enthält String-Konstanten, die alle verfügbaren Claims der Anwendung darstellen.
+/// Stellt die Basis für Modelle dar.
 /// </summary>
-public static class Claims
+public class ModelBase
 {
     /// <summary>
-    /// Holt die Bezeichnung des Claims für den Zugriff auf den Admin-Bereich.
+    /// Holt oder setzt die ID.
     /// </summary>
-    public static string ViewAdminSection { get; } = nameof(ViewAdminSection);
+    public int Id { get; set; }
+
+    /// <summary>
+    /// Holt oder setzt die Bezeichnung.
+    /// </summary>
+    public string Label { get; set; } = string.Empty;
 }
