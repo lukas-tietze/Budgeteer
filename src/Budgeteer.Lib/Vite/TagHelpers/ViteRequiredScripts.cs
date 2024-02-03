@@ -19,7 +19,7 @@ internal class ViteRequiredScripts : IEnumerable<string>
     /// <summary>
     /// Die interne Liste der angeforderten Skripte.
     /// </summary>
-    private readonly List<string> items = new();
+    private readonly List<string> items = [];
 
     /// <inheritdoc/>
     public IEnumerator<string> GetEnumerator() => ((IEnumerable<string>)this.items).GetEnumerator();
