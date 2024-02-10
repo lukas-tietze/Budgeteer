@@ -14,9 +14,9 @@ using Microsoft.AspNetCore.Identity;
 public static class Extensions
 {
     /// <summary>
-    /// Wirft eine Exception, wenn 
+    /// Wirft eine Exception, wenn <paramref name="identityResult"/> Fehler enthält.
     /// </summary>
-    /// <param name="identityResult"></param>
+    /// <param name="identityResult">Das zu prüfende <see cref="IdentityResult"/>.</param>
     public static void ThrowOnError(this IdentityResult identityResult)
     {
         if (!identityResult.Succeeded)

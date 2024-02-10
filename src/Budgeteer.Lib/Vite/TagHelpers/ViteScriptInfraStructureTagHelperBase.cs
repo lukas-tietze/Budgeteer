@@ -58,7 +58,7 @@ public abstract class ViteScriptInfraStructureTagHelperBase : RenderedSyncTagHel
                 }
                 else
                 {
-                    this.requiredScripts = new();
+                    this.requiredScripts = [];
 
                     httpContext.Items.Add(ItemsKey, this.requiredScripts);
                 }

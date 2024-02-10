@@ -1,19 +1,14 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="TimerEntityBase.cs" company="Lukas Tietze">
+// <copyright file="BudgetController.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App.Data.Entities;
+namespace Budgeteer.App.Controllers.Api.Setup;
 
 /// <summary>
-/// Stellt die Basis aller Entitäten dar, die Zeitstempel enthalten.
+/// Stellt die REST-API für Budgets bereit.
 /// </summary>
-public class TimerEntityBase : EntityBase, IHasTimes
+public class BudgetController
 {
-    /// <inheritdoc/>
-    public DateTime Created { get; set; }
-
-    /// <inheritdoc/>
-    public DateTime Modified { get; set; }
 }

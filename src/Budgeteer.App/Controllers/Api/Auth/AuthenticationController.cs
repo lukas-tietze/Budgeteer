@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App.Controllers;
+namespace Budgeteer.App.Controllers.Api.Auth;
 
 using Budgeteer.App.Logic.Api.Auth;
 
@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 [ApiRoute("auth")]
 [ApiController]
 [AllowAnonymous]
-public class AuthenticationController : ApiControllerBase
+public class AuthenticationController : ControllerBase
 {
     /// <summary>
     /// Loggt einen Nutzer ein.

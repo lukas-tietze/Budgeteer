@@ -1,18 +1,19 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="Claims.cs" company="Lukas Tietze">
+// <copyright file="LogicBase{TContext}.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App;
+namespace Budgeteer.Lib;
 
 /// <summary>
-/// Enthält String-Konstanten, die alle verfügbaren Claims der Anwendung darstellen.
+/// Stellt die Basisklasse für alle Logiken dar.
 /// </summary>
-public static class Claims
+/// <typeparam name="TContext">Der Typ des Datenbankkontextes.</typeparam>
+public class LogicBase<TContext>(TContext context, ILogger<LogicBase<TContext>> logger) : LogicBase(logger)
 {
     /// <summary>
-    /// Holt die Bezeichnung des Claims für den Zugriff auf den Admin-Bereich.
+    /// Holt den genutzten Datenbankkontext.
     /// </summary>
-    public static string ViewAdminSection { get; } = nameof(ViewAdminSection);
+    protected TContext Context { get; } = context;
 }

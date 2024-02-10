@@ -18,30 +18,12 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 /// <see cref="ViteRequireScriptTagHelper"/> angefordert wurden.
 /// </summary>
 [HtmlTargetElement("vite-scripts")]
-public class ViteScriptsTagHelper : ViteScriptInfraStructureTagHelperBase
+public class ViteScriptsTagHelper(IHttpContextAccessor httpContextAccessor, IViteUriProvider uriProvider) : ViteScriptInfraStructureTagHelperBase(httpContextAccessor)
 {
-    /// <summary>
-    /// >Die Vite-Konfiguration.
-    /// </summary>
-    private readonly ViteConfig config;
-
     /// <summary>
     /// Der Dienst zum Erzeugen der URIs.
     /// </summary>
-    private readonly IViteUriProvider uriProvider;
-
-    /// <summary>
-    /// Initialisiert eine neue Instanz der <see cref="ViteScriptsTagHelper"/> Klasse.
-    /// </summary>
-    /// <param name="httpContextAccessor">Das Objekt zum Zugriff auf den aktuellen <see cref="HttpContext"/>.</param>
-    /// <param name="config">Die Vite-Konfiguration.</param>
-    /// <param name="uriProvider">Der Dienst zum Erzeugen der URIs.</param>
-    public ViteScriptsTagHelper(IHttpContextAccessor httpContextAccessor, ViteConfig config, IViteUriProvider uriProvider)
-        : base(httpContextAccessor)
-    {
-        this.config = config;
-        this.uriProvider = uriProvider;
-    }
+    private readonly IViteUriProvider uriProvider = uriProvider;
 
     /// <inheritdoc/>
     public override IHtmlContent Render(IHtmlContent? content = null)

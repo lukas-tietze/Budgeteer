@@ -52,7 +52,7 @@ internal class ViteManifest : IViteDependencyProvider
         this.logger = logger;
         this.config = config;
         this.webHostEnvironment = webHostEnvironment;
-        this.entries = this.ReadManifest() ?? new();
+        this.entries = this.ReadManifest() ?? [];
     }
 
     /// <summary>

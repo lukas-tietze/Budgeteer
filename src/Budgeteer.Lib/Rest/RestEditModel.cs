@@ -1,18 +1,19 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="Claims.cs" company="Lukas Tietze">
+// <copyright file="RestEditModel.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App;
+namespace Budgeteer.Lib.Rest;
 
 /// <summary>
-/// Enthält String-Konstanten, die alle verfügbaren Claims der Anwendung darstellen.
+/// Stellt die Basisklasse für Modelle dar, die zum Aktualisieren
+/// eines Datensatzes via Rest-API genutzt werden können.
 /// </summary>
-public static class Claims
+public class RestEditModel
 {
     /// <summary>
-    /// Holt die Bezeichnung des Claims für den Zugriff auf den Admin-Bereich.
+    /// Holt oder setzt die ID des modifizierten Datensatzes.
     /// </summary>
-    public static string ViewAdminSection { get; } = nameof(ViewAdminSection);
+    public int Id { get; set; }
 }

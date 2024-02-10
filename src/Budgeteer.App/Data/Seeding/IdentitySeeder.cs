@@ -113,7 +113,7 @@ public static class IdentitySeeder
     /// <param name="roles">Die initialen Rollen.</param>
     /// <param name="claimMap">Die Abbildung der Nutzer-Mails auf die zugehörigen Claims.</param>
     /// <returns>Eine <see cref="Task"/>-Instanz, die die asynchrone Bearbeitung der Methode darstellt.</returns>
-    private static async Task SeedRolesAsync(this IServiceProvider services, IEnumerable<InitialRole> roles, IReadOnlyDictionary<string, IEnumerable<string>> claimMap)
+    private static async Task SeedRolesAsync(this IServiceProvider services, IEnumerable<InitialRole> roles, Dictionary<string, IEnumerable<string>> claimMap)
     {
         var roleManager = services.GetRequiredService<RoleManager<Role>>();
         var requiredRoleNames = roles.Select(u => roleManager.NormalizeKey(u.Name));
@@ -152,8 +152,8 @@ public static class IdentitySeeder
     private static async Task SeedUsersAsync(
         this IServiceProvider services,
         IEnumerable<InitialUser> users,
-        IReadOnlyDictionary<string, IEnumerable<string>> claimMap,
-        IReadOnlyDictionary<string, IEnumerable<string>> roleMap)
+        Dictionary<string, IEnumerable<string>> claimMap,
+        Dictionary<string, IEnumerable<string>> roleMap)
     {
         var userManager = services.GetRequiredService<UserManager<User>>();
         var requiredMails = users.Select(u => userManager.NormalizeEmail(u.Email));
@@ -254,29 +254,29 @@ public static class IdentitySeeder
         /// Holt eine Sammlung von Schlüssel-Wert-Paaren, die eine Abbildung von
         /// Rollen auf die ihnen zugeordneten Claims darstellt.
         /// </summary>
-        public List<(string RoleName, string Claim)> RoleNameClaimMapping { get; } = new();
+        public List<(string RoleName, string Claim)> RoleNameClaimMapping { get; } = [];
 
         /// <summary>
         /// Holt die Auflistung der initialen Rollen.
         /// </summary>
-        public List<InitialRole> Roles { get; } = new();
+        public List<InitialRole> Roles { get; } = [];
 
         /// <summary>
         /// Holt eine Sammlung von Schlüssel-Wert-Paaren, die eine Abbildung von
         /// E-Mail-Adressen initialer Nutzer auf die ihnen zugeordneten Claims darstellt.
         /// </summary>
-        public List<(string UserMail, string Claim)> UserMailClaimMapping { get; } = new();
+        public List<(string UserMail, string Claim)> UserMailClaimMapping { get; } = [];
 
         /// <summary>
         /// Holt eine Sammlung von Schlüssel-Wert-Paaren, die eine Abbildung von
         /// E-Mail-Adressen initialer Nutzer auf die ihnen zugeordneten Rollen darstellt.
         /// </summary>
-        public List<(string UserMail, string Role)> UserMailRoleMapping { get; } = new();
+        public List<(string UserMail, string Role)> UserMailRoleMapping { get; } = [];
 
         /// <summary>
         /// Holt die Auflistung der initialen Nutzer.
         /// </summary>
-        public List<InitialUser> Users { get; } = new();
+        public List<InitialUser> Users { get; } = [];
 
         /// <inheritdoc/>
         public IFluentRoleBuilder HasRole(InitialRole role)

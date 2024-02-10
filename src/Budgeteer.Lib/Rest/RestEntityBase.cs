@@ -1,18 +1,18 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="Claims.cs" company="Lukas Tietze">
+// <copyright file="RestEntityBase.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App;
+namespace Budgeteer.Lib.Rest;
 
 /// <summary>
-/// Enthält String-Konstanten, die alle verfügbaren Claims der Anwendung darstellen.
+/// Stellt die Basis für Entitäten dar, für die REST-Funtkionen bereitgestellte werden sollen.
 /// </summary>
-public static class Claims
+public class RestEntityBase
 {
     /// <summary>
-    /// Holt die Bezeichnung des Claims für den Zugriff auf den Admin-Bereich.
+    /// Holt oder setzt die eindeutige Nummer des Eintrags.
     /// </summary>
-    public static string ViewAdminSection { get; } = nameof(ViewAdminSection);
+    public int Id { get; set; }
 }

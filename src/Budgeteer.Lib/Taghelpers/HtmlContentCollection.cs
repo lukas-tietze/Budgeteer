@@ -38,7 +38,7 @@ public class HtmlContentCollection : IHtmlContent, IEnumerable<IHtmlContent>
     /// </summary>
     public HtmlContentCollection()
     {
-        this.contents = new List<IHtmlContent>();
+        this.contents = [];
     }
 
     /// <summary>

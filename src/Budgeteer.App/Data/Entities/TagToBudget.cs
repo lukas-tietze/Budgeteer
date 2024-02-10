@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="Budget.cs" company="Lukas Tietze">
+// <copyright file="TagToBudget.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
@@ -12,31 +12,31 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
-/// Stellt ein konkret geplantes Budget dar.
+/// Stellt die Mapping-Tabelle zwischen Schlagwörtern und Budgets dar.
 /// </summary>
-[Table(nameof(Budget), Schema = "Budgeteer.Setup")]
-public class Budget : TimerEntityBase
+[PrimaryKey(nameof(BudgetId), nameof(TagId))]
+[Table(nameof(TagToBudget), Schema = "Budgeteer.Setup")]
+public class TagToBudget
 {
     /// <summary>
-    /// Holt oder setzt die ggf. zugeordnete Kategorie.
+    /// Holt oder setzt das verknüpfte Budget.
     /// </summary>
-    [DeleteBehavior(DeleteBehavior.NoAction)]
-    public Budget? Parent { get; set; }
+    public Budget? Budget { get; set; }
 
     /// <summary>
-    /// Holt oder setzt die ID der ggf. zugeordneten Kategorie.
+    /// Holt oder setzt die ID des verknüpften Budgets.
     /// </summary>
-    [ForeignKey(nameof(Parent))]
-    public int ParentId { get; set; }
+    [ForeignKey(nameof(Budget))]
+    public int BudgetId { get; set; }
 
     /// <summary>
-    /// Holt oder setzt die Bezeichnung dieses Budgets.
+    /// Holt oder setzt das verknüpfte Schlagwort.
     /// </summary>
-    [MaxLength(255)]
-    public string Name { get; set; } = string.Empty;
+    public Tag? Tag { get; set; }
 
     /// <summary>
-    /// Holt oder setzt den Betrag des Budgets.
+    /// Holt oder setzt die ID des verknüpften Schlagworts.
     /// </summary>
-    public long Amount { get; set; }
+    [ForeignKey(nameof(Tag))]
+    public int TagId { get; set; }
 }

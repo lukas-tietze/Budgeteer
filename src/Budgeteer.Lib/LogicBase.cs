@@ -1,18 +1,19 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="Claims.cs" company="Lukas Tietze">
+// <copyright file="LogicBase.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App;
+namespace Budgeteer.Lib;
 
 /// <summary>
-/// Enthält String-Konstanten, die alle verfügbaren Claims der Anwendung darstellen.
+/// Stellt die Basisklasse für alle Logiken dar.
 /// </summary>
-public static class Claims
+/// <param name="logger">Der zu nutzende Logger.</param>
+public class LogicBase(ILogger<LogicBase> logger)
 {
     /// <summary>
-    /// Holt die Bezeichnung des Claims für den Zugriff auf den Admin-Bereich.
+    /// Holt einen Logger.
     /// </summary>
-    public static string ViewAdminSection { get; } = nameof(ViewAdminSection);
+    public ILogger Logger { get; } = logger;
 }

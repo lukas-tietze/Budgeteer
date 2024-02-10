@@ -1,19 +1,9 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="EntityBase.cs" company="Lukas Tietze">
+// <copyright file="GlobalSuppressions.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App.Data.Entities;
+using System.Diagnostics.CodeAnalysis;
 
-using Budgeteer.Lib.Rest;
-
-using Microsoft.EntityFrameworkCore;
-
-/// <summary>
-/// Stellt die Basis aller Entitäten dar.
-/// </summary>
-[PrimaryKey(nameof(Id))]
-public class EntityBase : RestEntityBase
-{
-}
+[assembly: SuppressMessage("Usage", "CA2254:Template should be a static expression", Justification = "Es findet keine Log-Aggregation statt.")]

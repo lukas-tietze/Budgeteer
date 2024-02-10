@@ -1,18 +1,21 @@
 ﻿// -----------------------------------------------------------------------------------------------------------------------------------------
-// <copyright file="Claims.cs" company="Lukas Tietze">
+// <copyright file="Tag.cs" company="Lukas Tietze">
 // Copyright (c) Lukas Tietze. All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App;
+namespace Budgeteer.App.Data.Entities;
+
+using System.ComponentModel.DataAnnotations;
 
 /// <summary>
-/// Enthält String-Konstanten, die alle verfügbaren Claims der Anwendung darstellen.
+/// Stellt ein Schlagwort dar, das belibig verteilt verteilt werden kann.
 /// </summary>
-public static class Claims
+public class Tag : TimerEntityBase
 {
     /// <summary>
-    /// Holt die Bezeichnung des Claims für den Zugriff auf den Admin-Bereich.
+    /// Holt oder setzt den Text des Tags.
     /// </summary>
-    public static string ViewAdminSection { get; } = nameof(ViewAdminSection);
+    [MaxLength(255)]
+    public string Name { get; set; } = string.Empty;
 }
