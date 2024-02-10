@@ -1,28 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
+		<OutputType>Exe</OutputType>
 		<TargetFramework>net8.0</TargetFramework>
 		<LangVersion>12</LangVersion>
-		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<OutputType>Exe</OutputType>
+		<Nullable>enable</Nullable>
+
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<DocumentationFile>..\..\docs\code\server\$(MsBuildProjectName).xml</DocumentationFile>
+		<DocumentationFile>$(SolutionDir)\..\docs\code\server\$(MsBuildProjectName).xml</DocumentationFile>
 		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<AdditionalFiles Include="$(SolutionDir)stylecop.json" Link="stylecop.json" />
+		<None Include="$(SolutionDir).editorconfig" Link=".editorconfig" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Remove="Client\**" />
 		<Content Remove="Client\**" />
 		<EmbeddedResource Remove="Client\**" />
 		<None Remove="Client\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<AdditionalFiles Include="../stylecop.json" Link="stylecop.json" />
-		<None Include="../.editorconfig" Link=".editorconfig" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -46,10 +45,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Budgeteer.Lib\Budgeteer.Lib.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Logic\Api\Setup\" />
 	</ItemGroup>
 
 </Project>

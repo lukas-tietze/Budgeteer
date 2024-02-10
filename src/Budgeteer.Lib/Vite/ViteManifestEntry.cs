@@ -19,7 +19,7 @@ internal class ViteManifestEntry
     /// Holt oder setzt die Sammlung der von der Datei importierten Assets.
     /// </summary>
     [JsonProperty("assets")]
-    public string[] Assets { get; set; } = Array.Empty<string>();
+    public string[] Assets { get; set; } = [];
 
     /// <summary>
     /// Holt oder setzt den PFad zur Datei, die diese Ressource enthält.
@@ -31,11 +31,11 @@ internal class ViteManifestEntry
     /// Holt oder setzt die Sammlung der dynamischen Importe der Datei.
     /// </summary>
     [JsonProperty("dynamicImports")]
-    public string[] Scripts { get; set; } = Array.Empty<string>();
+    public string[] Scripts { get; set; } = [];
 
     /// <summary>
     /// Holt oder setzt die Sammlung der von der Datei importierten Stylesheets.
     /// </summary>
     [JsonProperty("css")]
-    public string[] Styles { get; set; } = Array.Empty<string>();
+    public string[] Styles { get; set; } = [];
 }

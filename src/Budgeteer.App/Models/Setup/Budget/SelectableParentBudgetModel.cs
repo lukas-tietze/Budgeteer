@@ -21,4 +21,9 @@ public class SelectableParentBudgetModel
     /// Holt oder setzt die Bezeichnung des Budgets.
     /// </summary>
     public string Label { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Holt oder setzt die untergeordneten Budgets.
+    /// </summary>
+    public List<SelectableParentBudgetModel> Children { get; set; } = [];
 }

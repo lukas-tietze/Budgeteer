@@ -72,7 +72,11 @@ public class RestRessourceControllerBase<TEditModel>(RestRessourceLogicBase<TEdi
 
         var models = await this.logic.ListAsync(queryRange);
 
-        return this.Ok(models);
+        return this.Ok(new RestArrayResult
+        {
+            Values = models,
+            Pagination = queryRange,
+        });
     }
 
     /// <summary>

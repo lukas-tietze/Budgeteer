@@ -44,6 +44,7 @@ internal class ViteUriProvider : IViteUriProvider
         this.config = config;
         this.manifest = manifest;
         this.environment = environment;
+
         if (this.environment.IsDevelopment() && string.IsNullOrEmpty(this.config.DevServerUri))
         {
             throw new ArgumentException("Dev-Server URI was not provided!");

@@ -8,13 +8,13 @@
 		<Nullable>enable</Nullable>
 
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<DocumentationFile>..\..\docs\code\server\Budgeteer.$(ProjectName).xml</DocumentationFile>
+		<DocumentationFile>$(SolutionDir)\..\docs\code\server\$(MsBuildProjectName).xml</DocumentationFile>
 		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<AdditionalFiles Include="../stylecop.json" Link="stylecop.json" />
-		<None Include="../.editorconfig" Link=".editorconfig" />
+		<AdditionalFiles Include="$(SolutionDir)stylecop.json" Link="stylecop.json" />
+		<None Include="$(SolutionDir).editorconfig" Link=".editorconfig" />
 	</ItemGroup>
 
 	<ItemGroup>
