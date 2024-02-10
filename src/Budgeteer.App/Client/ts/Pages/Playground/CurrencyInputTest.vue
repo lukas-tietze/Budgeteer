@@ -1,10 +1,27 @@
 <script lang="ts" setup>
 import CurrencyInput from '../../Components/Inputs/CurrencyInput.vue';
+import CurrencyInputSimple from '../../Components/Inputs/CurrencyInput.Simple.vue';
 </script>
 
 <template>
   <div class="py-2 my-4">
-    <CurrencyInput v-model="currencyValue" :sign="currencySign"></CurrencyInput>
+    <CurrencyInput
+      v-model="currencyValue"
+      :sign="currencySign"
+      label="Betrag (Custom)"
+      description="Betrag eingeben"
+      :required="true"
+    ></CurrencyInput>
+  </div>
+
+  <div class="py-2 my-4">
+    <CurrencyInputSimple
+      v-model="currencyValue"
+      :sign="currencySign"
+      label="Betrag (Einfach)"
+      description="Betrag eingeben"
+      :required="true"
+    ></CurrencyInputSimple>
   </div>
 
   <div class="flex flex-col">
