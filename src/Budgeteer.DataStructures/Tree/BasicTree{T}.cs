@@ -17,7 +17,7 @@ public class BasicTree<T>(T data) : ITree<T>
     /// <summary>
     /// Die Liste der untergeordneten Knoten.
     /// </summary>
-    private readonly List<BasicTree<T>> children = [];
+    private readonly List<ITree<T>> children = [];
 
     /// <inheritdoc/>
     public int ChildCount => this.children.Count;
@@ -36,7 +36,7 @@ public class BasicTree<T>(T data) : ITree<T>
     public int DescendantCount { get; private set; }
 
     /// <inheritdoc/>
-    public void AddChild(BasicTree<T> node)
+    public void AddChild(ITree<T> node)
     {
         if (!this.children.Contains(node))
         {
@@ -60,7 +60,19 @@ public class BasicTree<T>(T data) : ITree<T>
     }
 
     /// <inheritdoc/>
-    public bool RemoveChild(BasicTree<T> node) => throw new NotImplementedException();
+    public bool RemoveChild(ITree<T> node)
+    {
+        var index = this.children.IndexOf(node);
+
+        if (index >= 0)
+        {
+            this.children.RemoveAt(index);
+
+            return true;
+        }
+
+        return false;
+    }
 
     /// <inheritdoc/>
     public bool RemoveChild(T data, IEqualityComparer<T>? comparer = null)
@@ -69,7 +81,7 @@ public class BasicTree<T>(T data) : ITree<T>
 
         var index = this.children.FindIndex(c => comparer.Equals(c.Data, data));
 
-        if (index > 0)
+        if (index >= 0)
         {
             this.children.RemoveAt(index);
 

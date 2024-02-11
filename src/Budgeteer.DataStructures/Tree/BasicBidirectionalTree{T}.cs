@@ -15,5 +15,5 @@ using Budgeteer.DataStructures.Tree;
 public class BasicBidirectionalTree<T>(T data) : BasicTree<T>(data), IBidirectionalTree<T>
 {
     /// <inheritdoc/>
-    public IBidirectionalTree<T> Parent { get; set; }
+    public IBidirectionalTree<T>? Parent { get; set; }
 }

@@ -70,7 +70,6 @@ public class BudgetLogic(AppDbContext context, ILogger<BudgetLogic> logger) : Re
     /// <inheritdoc/>
     public override Task<ICollection<object>> ListAsync(QueryRange? pagination)
     {
-
     }
 
     /// <inheritdoc/>
