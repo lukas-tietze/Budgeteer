@@ -73,8 +73,6 @@ public class BudgetLogic(AppDbContext context, ILogger<BudgetLogic> logger) : Re
 
     }
 
-    private ITree
-
     /// <inheritdoc/>
     protected override Task UpdateAsync(Budget entity, EditModel model) => throw new NotImplementedException();
 }
