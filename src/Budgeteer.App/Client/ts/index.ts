@@ -14,6 +14,11 @@ const router = createRouter({
     { path: '/transactions', component: () => import('./Pages/Transactions.vue') },
     { path: '/budget-categories', component: () => import('./Pages/BudgetCategories/Index.vue') },
     { path: '/budget-categories/edit', component: () => import('./Pages/BudgetCategories/Edit.vue') },
+    {
+      path: '/playground',
+      component: () => import('./Pages/Playground/Index.vue'),
+      children: [{ path: 'concept', component: () => import('./Pages/Playground/Concept.vue') }],
+    },
   ],
 });
 
