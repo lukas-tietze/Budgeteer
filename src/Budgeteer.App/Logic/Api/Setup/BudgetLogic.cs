@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Budgeteer.App.Data;
 using Budgeteer.App.Data.Entities;
 using Budgeteer.App.Models.Setup.Budget;
+using Budgeteer.DataStructures.Tree;
 using Budgeteer.Lib.Rest;
 
 using Microsoft.EntityFrameworkCore;
@@ -33,34 +34,13 @@ public class BudgetLogic(AppDbContext context, ILogger<BudgetLogic> logger) : Re
                 Id = b.Id,
                 Amount = b.Amount,
                 Label = b.Name,
-                ParentId = b.ParentId,
+                ParentId = b.ParentId ?? 0,
             })
             .FirstAsync();
 
-        var tree = await this.Context.Budgets
-            .Select(b => Tuple.Create(b.Id, b.ParentId, b.Name))
-            .ToArrayAsync();
+        var tree = await this.GetBudgetTreeAsync();
 
-        var nodesById = tree.ToDictionary(t => t.Item1, t => new SelectableParentBudgetModel { Id = t.Item1, Label = t.Item3 });
-
-        foreach (var (nodeId, nodeParentId, _) in tree)
-        {
-            nodesById[nodeParentId].Children.Add(nodesById[nodeId]);
-        }
-
-        var remove = new Stack<int>();
-
-        remove.Push(model.Id);
-
-        while (remove.TryPop(out var nextId))
-        {
-            nodesById.Remove(nextId);
-
-            foreach (var removeChild in nodesById[nextId].Children)
-            {
-                remove.Push(removeChild.Id);
-            }
-        }
+        (tree.EnumerateBreadthFirst().FirstOrDefault(node => node.Data.Id == model.Id) as IBidirectionalTree<TreeData>)?.Remove();
 
         model.SelectableParents = nodesById.Values;
 
@@ -74,4 +54,43 @@ public class BudgetLogic(AppDbContext context, ILogger<BudgetLogic> logger) : Re
 
     /// <inheritdoc/>
     protected override Task UpdateAsync(Budget entity, EditModel model) => throw new NotImplementedException();
+
+    /// <summary>
+    /// Ruft die Daten der Budgets des aktuellen Nutzers in Baumstruktur ab.
+    /// </summary>
+    /// <returns>Einen <see cref="Task{TResult}"/>, dessen Ergebnis die Baumstruktur ist.</returns>
+    private async Task<IBidirectionalTree<TreeData>> GetBudgetTreeAsync()
+    {
+        var treeData = await this.Context.Budgets
+            .Select(b => new TreeData
+            {
+                Id = b.Id,
+                ParentId = b.ParentId ?? 0,
+                Name = b.Name,
+            })
+            .ToArrayAsync();
+
+        return treeData.ToTree(i => i.Id, i => i.ParentId);
+    }
+
+    /// <summary>
+    /// Stellt die Daten für die baumartige Darstellung der Budgets dar.
+    /// </summary>
+    private class TreeData
+    {
+        /// <summary>
+        /// Holt oder setzt die ID des Datensatzes.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Holt oder setzt die ID des übergeordneten Budgets.
+        /// </summary>
+        public int ParentId { get; set; }
+
+        /// <summary>
+        /// Holt oder setzt die Bezeichnung des Datensatzes.
+        /// </summary>
+        public string Name { get; set; } = string.Empty;
+    }
 }
