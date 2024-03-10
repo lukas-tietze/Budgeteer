@@ -53,66 +53,6 @@ public class BasicTree<T>(T data) : ITree<T>
     public void AddChild(T data) => this.AddChild(new BasicTree<T>(data));
 
     /// <inheritdoc/>
-    public IEnumerable<BasicTree<T>> EnumerateBreadthFirst()
-    {
-        var queue = new Queue<BasicTree<T>>();
-
-        queue.Enqueue(this);
-
-        while (queue.TryDequeue(out var node))
-        {
-            yield return node;
-
-            foreach (var child in node.children)
-            {
-                queue.Enqueue(child);
-            }
-        }
-    }
-
-    /// <inheritdoc/>
-    public IEnumerable<T> EnumerateDataBreadthFirst()
-    {
-        var queue = new Queue<BasicTree<T>>();
-
-        queue.Enqueue(this);
-
-        while (queue.TryDequeue(out var node))
-        {
-            yield return node.Data;
-
-            foreach (var child in node.children)
-            {
-                queue.Enqueue(child);
-            }
-        }
-    }
-
-    /// <inheritdoc/>
-    public IEnumerable<T> EnumerateDataDepthFirst()
-    {
-        var stack = new Stack<BasicTree<T>>();
-
-        stack.Push(this);
-
-        while (stack.TryPop(out var node))
-        {
-            yield return node.Data;
-
-            foreach (var child in node.children)
-            {
-                stack.Push(child);
-            }
-        }
-    }
-
-    /// <inheritdoc/>
-    public IEnumerable<T> EnumerateDataHorizontal() => throw new NotImplementedException();
-
-    /// <inheritdoc/>
-    public IEnumerable<BasicTree<T>> EnumerateHorizontal() => throw new NotImplementedException();
-
-    /// <inheritdoc/>
     public int RemoveAllChildren(T data, IEqualityComparer<T>? comparer = null)
     {
         comparer ??= EqualityComparer<T>.Default;
