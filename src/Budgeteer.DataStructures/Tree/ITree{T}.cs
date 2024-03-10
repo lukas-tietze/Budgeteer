@@ -38,7 +38,7 @@ public interface ITree<T>
     /// Fügt den gegebenen Kindknoten hinzu.
     /// </summary>
     /// <param name="node">Der hinzuzufügende Knoten.</param>
-    void AddChild(BasicTree<T> node);
+    void AddChild(ITree<T> node);
 
     /// <summary>
     /// Fügt einen Kindknoten mit den gegebenen Daten hinzu.
@@ -61,7 +61,7 @@ public interface ITree<T>
     /// </summary>
     /// <param name="node">Der zu entfernende Knoten.</param>
     /// <returns>True, wenn der Knotne gefunden und entfernt wurde, false, wenn der Knoten kein Kind des aktuellen Knotens war.</returns>
-    bool RemoveChild(BasicTree<T> node);
+    bool RemoveChild(ITree<T> node);
 
     /// <summary>
     /// Entfernt den ersten Kinknoten dessen Wert gleich <paramref name="data"/> ist.

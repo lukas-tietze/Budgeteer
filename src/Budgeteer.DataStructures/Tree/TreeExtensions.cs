@@ -6,8 +6,6 @@
 
 namespace Budgeteer.DataStructures.Tree;
 
-using System.Runtime.CompilerServices;
-
 /// <summary>
 /// Stellt Erweiterungen für <see cref="ITree{T}"/> und
 /// <see cref="IBidirectionalTree{T}"/> bereit.
@@ -18,18 +16,20 @@ public static class TreeExtensions
     /// Durchläuft den Baum vom aktuellen Knoten aus
     /// nach dem Breadth-First-Prinzip.
     /// </summary>
+    /// <param name="root">Der Knoten, vom dem aus die Iteration beginnt.</param>
+    /// <typeparam name="T">Der Typ der Daten im Baum.</typeparam>
     /// <returns>Eine Auflistung der Knoten.</returns>
-    public static IEnumerable<BasicTree<T>> EnumerateBreadthFirst()
+    public static IEnumerable<ITree<T>> EnumerateBreadthFirst<T>(this ITree<T> root)
     {
-        var queue = new Queue<BasicTree<T>>();
+        var queue = new Queue<ITree<T>>();
 
-        queue.Enqueue(this);
+        queue.Enqueue(root);
 
         while (queue.TryDequeue(out var node))
         {
-            yield return node.Data;
+            yield return node;
 
-            foreach (var child in node.children)
+            foreach (var child in node.Children)
             {
                 queue.Enqueue(child);
             }
@@ -40,6 +40,8 @@ public static class TreeExtensions
     /// Durchläuft die Daten des Baums vom aktuellen Knoten aus
     /// nach dem Breadth-First-Prinzip.
     /// </summary>
+    /// <param name="root">Der Knoten, vom dem aus die Iteration beginnt.</param>
+    /// <typeparam name="T">Der Typ der Daten im Baum.</typeparam>
     /// <returns>Eine Auflistung der Daten der Knoten.</returns>
     public static IEnumerable<T> EnumerateDataBreadthFirst<T>(this ITree<T> root)
     {
@@ -58,11 +60,12 @@ public static class TreeExtensions
         }
     }
 
-
     /// <summary>
     /// Durchläuft die Daten des Baums vom aktuellen Knoten aus
     /// nach dem Depth-First-Prinzip.
     /// </summary>
+    /// <param name="root">Der Knoten, vom dem aus die Iteration beginnt.</param>
+    /// <typeparam name="T">Der Typ der Daten im Baum.</typeparam>
     /// <returns>Eine Auflistung der Daten der Knoten.</returns>
     public static IEnumerable<T> EnumerateDataDepthFirst<T>(this ITree<T> root)
     {
@@ -82,17 +85,36 @@ public static class TreeExtensions
     }
 
     /// <summary>
+    /// Durchläuft die Daten des Baums vom aktuellen Knoten aus
+    /// nach oben, bis zur Wurzel.
+    /// </summary>
+    /// <param name="root">Der Knoten, vom dem aus die Iteration beginnt.</param>
+    /// <typeparam name="T">Der Typ der Daten im Baum.</typeparam>
+    /// <returns>Eine Auflistung der Daten der Knoten.</returns>
+    public static IEnumerable<T> ENumerateDataUpwards<T>(this IBidirectionalTree<T> root)
+    {
+        var node = root;
+
+        while (node != null)
+        {
+            yield return node.Data;
+
+            node = node.Parent;
+        }
+    }
+
+    /// <summary>
     /// Durchläuft den Baum vom aktuellen Knoten aus
     /// nach dem Depth-First-Prinzip.
     /// </summary>
+    /// <param name="root">Der Knoten, vom dem aus die Iteration beginnt.</param>
+    /// <typeparam name="T">Der Typ der Daten im Baum.</typeparam>
     /// <returns>Eine Auflistung der Knoten.</returns>
-    /// <inheritdoc/>
-    public static IEnumerable<TTree> EnumerateDepthFirst<TTree, TTreeData>(this TTree tree)
-        where TTree : ITree<TTreeData>
+    public static IEnumerable<ITree<T>> EnumerateDepthFirst<T>(this ITree<T> root)
     {
-        var stack = new Stack<TTree>();
+        var stack = new Stack<ITree<T>>();
 
-        stack.Push(tree);
+        stack.Push(root);
 
         while (stack.TryPop(out var node))
         {
@@ -104,4 +126,13 @@ public static class TreeExtensions
             }
         }
     }
+
+    /// <summary>
+    /// Durchläuft den Baum vom aktuellen Knoten aus horizontal,
+    /// also jeweils vom ersten Knoten einer Ebene bis zum letzten.
+    /// Der aktuelle Knoten stellt dabei die erste Ebene dar, die Ebenen
+    /// werden von oben nach unten durchlaufen.
+    /// </summary>
+    /// <returns>Eine Auflistung der Knoten.</returns>
+    IEnumerable<BasicTree<T>> EnumerateHorizontal();
 }

@@ -27,7 +27,7 @@ public class Budget : TimerEntityBase
     /// Holt oder setzt die ID der ggf. zugeordneten Kategorie.
     /// </summary>
     [ForeignKey(nameof(Parent))]
-    public int ParentId { get; set; }
+    public int? ParentId { get; set; }
 
     /// <summary>
     /// Holt oder setzt die Bezeichnung dieses Budgets.
