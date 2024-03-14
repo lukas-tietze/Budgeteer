@@ -42,14 +42,29 @@ public class BudgetLogic(AppDbContext context, ILogger<BudgetLogic> logger) : Re
 
         (tree.EnumerateBreadthFirst().FirstOrDefault(node => node.Data.Id == model.Id) as IBidirectionalTree<TreeData>)?.Remove();
 
-        model.SelectableParents = nodesById.Values;
+        var selectableParentModels = tree.ToDataTree(
+            childrenGetter: node => node.Children,
+            nodeFactory: node => new SelectableParentBudgetModel
+            {
+                Id = node.Id,
+                Label = node.Name,
+            });
+
+        model.SelectableParents = selectableParentModels.Children;
 
         return model;
     }
 
     /// <inheritdoc/>
-    public override Task<ICollection<object>> ListAsync(QueryRange? pagination)
+    public override async Task<ICollection<object>> ListAsync(QueryRange? pagination)
     {
+        var tree = await this.GetBudgetTreeAsync();
+        var models = tree.ToDataTree(
+            childrenGetter: node => node.Children,
+            nodeFactory: node => new ListModel
+            {
+                
+            });
     }
 
     /// <inheritdoc/>

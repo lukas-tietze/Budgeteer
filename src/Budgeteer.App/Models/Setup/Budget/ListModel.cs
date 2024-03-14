@@ -19,5 +19,5 @@ public class ListModel : ModelBase
     /// <summary>
     /// Holt oder setzt die Sammlung der untergeordneten Budgets.
     /// </summary>
-    public IEnumerable<ListModel> Children { get; set; } = Enumerable.Empty<ListModel>();
+    public List<ListModel> Children { get; set; } = [];
 }

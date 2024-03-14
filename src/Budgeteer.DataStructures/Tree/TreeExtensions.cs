@@ -91,7 +91,7 @@ public static class TreeExtensions
     /// <param name="root">Der Knoten, vom dem aus die Iteration beginnt.</param>
     /// <typeparam name="T">Der Typ der Daten im Baum.</typeparam>
     /// <returns>Eine Auflistung der Daten der Knoten.</returns>
-    public static IEnumerable<T> ENumerateDataUpwards<T>(this IBidirectionalTree<T> root)
+    public static IEnumerable<T> EnumerateDataUpwards<T>(this IBidirectionalTree<T> root)
     {
         var node = root;
 
@@ -153,6 +153,39 @@ public static class TreeExtensions
     /// <typeparam name="T">Der Typ der Daten im Baum.</typeparam>
     public static void Remove<T>(this IBidirectionalTree<T> node) => node.Parent?.RemoveChild(node);
 
+    /// <summary>
+    /// Wandelt den Baum in eine buamähnliche Datenstruktur einer anderen Klasse um.
+    /// </summary>
+    /// <typeparam name="T">Der Typ der Daten im Baum.</typeparam>
+    /// <typeparam name="TNode">Der Typ der Ausgabedaten.</typeparam>
+    /// <param name="root">Der Wurzelknoten, von dem aus der Baum umgewandelt werden soll.</param>
+    /// <param name="nodeFactory">Eine Factory-Funktion, die für jeden Knoten des Baums eine Instanz von <typeparamref name="TNode"/> erstellt.</param>
+    /// <param name="childrenGetter">Ein Funktion, die die Liste der Kinder eines Knotens abruft.</param>
+    /// <returns>Den neuen Wurzelknoten.</returns>
+    public static TNode ToDataTree<T, TNode>(this ITree<T> root, Func<T, TNode> nodeFactory, Func<TNode, ICollection<TNode>> childrenGetter)
+    {
+        var stack = new Stack<(ITree<T> InputNode, TNode OutputNode)>();
+        var outputRoot = nodeFactory(root.Data);
+
+        stack.Push((root, outputRoot));
+
+        while (stack.Count > 0)
+        {
+            var (inputNode, outputNode) = stack.Pop();
+            var childList = childrenGetter(outputNode);
+
+            foreach (var child in inputNode.Children)
+            {
+                var outputChild = nodeFactory(child.Data);
+
+                childList.Add(outputChild);
+
+                stack.Push((child, outputChild));
+            }
+        }
+
+        return outputRoot;
+    }
     /// <summary>
     /// Erzeugt eine Basumstruktur aus den gegebenen Daten.
     /// </summary>
