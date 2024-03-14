@@ -25,7 +25,7 @@ public abstract class RestRessourceLogicBase<TEditModel>(ILogger<RestRessourceLo
     /// </summary>
     /// <param name="pagination">Die Einstellungen für Pageination.</param>
     /// <returns>Einen <see cref="Task{TResult}"/>, dessen Ergebnis die Liste der Modelle ist.</returns>
-    public abstract Task<ICollection<object>> ListAsync(QueryRange? pagination);
+    public abstract Task<IReadOnlyCollection<object?>> ListAsync(QueryRange? pagination);
 
     /// <summary>
     /// Setzt einen Wert asynchron.

@@ -2,16 +2,18 @@
 
 <template>
   <div class="flex flex-row items-center justify-between">
-    <Title>Budget-Kategorien verwalten</Title>
+    <Title>Budgets verwalten</Title>
 
     <div class="flex flex-row gap-2">
-      <RouterLink to="/budget-categories/create" class="contents">
+      <RouterLink to="/budget/create" class="contents">
         <AddButton></AddButton>
       </RouterLink>
     </div>
   </div>
 
-  <TreeView :items="treeViewItems" resourceUrl="budget-categories"> </TreeView>
+  <TreeView v-if="treeViewItems.length" :items="treeViewItems" resourceUrl="budget-categories"> </TreeView>
+
+  <div v-if="!treeViewItems.length">Noch keine Budgets definiert</div>
 </template>
 
 <script lang="ts">
@@ -21,7 +23,10 @@ import { TreeViewItem } from '../../Components/Complex/TreeViewItem';
 
 export default {
   props: {
-    budgetCategories: Array as PropType<BudgetCategoryModel[]>,
+    budgetCategories: {
+      default: [],
+      type: Array as PropType<BudgetCategoryModel[]>,
+    },
   },
   computed: {
     treeViewItems() {

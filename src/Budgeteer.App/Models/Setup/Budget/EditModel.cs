@@ -31,5 +31,5 @@ public class EditModel : RestEditModel
     /// <summary>
     /// Holt oder setzt die Sammlung der möglichen Elternelemente.
     /// </summary>
-    public IEnumerable<SelectableParentBudgetModel> SelectableParents { get; set; } = Enumerable.Empty<SelectableParentBudgetModel>();
+    public IEnumerable<SelectableParentBudgetModel> SelectableParents { get; set; } = [];
 }

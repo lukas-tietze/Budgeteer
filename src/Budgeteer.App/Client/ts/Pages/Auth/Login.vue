@@ -1,10 +1,10 @@
 <template>
   <form class="mx-auto w-full max-w-xl mt-10 flex flex-col" @submit="login()" method="dialog">
     <label for="Login" class="text-xs text-gray-400">E-Mail-Adresse</label>
-    <input type="email" id="EMail" name="EMail" v-model="email" />
+    <input type="email" id="EMail" name="EMail" autocomplete="email" v-model="email" />
 
     <label for="Password" class="text-xs text-gray-400 mt-4">Passwort</label>
-    <input type="password" id="Password" name="Password" v-model="password" />
+    <input type="password" id="Password" name="Password" autocomplete="current-password" v-model="password" />
 
     <div v-if="!!error" class="">
       {{ error }}

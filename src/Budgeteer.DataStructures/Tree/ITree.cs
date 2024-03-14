@@ -6,6 +6,7 @@
 
 namespace Budgeteer.DataStructures.Tree;
 
+using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
@@ -53,14 +54,14 @@ public interface ITree
     /// <param name="data">Die Daten, der zu entfernenden Kindknoten.</param>
     /// <param name="comparer">Der zu nutzende Vergleichsperator.</param>
     /// <returns>True, wenn der Knotne gefunden und entfernt wurde, false, wenn der Knoten kein Kind des aktuellen Knotens war.</returns>
-    int RemoveAllChildren(T data, IEqualityComparer<T>? comparer = null);
+    int RemoveAllChildren(object? data, IEqualityComparer? comparer = null);
 
     /// <summary>
     /// Entfernt den gegebenen Kinknoten.
     /// </summary>
     /// <param name="node">Der zu entfernende Knoten.</param>
     /// <returns>True, wenn der Knotne gefunden und entfernt wurde, false, wenn der Knoten kein Kind des aktuellen Knotens war.</returns>
-    bool RemoveChild(BasicTree<T> node);
+    bool RemoveChild(ITree node);
 
     /// <summary>
     /// Entfernt den ersten Kinknoten dessen Wert gleich <paramref name="data"/> ist.
@@ -70,7 +71,7 @@ public interface ITree
     /// <param name="data">Die Daten, des zu entfernenden Kindknotens.</param>
     /// <param name="comparer">Der zu nutzende Vergleichsperator.</param>
     /// <returns>True, wenn der Knotne gefunden und entfernt wurde, false, wenn der Knoten kein Kind des aktuellen Knotens war.</returns>
-    bool RemoveChild(T data, IEqualityComparer<T>? comparer = null);
+    bool RemoveChild(object? data, IEqualityComparer? comparer = null);
 
     /// <summary>
     /// Entfernt alle Kindknoten.

@@ -14,12 +14,8 @@ import { inject } from '../Services/Di';
     </ul>
 
     <ul class="list-none flex flex-row flex-1 justify-center">
-      <NavItem href="/budgets">
+      <NavItem href="/budget">
         <span>Budgets</span>
-      </NavItem>
-
-      <NavItem href="/budget-categories">
-        <span>Kategorien</span>
       </NavItem>
 
       <NavItem href="/transactions">

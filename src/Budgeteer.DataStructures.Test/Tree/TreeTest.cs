@@ -1,12 +1,14 @@
+// -----------------------------------------------------------------------------------------------------------------------------------------
+// <copyright file="TreeTest.cs" company="Lukas Tietze">
+// Copyright (c) Lukas Tietze. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------------------------------------------------------------------------
+
 namespace Budgeteer.DataStructures.Test;
 
-public class UnitTest1
+/// <summary>
+/// Enthält Unittests für Bäume.
+/// </summary>
+public class TreeTest
 {
-    [Fact]
-    public void Test1()
-    {
-        var tree = new BasicTree<int>(0);
-
-        tree.EnumerateDepthFirst();
-    }
 }

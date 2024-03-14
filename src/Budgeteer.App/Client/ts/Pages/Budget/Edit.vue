@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { PropType } from 'vue';
 import { SelectItem } from '../../Components/Inputs/SelectItem';
 import { BudgetCategoryModel } from '../../Models/BudgetCategoryModel';
+import { Api } from '../../Services/Api';
 </script>
 
 <template>
@@ -31,6 +31,8 @@ import { BudgetCategoryModel } from '../../Models/BudgetCategoryModel';
 </template>
 
 <script lang="ts">
+import { inject } from '../../Services/Di';
+
 export default {
   props: {
     budgetCategories: Array<BudgetCategoryModel>,
@@ -56,11 +58,8 @@ export default {
       const model = this.editedModel;
 
       // TODO: Wiederherstellen x2
-      if (model.slug) {
-        // Inertia.patch(`/budget-categories/${model.slug}`, model as any);
-      } else {
-        // Inertia.post('/budget-categories', model as any);
-      }
+
+      inject(Api).post();
     },
   },
 };

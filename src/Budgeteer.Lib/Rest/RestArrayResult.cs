@@ -19,5 +19,5 @@ public class RestArrayResult
     /// <summary>
     /// Holt oder setzt die enthaltenen Werte.
     /// </summary>
-    public IEnumerable<object> Values { get; set; } = Enumerable.Empty<object>();
+    public IEnumerable<object?> Values { get; set; } = [];
 }

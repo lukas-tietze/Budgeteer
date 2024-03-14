@@ -10,10 +10,10 @@ const router = createRouter({
     { path: '/', component: () => import('./Pages/Index.vue') },
     { path: '/auth/login', component: () => import('./Pages/Auth/Login.vue') },
     { path: '/auth/register', component: () => import('./Pages/Auth/Register.vue') },
-    { path: '/budgets', component: () => import('./Pages/Budgets.vue'), beforeEnter: () => '/auth/login' },
     { path: '/transactions', component: () => import('./Pages/Transactions.vue') },
-    { path: '/budget-categories', component: () => import('./Pages/BudgetCategories/Index.vue') },
-    { path: '/budget-categories/edit', component: () => import('./Pages/BudgetCategories/Edit.vue') },
+    { path: '/budget', component: () => import('./Pages/Budget/Index.vue') },
+    { path: '/budget/edit', component: () => import('./Pages/Budget/Edit.vue') },
+    { path: '/budget/create', component: () => import('./Pages/Budget/Edit.vue') },
     {
       path: '/playground',
       component: () => import('./Pages/Playground/Index.vue'),

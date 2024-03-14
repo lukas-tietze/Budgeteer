@@ -56,15 +56,19 @@ public class BudgetLogic(AppDbContext context, ILogger<BudgetLogic> logger) : Re
     }
 
     /// <inheritdoc/>
-    public override async Task<ICollection<object>> ListAsync(QueryRange? pagination)
+    public override async Task<IReadOnlyCollection<object?>> ListAsync(QueryRange? pagination)
     {
         var tree = await this.GetBudgetTreeAsync();
-        var models = tree.ToDataTree(
+        var rootModel = tree.ToDataTree(
             childrenGetter: node => node.Children,
             nodeFactory: node => new ListModel
             {
-                
+                Id = node.Id,
+                Label = node.Name,
+                Amount = node.Amount,
             });
+
+        return rootModel.Children;
     }
 
     /// <inheritdoc/>
@@ -82,6 +86,7 @@ public class BudgetLogic(AppDbContext context, ILogger<BudgetLogic> logger) : Re
                 Id = b.Id,
                 ParentId = b.ParentId ?? 0,
                 Name = b.Name,
+                Amount = b.Amount,
             })
             .ToArrayAsync();
 
@@ -94,18 +99,23 @@ public class BudgetLogic(AppDbContext context, ILogger<BudgetLogic> logger) : Re
     private class TreeData
     {
         /// <summary>
+        /// Holt oder setzt den eingestellten Betrag des Budgets.
+        /// </summary>
+        public long Amount { get; set; }
+
+        /// <summary>
         /// Holt oder setzt die ID des Datensatzes.
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// Holt oder setzt die ID des übergeordneten Budgets.
-        /// </summary>
-        public int ParentId { get; set; }
-
-        /// <summary>
         /// Holt oder setzt die Bezeichnung des Datensatzes.
         /// </summary>
         public string Name { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Holt oder setzt die ID des übergeordneten Budgets.
+        /// </summary>
+        public int ParentId { get; set; }
     }
 }
