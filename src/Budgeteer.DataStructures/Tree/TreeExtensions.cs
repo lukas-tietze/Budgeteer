@@ -128,11 +128,13 @@ public static class TreeExtensions
     }
 
     /// <summary>
-    /// Durchläuft den Baum vom aktuellen Knoten aus
-    /// nach oben bis zur Wurzel.
+    /// Durchläuft den Baum vom aktuellen Knoten aus horizontal,
+    /// also jeweils vom ersten Knoten einer Ebene bis zum letzten.
+    /// Der aktuelle Knoten stellt dabei die erste Ebene dar, die Ebenen
+    /// werden von oben nach unten durchlaufen.
     /// </summary>
-    /// <param name="root">Der Knoten, vom dem aus die Iteration beginnt.</param>
-    /// <typeparam name="T">Der Typ der Daten im Baum.</typeparam>
+    /// <typeparam name="T">Der Typ der Elemente des Baums.</typeparam>
+    /// <param name="root">Der Wurzelknoten.</param>
     /// <returns>Eine Auflistung der Knoten.</returns>
     public static IEnumerable<IBidirectionalTree<T>> EnumerateUpwards<T>(this IBidirectionalTree<T> root)
     {
@@ -186,6 +188,7 @@ public static class TreeExtensions
 
         return outputRoot;
     }
+
     /// <summary>
     /// Erzeugt eine Basumstruktur aus den gegebenen Daten.
     /// </summary>
