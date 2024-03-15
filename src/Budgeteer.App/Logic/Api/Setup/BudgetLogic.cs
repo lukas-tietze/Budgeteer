@@ -58,17 +58,22 @@ public class BudgetLogic(AppDbContext context, ILogger<BudgetLogic> logger) : Re
     /// <inheritdoc/>
     public override async Task<IReadOnlyCollection<object?>> ListAsync(QueryRange? pagination)
     {
-        var tree = await this.GetBudgetTreeAsync();
-        var rootModel = tree.ToDataTree(
-            childrenGetter: node => node.Children,
-            nodeFactory: node => new ListModel
+        var modelsById = await this.Context.Budgets
+            .Select(b => new ListModel
             {
-                Id = node.Id,
-                Label = node.Name,
-                Amount = node.Amount,
-            });
+                ParentId = b.ParentId,
+            })
+            .ToDictionaryAsync(m => m.Id);
 
-        return rootModel.Children;
+        foreach (var model in modelsById.Values)
+        {
+            if (model.ParentId.HasValue && modelsById.TryGetValue(model.ParentId.Value, out var parent))
+            {
+                parent.Children.Add(model);
+            }
+        }
+
+        return modelsById.Values.Where(m => !m.ParentId.HasValue).ToArray();
     }
 
     /// <inheritdoc/>
@@ -86,7 +91,6 @@ public class BudgetLogic(AppDbContext context, ILogger<BudgetLogic> logger) : Re
                 Id = b.Id,
                 ParentId = b.ParentId ?? 0,
                 Name = b.Name,
-                Amount = b.Amount,
             })
             .ToArrayAsync();
 
@@ -98,11 +102,6 @@ public class BudgetLogic(AppDbContext context, ILogger<BudgetLogic> logger) : Re
     /// </summary>
     private class TreeData
     {
-        /// <summary>
-        /// Holt oder setzt den eingestellten Betrag des Budgets.
-        /// </summary>
-        public long Amount { get; set; }
-
         /// <summary>
         /// Holt oder setzt die ID des Datensatzes.
         /// </summary>

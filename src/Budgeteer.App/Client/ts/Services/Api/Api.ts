@@ -1,36 +1,16 @@
 import { build } from 'vite';
 
-import { ApiError } from './ApiError';
-import { ApiProps } from './ApiProps';
-import { inject } from './Di';
-
-type ModelCtor<T> = new (copy?: Partial<T>) => T;
+import { ApiError } from '../ApiError';
+import { ApiProps } from '../ApiProps';
+import { inject } from '../Di';
+import { GetParams } from './GetParams';
+import { ModelCtor } from './ModelCtor';
+import { PostParams } from './PostParams';
+import { QueryParams } from './QueryParams';
+import { RequestParams } from './RequestParams';
+import { UrlParams } from './UrlParams';
 
 const apiRoot = document.baseURI + 'api';
-
-export type UrlParams = unknown[];
-export type QueryParams = Record<string, unknown[] | unknown[]>;
-
-export type RequestParams<TModel extends object> = {
-  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
-  ctor: ModelCtor<TModel>;
-  url: string;
-  body?: object | FormData;
-};
-
-export type GetParams<TModel extends object> = {
-  ctor: ModelCtor<TModel>;
-  url: string;
-  urlParams?: UrlParams;
-  query?: QueryParams;
-};
-
-export type PostParams<TModel extends object> = {
-  ctor: ModelCtor<TModel>;
-  url: string;
-  urlParams?: UrlParams;
-  query?: QueryParams;
-} & ({ body: object; form?: never } | { body?: never; form: FormData });
 
 /**
  * Ermöglicht Zugriffe auf die API.

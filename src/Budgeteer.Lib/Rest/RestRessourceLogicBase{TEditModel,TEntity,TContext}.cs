@@ -38,7 +38,7 @@ public abstract class RestRessourceLogicBase<TEditModel, TEntity, TContext>(TCon
     }
 
     /// <inheritdoc/>
-    public override async Task<int> SetAsync(TEditModel model)
+    public override async Task<RestEditResultModel> SetAsync(TEditModel model)
     {
         TEntity entity;
 
@@ -57,7 +57,11 @@ public abstract class RestRessourceLogicBase<TEditModel, TEntity, TContext>(TCon
 
         await this.Context.SaveChangesAsync();
 
-        return entity.Id;
+        return new RestEditResultModel
+        {
+            EntityId = entity.Id,
+            Success = true,
+        };
     }
 
     /// <summary>

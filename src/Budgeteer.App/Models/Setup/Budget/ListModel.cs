@@ -20,4 +20,9 @@ public class ListModel : ModelBase
     /// Holt oder setzt die Sammlung der untergeordneten Budgets.
     /// </summary>
     public List<ListModel> Children { get; set; } = [];
+
+    /// <summary>
+    /// Holt oder setzt die ID des übergeordneten Knotens.
+    /// </summary>
+    public int? ParentId { get; set; }
 }

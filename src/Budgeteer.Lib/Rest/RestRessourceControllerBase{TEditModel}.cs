@@ -89,8 +89,8 @@ public class RestRessourceControllerBase<TEditModel>(RestRessourceLogicBase<TEdi
     {
         model.Id = id;
 
-        id = await this.logic.SetAsync(model);
+        var resultModel = await this.logic.SetAsync(model);
 
-        return this.Ok(id);
+        return this.Ok(resultModel);
     }
 }

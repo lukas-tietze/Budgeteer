@@ -33,7 +33,7 @@ public abstract class RestRessourceLogicBase<TEditModel>(ILogger<RestRessourceLo
     /// <param name="model">Das Modell mit den aktualisierten Daten.</param>
     /// <returns>Einen <see cref="Task{TResult}"/>, dessen Ergebnis die ID des
     /// bearbeiteten oder neu angelegten Datensatzes ist.</returns>
-    public abstract Task<int> SetAsync(TEditModel model);
+    public abstract Task<RestEditResultModel> SetAsync(TEditModel model);
 
     /// <summary>
     /// Löscht den Datensatz mit der gegebenen ID.
