@@ -11,6 +11,7 @@ using Budgeteer.App.Data;
 using Budgeteer.App.Data.Entities.Auth;
 using Budgeteer.App.Data.Seeding;
 using Budgeteer.App.Logic;
+using Budgeteer.App.Logic.Api.Setup;
 using Budgeteer.Lib.Vite;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;

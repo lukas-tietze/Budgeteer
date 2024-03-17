@@ -4,10 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-namespace Budgeteer.App.Logic.Api;
-
-using Budgeteer.App.Logic.Api.Auth;
-using Budgeteer.App.Logic.Api.Setup;
+namespace Budgeteer.App.Logic.Api.Setup;
 
 /// <summary>
 /// Stellt Erweiterungsmethoden für <see cref="IServiceCollection"/> bereit.
@@ -15,11 +12,10 @@ using Budgeteer.App.Logic.Api.Setup;
 public static class IServiceCollectionExtensions
 {
     /// <summary>
-    /// Registriert die Api-Dienste in <paramref name="services"/>.
+    /// Registriert die Dienste der Api für den Bereich Setup / Stammdaten in <paramref name="services"/>.
     /// </summary>
     /// <param name="services">Die Sammlung, in der die Dienste registriert werden sollen.</param>
     /// <returns><paramref name="services"/>, um Method-Chaining zu ermöglichen.</returns>
-    public static IServiceCollection AddApi(this IServiceCollection services) => services
-        .AddAuthServices()
-        .AddSetup();
+    public static IServiceCollection AddSetup(this IServiceCollection services) => services
+        .AddScoped<BudgetLogic>();
 }

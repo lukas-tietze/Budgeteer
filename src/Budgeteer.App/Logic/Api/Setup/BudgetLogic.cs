@@ -33,7 +33,7 @@ public class BudgetLogic(AppDbContext context, ILogger<BudgetLogic> logger) : Re
             {
                 Id = b.Id,
                 Amount = b.Amount,
-                Label = b.Name,
+                Name = b.Name,
                 ParentId = b.ParentId ?? 0,
             })
             .FirstAsync();
@@ -77,7 +77,10 @@ public class BudgetLogic(AppDbContext context, ILogger<BudgetLogic> logger) : Re
     }
 
     /// <inheritdoc/>
-    protected override Task UpdateAsync(Budget entity, EditModel model) => throw new NotImplementedException();
+    protected override async Task UpdateAsync(Budget entity, EditModel model)
+    {
+        entity.Name = model.Name;
+    }
 
     /// <summary>
     /// Ruft die Daten der Budgets des aktuellen Nutzers in Baumstruktur ab.

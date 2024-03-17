@@ -6,13 +6,26 @@ export class ApiProps {
    * Initialisiert eine neue Instanz der Klasse.
    */
   constructor() {
-    const src = document.getElementById('ApiProps') as HTMLDivElement | undefined;
+    const src = document.getElementById('ApiEnvironment') as HTMLDivElement | undefined;
 
-    this.apiUrl = String(src?.dataset.apiUrl);
+    if (src) {
+      this.apiUrl = String(src?.dataset.apiUrl);
+
+      console.log('Api-Environment geladen: ', this);
+    } else {
+      this.apiUrl = ';';
+
+      console.warn('Api-Environment konnte nicht geladen werden!');
+    }
+
+    if (!this.apiUrl.endsWith('/')) {
+      this.apiUrl += '/';
+    }
   }
 
   /**
    * Die Basis-URL der API.
+   * Endet immer uaf `/`.
    */
   public readonly apiUrl: string;
 }

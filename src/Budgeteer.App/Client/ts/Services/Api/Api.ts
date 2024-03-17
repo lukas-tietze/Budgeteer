@@ -8,7 +8,7 @@ import { ModelCtor } from './ModelCtor';
 import { PostParams } from './PostParams';
 import { QueryParams } from './QueryParams';
 import { RequestParams } from './RequestParams';
-import { UrlParams } from './UrlParams';
+import { RestEditResultModel } from './RestEditResultModel';
 
 const apiRoot = document.baseURI + 'api';
 
@@ -28,46 +28,56 @@ export class Api {
     this.props = inject(ApiProps);
   }
 
-  public post<TModel extends object>(ctor: ModelCtor<TModel>, url: string, body: object | FormData): Promise<TModel>;
+  public post(url: string | unknown[], body: object | FormData): Promise<RestEditResultModel>;
+  public post<TModel extends object>(url: string | unknown[], body: object | FormData, ctor: ModelCtor<TModel>): Promise<TModel>;
   public post<TModel extends object>(params: PostParams<TModel>): Promise<TModel>;
   public async post<TModel extends object>(
-    arg1: PostParams<TModel> | ModelCtor<TModel>,
-    arg2?: string,
-    arg3?: object | FormData
-  ): Promise<TModel> {
-    if (typeof arg1 !== 'object') {
+    arg1: PostParams<TModel> | string | unknown[],
+    arg2?: object | FormData,
+    arg3?: ModelCtor<TModel>
+  ): Promise<TModel | RestEditResultModel> {
+    if (typeof arg1 === 'object' && !Array.isArray(arg1)) {
       return await this.request({
         method: 'POST',
-        ctor: arg1,
-        url: this.buildUrl(arg2!),
-        body: arg3,
+        ctor: arg1.ctor,
+        url: this.buildUrl(arg1.url, arg1.query),
+        body: arg1.body ?? arg1.form,
+      });
+    }
+
+    if (arg3) {
+      return await this.request({
+        method: 'POST',
+        ctor: arg3,
+        url: this.buildUrl(arg1),
+        body: arg2,
       });
     }
 
     return await this.request({
       method: 'POST',
-      ctor: arg1.ctor,
-      url: this.buildUrl(arg1.url, arg1.urlParams, arg1.query),
-      body: arg1.body ?? arg1.form,
+      ctor: RestEditResultModel,
+      url: this.buildUrl(arg1),
+      body: arg2,
     });
   }
 
-  public get<TModel extends object>(ctor: ModelCtor<TModel>, url: string, ...urlParams: UrlParams): Promise<TModel>;
+  public get<TModel extends object>(ctor: ModelCtor<TModel>, url: string | unknown[]): Promise<TModel>;
   public get<TModel extends object>(params: GetParams<TModel>): Promise<TModel>;
 
-  public async get<TModel extends object>(arg1: GetParams<TModel> | ModelCtor<TModel>, arg2?: string, ...arg3: UrlParams): Promise<TModel> {
+  public async get<TModel extends object>(arg1: GetParams<TModel> | ModelCtor<TModel>, arg2?: string | unknown[]): Promise<TModel> {
     if (typeof arg1 !== 'object') {
       return await this.request({
         method: 'GET',
         ctor: arg1,
-        url: this.buildUrl(arg2!, arg3, undefined),
+        url: this.buildUrl(arg2!, undefined),
       });
     }
 
     return await this.request({
       method: 'GET',
       ctor: arg1.ctor,
-      url: this.buildUrl(arg1.url, arg1.urlParams, arg1.query),
+      url: this.buildUrl(arg1.url, arg1.query),
     });
   }
 
@@ -80,7 +90,7 @@ export class Api {
     return new Promise((resolve, reject) => {
       const request = new XMLHttpRequest();
 
-      request.open(params.method, this.props.apiUrl + '/' + params.url);
+      request.open(params.method, this.trimSlashes(this.props.apiUrl) + '/' + this.trimSlashes(params.url));
       request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 
       request.onload = () => {
@@ -109,15 +119,16 @@ export class Api {
    * Baut eine URl zusammen.
    *
    * @param path Der Pfad der angefragten Ressource, relativ zur API-URL.
-   * @param params Die URL-Parameter.
    * @param query Die Query-Parameter.
    * @returns Die erzeugte URL.
    */
-  private buildUrl(path: string, params?: UrlParams, query?: QueryParams): string {
-    let url = this.trimSlashes(path);
+  private buildUrl(path: string | unknown[], query?: QueryParams): string {
+    let url = '';
 
-    if (params) {
-      path += '/' + params.map((p) => this.trimSlashes(String(p))).join('/');
+    if (typeof path === 'string') {
+      url = path;
+    } else {
+      url += '/' + path.map((p) => this.trimSlashes(String(p))).join('/');
     }
 
     if (query) {

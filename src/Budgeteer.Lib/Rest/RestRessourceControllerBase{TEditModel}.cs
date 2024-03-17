@@ -12,14 +12,18 @@ using Microsoft.AspNetCore.Mvc;
 /// Stellt eine Basisklasse für einen Controller der REST-Api bereit.
 /// </summary>
 /// <typeparam name="TEditModel">Der Typ des Modells zum Bearbeiten von Einträgen.</typeparam>
-public class RestRessourceControllerBase<TEditModel>(RestRessourceLogicBase<TEditModel> logic) : ControllerBase
+public class RestRessourceControllerBase<TEditModel>(RestRessourceLogicBase<TEditModel> logic, ILogger logger) : ControllerBase
     where TEditModel : RestEditModel
 {
     /// <summary>
-    /// Die genutzte Logik.
+    /// Holt den genutzten Logger.
     /// </summary>
-    private readonly RestRessourceLogicBase<TEditModel> logic = logic;
+    protected ILogger Logger { get; } = logger;
 
+    /// <summary>
+    /// Holt die genutzte Logik.
+    /// </summary>
+    protected RestRessourceLogicBase<TEditModel> Logic { get; } = logic;
     /// <summary>
     /// Löscht einen Eintrag.
     /// </summary>
@@ -28,7 +32,7 @@ public class RestRessourceControllerBase<TEditModel>(RestRessourceLogicBase<TEdi
     /// 204 NoContent ist und sonst 404 Not Found.</returns>
     public virtual async Task<IActionResult> DeleteAsync(int id)
     {
-        var deleted = await this.logic.DeleteAsync(id);
+        var deleted = await this.Logic.DeleteAsync(id);
 
         return deleted ? this.NoContent() : this.NotFound();
     }
@@ -41,7 +45,7 @@ public class RestRessourceControllerBase<TEditModel>(RestRessourceLogicBase<TEdi
     /// 200 OK mit dem Modell ist und sonst 404 NotFound.</returns>
     public virtual async Task<IActionResult> GetAsync(int id)
     {
-        var model = await this.logic.GetAsync(id);
+        var model = await this.Logic.GetAsync(id);
 
         return model != null ? this.Ok(model) : this.NotFound();
     }
@@ -70,7 +74,7 @@ public class RestRessourceControllerBase<TEditModel>(RestRessourceLogicBase<TEdi
             queryRange = new(start, count);
         }
 
-        var models = await this.logic.ListAsync(queryRange);
+        var models = await this.Logic.ListAsync(queryRange);
 
         return this.Ok(new RestArrayResult
         {
@@ -85,11 +89,11 @@ public class RestRessourceControllerBase<TEditModel>(RestRessourceLogicBase<TEdi
     /// <param name="id">Die ID des bearbeiteten Datensatzes.</param>
     /// <param name="model">Das Modell mit den aktualisierten Daten.</param>
     /// <returns>Einen <see cref="Task{TResult}"/>, dessen Ergebnis 200 OK mit dem aktualisierten Modell ist.</returns>
-    public async Task<IActionResult> PostAsync(int id, [FromBody] TEditModel model)
+    public virtual async Task<IActionResult> PostAsync(int id, [FromBody] TEditModel model)
     {
         model.Id = id;
 
-        var resultModel = await this.logic.SetAsync(model);
+        var resultModel = await this.Logic.SetAsync(model);
 
         return this.Ok(resultModel);
     }

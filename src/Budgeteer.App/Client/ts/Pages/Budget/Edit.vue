@@ -24,9 +24,9 @@ import { Api } from '../../Services/Api';
   </div>
 
   <div class="flex flex-col gap-3">
-    <TextBox label="Name" :required="true" name="Name" v-model="editedModel.name"></TextBox>
+    <TextBox label="Name" :required="true" name="Name" v-model="model.name"></TextBox>
 
-    <Select label="Übergeordnete Gruppe" :items="budgeCategoryItems" v-model="editedModel.parentId"></Select>
+    <Select label="Übergeordnete Gruppe" :items="budgeCategoryItems" v-model="model.parentId"></Select>
   </div>
 </template>
 
@@ -35,8 +35,14 @@ import { inject } from '../../Services/Di';
 
 export default {
   props: {
-    budgetCategories: Array<BudgetCategoryModel>,
-    model: BudgetCategoryModel,
+    budgetCategories: {
+      type: Array<BudgetCategoryModel>,
+      required: true,
+    },
+    model: {
+      type: BudgetCategoryModel,
+      default: () => new BudgetCategoryModel(),
+    },
   },
   computed: {
     budgeCategoryItems() {
@@ -46,20 +52,13 @@ export default {
 
       return categories;
     },
-    editedModel() {
-      return this.model ?? new BudgetCategoryModel();
-    },
   },
   methods: {
     log() {
       console.log(this.model);
     },
     submit() {
-      const model = this.editedModel;
-
-      // TODO: Wiederherstellen x2
-
-      inject(Api).post();
+      inject(Api).post(['/budget/edit/', this.model.id], this.model);
     },
   },
 };

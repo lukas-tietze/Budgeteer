@@ -21,7 +21,7 @@ public class EditModel : RestEditModel
     /// <summary>
     /// Holt oder setzt die Bezeichnung des Budgets.
     /// </summary>
-    public string Label { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// Holt oder setzt das ausgewählte Eltern-Element.

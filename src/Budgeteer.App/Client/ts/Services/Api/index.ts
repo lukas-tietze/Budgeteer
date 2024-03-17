@@ -4,4 +4,3 @@ export * from './ModelCtor';
 export * from './PostParams';
 export * from './QueryParams';
 export * from './RequestParams';
-export * from './UrlParams';
