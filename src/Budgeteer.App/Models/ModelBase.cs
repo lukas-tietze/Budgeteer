@@ -19,5 +19,5 @@ public class ModelBase
     /// <summary>
     /// Holt oder setzt die Bezeichnung.
     /// </summary>
-    public string Label { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 }

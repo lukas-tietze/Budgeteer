@@ -1,5 +1,6 @@
 import { build } from 'vite';
 
+import { RestArrayResult } from '../../Models/Rest/RestArrayResult';
 import { ApiError } from '../ApiError';
 import { ApiProps } from '../ApiProps';
 import { inject } from '../Di';
@@ -62,6 +63,24 @@ export class Api {
     });
   }
 
+  public list<TModel extends object>(ctor: ModelCtor<TModel>, url: string | unknown[]): Promise<RestArrayResult<TModel>>;
+  public list<TModel extends object>(params: GetParams<TModel>): Promise<RestArrayResult<TModel>>;
+
+  public async list<TModel extends object>(
+    arg1: GetParams<TModel> | ModelCtor<TModel>,
+    arg2?: string | unknown[]
+  ): Promise<RestArrayResult<TModel>> {
+    const result = await this.request({
+      method: 'GET',
+      ctor: RestArrayResult<TModel>,
+      url: this.buildUrl(arg2!, undefined),
+    });
+
+    result.revive(typeof arg1 === 'object' ? arg1.ctor : arg1);
+
+    return result;
+  }
+
   public get<TModel extends object>(ctor: ModelCtor<TModel>, url: string | unknown[]): Promise<TModel>;
   public get<TModel extends object>(params: GetParams<TModel>): Promise<TModel>;
 
@@ -96,7 +115,7 @@ export class Api {
       request.onload = () => {
         if (request.readyState == XMLHttpRequest.DONE) {
           if (request.status === 200) {
-            resolve(JSON.parse(request.response));
+            resolve(new params.ctor(JSON.parse(request.response)));
           } else {
             reject(new ApiError(request));
           }

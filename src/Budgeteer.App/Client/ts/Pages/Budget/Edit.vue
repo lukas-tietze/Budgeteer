@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { SelectItem } from '../../Components/Inputs/SelectItem';
-import { BudgetCategoryModel } from '../../Models/BudgetCategoryModel';
+import { BudgetEditModel } from '../../Models/Setup/BudgetEditModel';
 import { Api } from '../../Services/Api';
 </script>
 
@@ -34,33 +34,24 @@ import { Api } from '../../Services/Api';
 import { inject } from '../../Services/Di';
 
 export default {
-  props: {
-    budgetCategories: {
-      type: Array<BudgetCategoryModel>,
-      required: true,
-    },
-    model: {
-      type: BudgetCategoryModel,
-      default: () => new BudgetCategoryModel(),
-    },
-  },
   computed: {
     budgeCategoryItems() {
-      const categories = (this.budgetCategories ?? []).map((i) => ({ text: i.name, value: i.id } satisfies SelectItem));
+      const categories = (this.model.selectableParents).map((i) => ({ text: i.name, value: i.id } satisfies SelectItem));
 
       categories.unshift({ text: '- keine -', value: 0 });
 
       return categories;
     },
   },
+  data() {
+    return {
+      model: new BudgetEditModel(),
+    }
+  },
   methods: {
-    log() {
-      console.log(this.model);
-    },
     submit() {
       inject(Api).post(['/budget/edit/', this.model.id], this.model);
     },
   },
 };
 </script>
-../../Services/Api/Api

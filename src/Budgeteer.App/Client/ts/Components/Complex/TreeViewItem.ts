@@ -14,14 +14,14 @@ export class TreeViewItem {
   }
 
   /**
+   * Der URL-Teil zum Identifizierende des Eintrags.
+   */
+  public slug: string;
+
+  /**
    * Der darzustellende Text.
    */
   public text: string;
-
-  /**
-   * Der Url-Teil, der die Ressource identifiziert.
-   */
-  public slug: string;
 
   /**
    * Die Sammlung der Kind-Elemente.
@@ -40,7 +40,6 @@ export class TreeViewItem {
     mapper: (arg: T) => {
       id: number;
       parentId: number;
-      slug: string;
       text: string;
     }
   ): TreeViewItem[] {
@@ -48,8 +47,8 @@ export class TreeViewItem {
     const res = new Set<TreeViewItem>();
 
     for (const item of items) {
-      const { id, slug, text } = mapper(item);
-      const treeViewItem = new TreeViewItem({ slug, text });
+      const { id, text } = mapper(item);
+      const treeViewItem = new TreeViewItem({ text });
 
       byId.set(id, treeViewItem);
       res.add(treeViewItem);
@@ -68,5 +67,16 @@ export class TreeViewItem {
     }
 
     return Array.from(res);
+  }
+
+  // TODO: Doku
+  static FromTree<T>(values: T[], childGetter: (arg: T) => T[], mapper: (arg: T) => Omit<TreeViewItem, 'children'>): TreeViewItem[] {
+    return values.map(
+      (v) =>
+        new TreeViewItem({
+          ...mapper(v),
+          children: TreeViewItem.FromTree(childGetter(v), childGetter, mapper),
+        })
+    );
   }
 }

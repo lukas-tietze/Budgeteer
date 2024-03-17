@@ -62,6 +62,7 @@ public class BudgetLogic(AppDbContext context, ILogger<BudgetLogic> logger) : Re
             .Select(b => new ListModel
             {
                 ParentId = b.ParentId,
+                Name = b.Name,
             })
             .ToDictionaryAsync(m => m.Id);
 

@@ -1,4 +1,9 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { TreeViewItem } from '../../Components/Complex/TreeViewItem';
+import { Api } from '../../Services/Api';
+import { inject } from '../../Services/Di';
+import { ListModel } from '../../Models/Setup/ListModel';
+</script>
 
 <template>
   <div class="flex flex-row items-center justify-between">
@@ -17,31 +22,28 @@
 </template>
 
 <script lang="ts">
-import { PropType } from 'vue';
-import { BudgetCategoryModel } from '../../Models/BudgetCategoryModel';
-import { TreeViewItem } from '../../Components/Complex/TreeViewItem';
-
 export default {
-  props: {
-    budgetCategories: {
-      default: [],
-      type: Array as PropType<BudgetCategoryModel[]>,
-    },
-  },
-  computed: {
-    treeViewItems() {
-      if (!this.budgetCategories) {
-        return [];
-      }
-
-      return TreeViewItem.FromList(this.budgetCategories, (i) => ({ ...i, text: i.name }));
-    },
-  },
   data() {
     return {
-      selectedItem: undefined as undefined | BudgetCategoryModel,
+      selectedItem: undefined as undefined | ListModel,
+      treeViewItems: [] as TreeViewItem[],
+      models: [] as ListModel[],
     };
+  },
+  mounted() {
+    inject(Api)
+      .list(ListModel, '/budget/')
+      .then((restArrayResult) => {
+        this.models = restArrayResult.values;
+
+        this.treeViewItems = TreeViewItem.FromTree(
+          restArrayResult.values,
+          (b) => b.children,
+          (b) => ({ text: b.name, slug: b.id.toString() })
+        );
+
+        console.log(this.treeViewItems);
+      });
   },
 };
 </script>
-../../Components/Complex/ResourceListItem
